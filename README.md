@@ -35,7 +35,7 @@
 * Hover / Destaque - `#2563EB`
 * Estado desativado - `#475569`
 ### Feedback e Alertas
-* Sucesso - `#22C55E `
+* Sucesso - `#22C55E`
 * Aviso - `#EAB308`
 * Erro - `#F87171`
 
