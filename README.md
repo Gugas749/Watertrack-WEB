@@ -5,26 +5,18 @@
 
 [WaterTrack] - Plataforma para Gestão de Contadores de Água
 
-##TEMA LIGHT
-
-###Base
-
+## TEMA LIGHT
+### Base
 * Fundo - `#FFFFFF`
 * Cards, inputs, boxes - `#F5F7FA`
-
-###Texto
-
+### Texto
 * Texto primário - `#1E293B`
 * Texto secundário - `#64748B`
-
-###Ações / Botões
-
+### Ações / Botões
 * Cor primária (botões, ícones de ação, “+”) - `#2563EB`
 * Hover / Destaque - `#1D4ED8`
 * Estado desativado - `#93C5FD`
-
-###Feedback e Alertas
-
+### Feedback e Alertas
 * Sucesso - `#16A34A`
 * Aviso - `#EAB308`
 * Erro - `#DC2626`
