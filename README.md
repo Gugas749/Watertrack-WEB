@@ -43,4 +43,6 @@
 
 ## ANDROID
 
+ver logs: `WATERTRACKINFO`
+
 ## WEB
