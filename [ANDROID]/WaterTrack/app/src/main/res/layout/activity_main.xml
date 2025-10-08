@@ -26,25 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_minus16sdp"
-            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
             android:backgroundTint="?attr/colorContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:id="@+id/imageView_buttonBack_MainAC"
-                android:layout_width="@dimen/_31sdp"
-                android:layout_height="@dimen/_31sdp"
-                android:layout_gravity="start"
-                android:layout_marginTop="@dimen/_27sdp"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:padding="@dimen/_4sdp"
-                android:visibility="gone"
-                android:scaleX="-1"
-                android:src="@drawable/arrow_24"
-                app:tint="?attr/buttonIcon"/>
-            <!-- flip horizontal android:scaleX="-1" -->
             <ImageView
                 android:id="@+id/imageView_buttonSideMenu_MainAC"
                 android:layout_width="@dimen/_31sdp"
@@ -76,10 +62,7 @@
         app:menu="@menu/mainac_sidemenu"
         android:background="?attr/colorControlNormal"
         android:id="@+id/navigationView_MainAc_SideMenu"
-        android:layout_gravity="end"
-        app:headerLayout="@layout/header_navigation_drawer_mainac_sidemenu"
-        app:itemIconTint="?attr/iconTintPrimary"
-        app:itemTextColor="?attr/textColorSideMenu"/>
+        android:layout_gravity="end"/>
     <!--                -->
 
 </androidx.drawerlayout.widget.DrawerLayout>

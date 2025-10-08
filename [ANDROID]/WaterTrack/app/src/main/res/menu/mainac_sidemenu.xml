@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<group android:checkableBehavior="single">
+        <item android:id="@+id/club"
+            android:icon="@drawable/finish_flag"
+            android:title="">
+        </item>
+        <item android:id="@+id/menu_counts"
+            android:icon="@drawable/finish_flag"
+            android:title="">
+        </item>
+    </group>-->
+    <item android:title="">
+        <menu>
+            <group  android:checkableBehavior="single">
+                <item android:id="@+id/mainAc_SideBar_Share"
+                    android:icon="@drawable/baseline_person_24"
+                    android:checkable="false"
+                    android:title="@string/app_name">
+                </item>
+                <item android:id="@+id/mainAc_SideBar_RateUs"
+                    android:icon="@drawable/baseline_person_24"
+                    android:checkable="false"
+                    android:title="@string/app_name">
+                </item>
+            </group>
+        </menu>
+    </item>
+    <item android:title="">
+        <menu>
+            <group  android:checkableBehavior="single">
+                <item android:id="@+id/mainAc_SideBar_Backups"
+                    android:icon="@drawable/baseline_person_24"
+                    android:checkable="false"
+                    android:title="@string/app_name">
+                </item>
+                <item android:id="@+id/mainAc_SideBar_Configs"
+                    android:icon="@drawable/baseline_person_24"
+                    android:checkable="false"
+                    android:title="@string/app_name">
+                </item>
+                <item android:id="@+id/mainAc_SideBar_Credits"
+                    android:icon="@drawable/baseline_person_24"
+                    android:checkable="false"
+                    android:title="@string/app_name">
+                </item>
+            </group>
+        </menu>
+    </item>
+</menu>

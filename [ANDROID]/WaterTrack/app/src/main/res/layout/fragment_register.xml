@@ -14,7 +14,7 @@
             android:id="@+id/holder_imageView_Logo_LoginFrag"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_120sdp"
-            android:layout_marginTop="@dimen/_150sdp">
+            android:layout_marginTop="@dimen/_130sdp">
             <ImageView
                 android:id="@+id/imageView_logo_LoginFrag"
                 android:layout_width="@dimen/_120sdp"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/holder_imageView_Logo_LoginFrag"
-            android:hint="@string/authActivity_LoginFrag_TextField_Email"
+            android:hint="@string/authActivity_RegisterFrag_TextField_Email"
             app:hintTextColor="@color/textfield_stroke_colors"
             app:boxStrokeColor="@color/textfield_stroke_colors"
             app:boxStrokeErrorColor="?attr/colorError"
@@ -41,7 +41,7 @@
             app:startIconTint="?attr/textOutlineColor">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_Email_LoginFrag_AuthAc"
+                android:id="@+id/editText_Email_RegisterFrag_AuthAc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/outlinedTextFieldEmail"
-            android:hint="@string/authActivity_LoginFrag_TextField_Password"
+            android:hint="@string/authActivity_RegisterFrag_TextField_Password"
             app:hintTextColor="@color/textfield_stroke_colors"
             app:boxStrokeColor="@color/textfield_stroke_colors"
             app:boxStrokeErrorColor="?attr/colorError"
@@ -68,7 +68,34 @@
             app:endIconTint="?attr/colorOnSurfaceVariant">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText_Password_LoginFrag_AuthAc"
+                android:id="@+id/editText_Password_RegisterFrag_AuthAc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextFieldConfirmPassword"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/outlinedTextFieldPassword"
+            android:hint="@string/authActivity_RegisterFrag_TextField_ConfirmPassword"
+            app:hintTextColor="@color/textfield_stroke_colors"
+            app:boxStrokeColor="@color/textfield_stroke_colors"
+            app:boxStrokeErrorColor="?attr/colorError"
+            app:boxStrokeWidth="@dimen/_2sdp"
+            app:boxStrokeWidthFocused="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:layout_marginRight="@dimen/_25sdp"
+            app:startIconDrawable="@drawable/baseline_lock_24"
+            app:startIconTint="?attr/colorOnSurfaceVariant"
+            app:endIconMode="password_toggle"
+            app:endIconTint="?attr/colorOnSurfaceVariant">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_ConfirmPassword_RegisterFrag_AuthAc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -78,14 +105,14 @@
             android:id="@+id/holder_buttonLogin_LoginFrag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/outlinedTextFieldPassword"
+            android:layout_below="@id/outlinedTextFieldConfirmPassword"
             android:layout_marginTop="@dimen/_12sdp">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/butLogin_LoginFrag_AuthAc"
+                android:id="@+id/butRegister_RegisterFrag_AuthAc"
                 style="@style/Widget.Material3.Button.ElevatedButton"
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="wrap_content"
-                android:text="@string/authActivity_LoginFrag_Button_Login"
+                android:text="@string/authActivity_RegisterFrag_Button_Register"
                 app:cornerRadius="8dp"
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="?attr/buttonTint"
@@ -100,26 +127,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/butForgotPassword_LoginFrag_AuthAc"
+                    android:id="@+id/butOldUser_RegisterFrag_AuthAc"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/authActivity_LoginFrag_TextButton_ForgotPassword"
-                    android:textColor="?attr/buttonTint"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@android:color/transparent"
-                    android:padding="0dp"
-                    android:insetLeft="0dp"
-                    android:insetRight="0dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:layout_marginRight="@dimen/_7sdp"/>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/butRegister_LoginFrag_AuthAc"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/authActivity_LoginFrag_TextButton_NewUser"
+                    android:text="@string/authActivity_RegisterFrag_TextButton_OldUser"
                     android:textColor="?attr/buttonTint"
                     android:textAllCaps="false"
                     android:backgroundTint="@android:color/transparent"
