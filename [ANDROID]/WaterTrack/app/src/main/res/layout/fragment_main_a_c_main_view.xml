@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.mainactivityfrags.MainACMainView">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Contadores_MainView_MainAc"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/textView_noItemsToDisplay_FragBackups"
+        android:layout_below="@+id/cardView_topNavigation_FragBackups"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mainActivity_MainViewFrag_TextView_NothingToDisplay"
+        android:textStyle="bold"
+        android:textColor="?attr/textColorPrimary"
+        android:textAlignment="center"
+        android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
+        android:layout_margin="@dimen/_16sdp"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextFieldSearch_MainViewFrag_MainAc"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@+id/holder_imageView_Logo_LoginFrag"
+        android:hint="@string/mainActivity_MainViewFrag_TextField_Search"
+        app:hintTextColor="@color/textfield_stroke_colors"
+        app:boxStrokeColor="@color/textfield_stroke_colors"
+        app:boxStrokeErrorColor="?attr/colorError"
+        app:boxStrokeWidth="@dimen/_2sdp"
+        app:boxStrokeWidthFocused="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        app:startIconDrawable="@drawable/search"
+        app:startIconTint="?attr/textOutlineColor">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText_Seach_MainViewFrag_MainAc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <!-- BOTTOM NAVIGATION -->
+    <FrameLayout
+        android:id="@+id/holder_bottomnavigation_MainView_MainAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        >
+
+        <Button
+            android:id="@+id/butAddContador_MainView_MainAc"
+            style="?attr/materialIconButtonFilledStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            app:icon="@drawable/rounded_add_24"
+            app:iconSize="@dimen/_30sdp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
+            android:backgroundTint="?attr/buttonTint"
+            app:iconTint="?attr/buttonIconTint"/>
+        <Button
+            android:id="@+id/butSearchContador_MainView_MainAc"
+            style="?attr/materialIconButtonFilledStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            app:icon="@drawable/search"
+            app:iconSize="@dimen/_20sdp"
+            android:padding="@dimen/_13sdp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
+            android:layout_gravity="end"
+            app:iconTint="?attr/buttonIconTint"
+            android:backgroundTint="?attr/buttonTint" />
+    </FrameLayout>
+    <!--                -->
+
+</FrameLayout>

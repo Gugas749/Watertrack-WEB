@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">WaterTrack</string>
+    <string name="hello_blank_fragment">hello_blank_fragment</string>
+
+    <string-array name="theme_options">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System Sync</item>
+    </string-array>
+
+    <!-- GENERAL -->
+    <string name="general_continue">Continue</string>
+    <string name="general_ok">Ok</string>
+    <string name="general_yes">Yes</string>
+    <string name="general_save">Save</string>
+    <string name="general_cancel">Cancel</string>
+    <string name="general_delete">Delete</string>
+    <!-- AUTH ACTIVITY | LOGIN FRAGMENT -->
+    <string name="authActivity_LoginFrag_TextField_Email">Email</string>
+    <string name="authActivity_LoginFrag_TextField_Password">Password</string>
+    <string name="authActivity_LoginFrag_Button_Login">Login</string>
+    <string name="authActivity_LoginFrag_TextButton_ForgotPassword">Forgot Password?</string>
+    <string name="authActivity_LoginFrag_TextButton_NewUser">New User? Register Now</string>
+    <!-- AUTH ACTIVITY | REGISTER FRAGMENT -->
+    <string name="authActivity_RegisterFrag_TextField_Email">Email</string>
+    <string name="authActivity_RegisterFrag_TextField_Password">Password</string>
+    <string name="authActivity_RegisterFrag_TextField_ConfirmPassword">Confirm Password</string>
+    <string name="authActivity_RegisterFrag_Button_Register">Register</string>
+    <string name="authActivity_RegisterFrag_TextButton_OldUser">Already a User? Login Now</string>
+    <!-- MAIN ACTIVITY -->
+    <!-- MAIN ACTIVITY | MAIN VIEW -->
+    <string name="mainActivity_MainViewFrag_TextView_NothingToDisplay">Theres no Meters to be displayed.</string>
+    <string name="mainActivity_MainViewFrag_TextField_Search">Address or Name</string>
+</resources>
