@@ -62,7 +62,10 @@
         app:menu="@menu/mainac_sidemenu"
         android:background="?attr/colorControlNormal"
         android:id="@+id/navigationView_MainAc_SideMenu"
-        android:layout_gravity="end"/>
+        android:layout_gravity="end"
+        app:headerLayout="@layout/header_navigation_drawer_mainac_sidemenu"
+        app:itemIconTint="?attr/iconTintPrimary"
+        app:itemTextColor="?attr/textColorSideMenu"/>
     <!--                -->
 
 </androidx.drawerlayout.widget.DrawerLayout>

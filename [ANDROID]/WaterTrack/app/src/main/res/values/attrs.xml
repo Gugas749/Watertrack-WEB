@@ -7,4 +7,6 @@
     <attr name="textColorSecondary" format="color" />
     <attr name="textColorButtons" format="color" />
     <attr name="menuBackgroundColor" format="color" />
+    <attr name="iconTintPrimary" format="color" />
+    <attr name="textColorSideMenu" format="color" />
 </resources>

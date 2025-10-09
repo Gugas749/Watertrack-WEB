@@ -32,8 +32,8 @@
                     android:layout_height="@dimen/_25sdp"
                     android:padding="@dimen/_3sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/water_drop"
-                    app:tint="?attr/buttonTint"/>
+                    android:src="@drawable/water_drop_24"
+                    app:tint="?attr/iconTintPrimary"/>
             </androidx.cardview.widget.CardView>
             <TextView
                 android:id="@+id/textView_NameOrAddress_rvRowContadores_MainAc"
@@ -65,7 +65,7 @@
                 android:layout_marginRight="@dimen/_14sdp"
                 android:padding="@dimen/_3sdp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/radios_button_icon" />
+                android:src="@drawable/radios_button_icon_24" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

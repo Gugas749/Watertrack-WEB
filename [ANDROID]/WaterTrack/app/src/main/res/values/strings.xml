@@ -28,6 +28,9 @@
     <string name="authActivity_RegisterFrag_Button_Register">Register</string>
     <string name="authActivity_RegisterFrag_TextButton_OldUser">Already a User? Login Now</string>
     <!-- MAIN ACTIVITY -->
+    <string name="mainActivity_SideMenu_Settings">Settings</string>
+    <string name="mainActivity_SideMenu_Credits">Credits</string>
+    <string name="mainActivity_SideMenu_Logout">Logout</string>
     <!-- MAIN ACTIVITY | MAIN VIEW -->
     <string name="mainActivity_MainViewFrag_TextView_NothingToDisplay">Theres no Meters to be displayed.</string>
     <string name="mainActivity_MainViewFrag_SnackBar_NothingToSearch">Theres no Meters to be searched.</string>

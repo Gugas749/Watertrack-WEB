@@ -12,7 +12,9 @@
         <item name="textColorButtons">@color/textColorButtons_Light</item>
         <item name="textColorPrimary">@color/textColorPrimary_Light</item>
         <item name="textColorSecondary">@color/textColorSecondary_Light</item>
+        <item name="textColorSideMenu">@color/textColorPrimary_Light</item>
         <item name="menuBackgroundColor">@color/menuColor_Light</item>
+        <item name="iconTintPrimary">@color/iconTintPrimary_Light</item>
     </style>
 
     <style name="Theme.WaterTrack" parent="Base.Theme.WaterTrack.Light" />

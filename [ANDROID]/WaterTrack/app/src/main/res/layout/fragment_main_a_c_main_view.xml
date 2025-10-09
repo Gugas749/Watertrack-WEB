@@ -41,7 +41,7 @@
             android:layout_marginBottom="@dimen/_6sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
-            app:startIconDrawable="@drawable/search"
+            app:startIconDrawable="@drawable/search_24"
             app:startIconTint="?attr/textOutlineColor">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            app:icon="@drawable/search"
+            app:icon="@drawable/search_24"
             app:iconSize="@dimen/_20sdp"
             android:padding="@dimen/_13sdp"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
