@@ -6,4 +6,4 @@
 [WaterTrack] - Plataforma para Gestão de Contadores de Água
 
 ## Android README
-![Teste](https://github.com/Gugas749/WaterTrack/blob/main/%5BANDROID%5D/README_ANDROID.md)
+![README Android](https://github.com/Gugas749/WaterTrack/blob/main/%5BANDROID%5D/README_ANDROID.md)
