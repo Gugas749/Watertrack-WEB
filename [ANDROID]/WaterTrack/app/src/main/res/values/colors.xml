@@ -2,8 +2,9 @@
 <resources>
     <color name="background_Light">#FFFFFF</color>
     <color name="cards_inputs_Light">#F5F7FA</color>
-    <color name="textColorPrimary_Light">#FFFFFF</color>
-    <color name="textColorSecondary_Light">#0f0f0f</color>
+    <color name="textColorButtons_Light">#FFFFFF</color>
+    <color name="textColorPrimary_Light">#0f0f0f</color>
+    <color name="textColorSecondary_Light">#FFFFFF</color>
     <color name="butPrimary_Light">#2563EB</color>
     <color name="butHover_Light">#1D4ED8</color>
     <color name="butDisable_Light">#93C5FD</color>
@@ -16,6 +17,7 @@
 
     <color name="background_Dark">#282828</color>
     <color name="cards_inputs_Dark">#3f3f3f</color>
+    <color name="textColorButtons_Dark">#FFFFFF</color>
     <color name="textColorPrimary_Dark">#FFFFFF</color>
     <color name="textColorSecondary_Dark">#0f0f0f</color>
     <color name="butPrimary_Dark">#1D4ED8</color>

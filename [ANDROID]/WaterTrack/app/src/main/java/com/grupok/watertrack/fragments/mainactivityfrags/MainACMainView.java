@@ -3,11 +3,15 @@ package com.grupok.watertrack.fragments.mainactivityfrags;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +22,7 @@ import com.grupok.watertrack.activitys.MainActivity;
 import com.grupok.watertrack.databinding.FragmentMainACMainViewBinding;
 import com.grupok.watertrack.scripts.SnackBarShow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainACMainView extends Fragment {
@@ -26,6 +31,7 @@ public class MainACMainView extends Fragment {
     private Context context;
     private MainACMainView THIS;
     private SnackBarShow snackBarShow;
+    public int popUpMenuOption = 0; //1- Address 2-Name
     private FragmentMainACMainViewBinding binding;
     private List<ContadorEntity> contadoresEntityList;
     private RVAdapterMainAcMainView adapter;
@@ -62,18 +68,42 @@ public class MainACMainView extends Fragment {
         adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo);
         snackBarShow = new SnackBarShow();
 
+        ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
+        contadoresEntityList.add(example);
+        example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
+        contadoresEntityList.add(example);
+
         loadRv();
         setupSearchButton();
         setupAddContadorButton();
+        setupSeachTextChange();
     }
     private void setupSearchButton(){
         binding.butSearchContadorMainViewMainAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(binding.textViewNoItemsToDisplayFragBackups.getVisibility() == View.VISIBLE){
-                    snackBarShow.display(binding.getRoot(), "FOI", -1, 1, binding.butSearchContadorMainViewMainAc, context);
+                    snackBarShow.display(binding.getRoot(), getString(R.string.mainActivity_MainViewFrag_SnackBar_NothingToSearch), -1, 1, binding.butSearchContadorMainViewMainAc, context);
                 }else{
-                    binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+                    PopupMenu popupMenu = new PopupMenu(context, binding.butSearchContadorMainViewMainAc);
+                    popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mainview_mainac, popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            int id = item.getItemId();
+                            if (id == R.id.option_SearchByAddress_PopupMenu_MainView_MainAC) {
+                                popUpMenuOption = 1;
+                                binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+                                return true;
+                            } else if (id == R.id.option_SearchByName_PopupMenu_MainView_MainAC) {
+                                popUpMenuOption = 2;
+                                binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+                                return true;
+                            }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
                 }
             }
         });
@@ -83,6 +113,27 @@ public class MainACMainView extends Fragment {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+    }
+    private void setupSeachTextChange(){
+        binding.editTextSeachMainViewFragMainAc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                //acontece depois de ter mudança no texto
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //acontece antes de ter mudança no texto
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //acontece sempre q o texto muda
+                List<ContadorEntity> filtered = filterBySearch(""+s);
+                adapter.updateData(filtered);
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -98,5 +149,29 @@ public class MainACMainView extends Fragment {
             binding.rvContadoresMainViewMainAc.setVisibility(View.GONE);
         }
 
+    }
+    private List<ContadorEntity> filterBySearch(String text){
+        List<ContadorEntity> filtered = new ArrayList<>();
+        switch (popUpMenuOption){
+            case 1:
+                for (ContadorEntity contador : contadoresEntityList) {
+                    if(contador.morada.toLowerCase().contains(text.toLowerCase())){
+                        filtered.add(contador);
+                    }
+                }
+                break;
+            case 2:
+                for (ContadorEntity contador : contadoresEntityList) {
+                    if(contador.nome.toLowerCase().contains(text.toLowerCase())){
+                        filtered.add(contador);
+                    }
+                }
+                break;
+            default:
+                snackBarShow.display(binding.getRoot(), getString(R.string.mainActivity_MainViewFrag_SnackBar_OptionNotSelected), -1, 1, binding.butSearchContadorMainViewMainAc, context);
+                break;
+        }
+
+        return filtered;
     }
 }

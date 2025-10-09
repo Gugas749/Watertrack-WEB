@@ -10,7 +10,7 @@ import java.util.Locale;
 @Entity(tableName = "User_Infos")
 public class UserInfosEntity {
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
     @ColumnInfo(name = "nome")
     public String nome;
     @ColumnInfo(name = "email")

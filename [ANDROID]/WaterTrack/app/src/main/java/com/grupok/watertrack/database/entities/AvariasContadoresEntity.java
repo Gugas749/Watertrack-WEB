@@ -8,18 +8,18 @@ import androidx.room.PrimaryKey;
 public class AvariasContadoresEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
     @ColumnInfo(name = "id_contador")
-    public long idContador;
+    public int idContador;
 
     @ColumnInfo(name = "id_morador")
-    public Long idMorador;
+    public int idMorador;
 
     @ColumnInfo(name = "descricao")
     public String descricao;
 
-    public AvariasContadoresEntity(long idContador, Long idMorador, String descricao) {
+    public AvariasContadoresEntity(int idContador, int idMorador, String descricao) {
         this.idContador = idContador;
         this.idMorador = idMorador;
         this.descricao = descricao;

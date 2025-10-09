@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class TiposContadoresEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
     @ColumnInfo(name = "descricao")
     public String descricao;

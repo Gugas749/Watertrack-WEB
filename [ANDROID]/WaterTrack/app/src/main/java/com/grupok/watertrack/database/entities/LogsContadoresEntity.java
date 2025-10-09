@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey;
 public class LogsContadoresEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
     @ColumnInfo(name = "id_contador")
-    public long idContador;
+    public int idContador;
 
     @ColumnInfo(name = "leitura")
     public String leitura;
@@ -31,7 +31,7 @@ public class LogsContadoresEntity {
     @ColumnInfo(name = "foiAvaria")
     public boolean foiAvaria;
 
-    public LogsContadoresEntity(long idContador, String leitura, String consumoAcumulado,
+    public LogsContadoresEntity(int idContador, String leitura, String consumoAcumulado,
                                 String data, String pressaoAgua, String descricao, boolean foiAvaria) {
         this.idContador = idContador;
         this.leitura = leitura;

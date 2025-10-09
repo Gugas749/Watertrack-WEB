@@ -30,5 +30,9 @@
     <!-- MAIN ACTIVITY -->
     <!-- MAIN ACTIVITY | MAIN VIEW -->
     <string name="mainActivity_MainViewFrag_TextView_NothingToDisplay">Theres no Meters to be displayed.</string>
-    <string name="mainActivity_MainViewFrag_TextField_Search">Address or Name</string>
+    <string name="mainActivity_MainViewFrag_SnackBar_NothingToSearch">Theres no Meters to be searched.</string>
+    <string name="mainActivity_MainViewFrag_TextField_Search">Search</string>
+    <string name="mainActivity_MainViewFrag_PopUpMenu_Address">Address</string>
+    <string name="mainActivity_MainViewFrag_PopUpMenu_Name">Name</string>
+    <string name="mainActivity_MainViewFrag_SnackBar_OptionNotSelected">Please select address or name.</string>
 </resources>
