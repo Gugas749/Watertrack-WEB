@@ -3,7 +3,6 @@ package com.grupok.watertrack.fragments.mainactivityfrags.mainview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.grupok.watertrack.R;
-import com.grupok.watertrack.activitys.MainActivity;
 import com.grupok.watertrack.database.entities.ContadorEntity;
 
 import java.io.Serializable;
@@ -24,24 +22,20 @@ import java.util.List;
 
 public class RVAdapterMainAcMainView extends RecyclerView.Adapter<RVAdapterMainAcMainView.MyViewHolder> implements Serializable{
 
-    private Context context;
+    private final Context context;
     private List<ContadorEntity> contadoresEntityList;
     private ContadorItemClick listenner;
     private int classeUser;
-    private MainActivity parent;
     private int selectedItem = RecyclerView.NO_POSITION;
 
     public interface ContadorItemClick{
         void onBackupsItemClick(ContadorEntity contador);
     }
 
-    public RVAdapterMainAcMainView() {
-    }
-    public RVAdapterMainAcMainView(Context context, List<ContadorEntity> contadoresEntityList, int classeUser, MainActivity parent) {
+    public RVAdapterMainAcMainView(Context context, List<ContadorEntity> contadoresEntityList, int classeUser) {
         this.context = context;
         this.contadoresEntityList = contadoresEntityList;
         this.classeUser = classeUser;
-        this.parent = parent;
     }
     public void updateData(List<ContadorEntity> contadoresEntityList){
         this.contadoresEntityList = contadoresEntityList;
@@ -117,7 +111,6 @@ public class RVAdapterMainAcMainView extends RecyclerView.Adapter<RVAdapterMainA
 
             if (listenner != null) {
                 listenner.onBackupsItemClick(contadorSelected);
-                Log.d("LOGTESTE", "Clicked on contador: " + contadorSelected.id);
             }
         });
     }

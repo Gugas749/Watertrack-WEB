@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +24,7 @@ import com.grupok.watertrack.scripts.SnackBarShow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainView.ContadorItemClick {
+public class MainACMainViewFrag extends Fragment {
 
     private MainActivity parent;
     private Context context;
@@ -65,27 +64,20 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
     private void init(){
         THIS = this;
         context = getContext();
-        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo, parent);
-        adapter.setItemClickListenner(this);
+        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo);
         snackBarShow = new SnackBarShow();
 
-        ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 0);
+        ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
-        example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 1);
+        example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
         example = new ContadorEntity("Gutti", "Rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
-
-
-        if(parent.currentUserInfo.Cargo == 1){
-            binding.butAddContadorMainViewMainAc.setVisibility(View.GONE);
-        }
 
         loadRv();
         setupSearchButton();
         setupAddContadorButton();
         setupSeachTextChange();
-        disableBackPressed();
     }
     private void setupSearchButton(){
         binding.butSearchContadorMainViewMainAc.setOnClickListener(new View.OnClickListener() {
@@ -94,30 +86,25 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
                 if(binding.textViewNoItemsToDisplayFragBackups.getVisibility() == View.VISIBLE){
                     snackBarShow.display(binding.getRoot(), getString(R.string.mainActivity_MainViewFrag_SnackBar_NothingToSearch), -1, 1, binding.butSearchContadorMainViewMainAc, context);
                 }else{
-                    if(binding.outlinedTextFieldSearchMainViewFragMainAc.getVisibility() == View.VISIBLE) {
-                        binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.GONE);
-                    }
-                    else{
-                        PopupMenu popupMenu = new PopupMenu(context, binding.butSearchContadorMainViewMainAc);
-                        popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mainview_mainac, popupMenu.getMenu());
-                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                int id = item.getItemId();
-                                if (id == R.id.option_SearchByAddress_PopupMenu_MainView_MainAC) {
-                                    popUpMenuOption = 1;
-                                    menuItemClickHandler();
-                                    return true;
-                                } else if (id == R.id.option_SearchByName_PopupMenu_MainView_MainAC) {
-                                    popUpMenuOption = 2;
-                                    menuItemClickHandler();
-                                    return true;
-                                }
-                                return false;
+                    PopupMenu popupMenu = new PopupMenu(context, binding.butSearchContadorMainViewMainAc);
+                    popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mainview_mainac, popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            int id = item.getItemId();
+                            if (id == R.id.option_SearchByAddress_PopupMenu_MainView_MainAC) {
+                                popUpMenuOption = 1;
+                                menuItemClickHandler();
+                                return true;
+                            } else if (id == R.id.option_SearchByName_PopupMenu_MainView_MainAC) {
+                                popUpMenuOption = 2;
+                                menuItemClickHandler();
+                                return true;
                             }
-                        });
-                        popupMenu.show();
-                    }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
                 }
             }
         });
@@ -126,7 +113,7 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
         binding.butAddContadorMainViewMainAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parent.cycleFragments("AddContadorFrag", null);
+                parent.cycleFragments("AddContadorFrag");
             }
         });
     }
@@ -153,9 +140,7 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
     }
     //-------------------------FUNCTIONS-------------------------------
     private void loadRv(){
-        adapter.updateData(new ArrayList<>());
-        adapter.notifyDataSetChanged();
-        if(!contadoresEntityList.isEmpty()){
+        if(contadoresEntityList.size() > 0){
             adapter.updateData(contadoresEntityList);
             binding.rvContadoresMainViewMainAc.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.rvContadoresMainViewMainAc.setAdapter(adapter);
@@ -167,22 +152,17 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
 
     }
     private void menuItemClickHandler(){
+        binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
 
-        if (binding.outlinedTextFieldSearchMainViewFragMainAc.getVisibility() == View.GONE) {
-            binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+        binding.editTextSeachMainViewFragMainAc.postDelayed(() -> {
+            binding.editTextSeachMainViewFragMainAc.requestFocus();
 
-            binding.editTextSeachMainViewFragMainAc.postDelayed(() -> {
-                binding.editTextSeachMainViewFragMainAc.requestFocus();
-
-                InputMethodManager imm = (InputMethodManager) requireContext()
-                        .getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.showSoftInput(binding.editTextSeachMainViewFragMainAc, InputMethodManager.SHOW_FORCED);
-                }
-            }, 150);// delay em ms para aparecer o teclado a tempo
-        }
-        else
-            binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.GONE);
+            InputMethodManager imm = (InputMethodManager) requireContext()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(binding.editTextSeachMainViewFragMainAc, InputMethodManager.SHOW_FORCED);
+            }
+        }, 150); // delay em ms para aparecer o teclado a tempo
     }
     private List<ContadorEntity> filterBySearch(String text){
         List<ContadorEntity> filtered = new ArrayList<>();
@@ -207,26 +187,5 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
         }
 
         return filtered;
-    }
-    private void disableBackPressed(){
-        binding.getRoot().setFocusableInTouchMode(true);
-        binding.getRoot().requestFocus();
-        binding.getRoot().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    @Override
-    public void onBackupsItemClick(ContadorEntity contador) {
-        Bundle data = new Bundle();
-        data.putInt("contadorId", contador.id);
-        parent.cycleFragments("DetailsContadorFrag", data);
-
     }
 }
