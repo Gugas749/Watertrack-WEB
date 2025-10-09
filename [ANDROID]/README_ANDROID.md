@@ -8,12 +8,10 @@ snackBarShow.display(binding.getRoot(), "FOI", -1, 1, binding.butSearchContadorM
 
 ## EXAMPLES LOCAL DB:
 
-`ContadoresEntity example = new ContadoresEntity("Nome", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal",
-                "idMorador","tipo","classe","data",
-                "capMax", "uniMedida", "tempSup", 2);
-        contadoresEntityList.add(example);`
-        
-`example = new ContadoresEntity("Nome", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal",
-                "idMorador","tipo","classe","data",
-                "capMax", "uniMedida", "tempSup", 2);
-        contadoresEntityList.add(example);`
+> ContadorEntity example = new ContadorEntity("Nome", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2); 
+>
+> contadoresEntityList.add(example);
+> 
+> example = new ContadorEntity("Nome", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
+> 
+> contadoresEntityList.add(example);`
