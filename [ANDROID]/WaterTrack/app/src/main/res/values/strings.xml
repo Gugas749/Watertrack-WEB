@@ -38,4 +38,12 @@
     <string name="mainActivity_MainViewFrag_PopUpMenu_Address">Address</string>
     <string name="mainActivity_MainViewFrag_PopUpMenu_Name">Name</string>
     <string name="mainActivity_MainViewFrag_SnackBar_OptionNotSelected">Please select address or name.</string>
+    <!-- CREDITS -->
+    <string name="credits_icons_search">Search - Created by Royyan Wijaya - Flaticon</string>
+    <string name="credits_icons_water_drop">Water Drop - Created by Good Ware - Flaticon</string>
+    <string name="credits_icons_radios_button_icon">Radios Button Icon - Created by Bharat Icons - Flaticon</string>
+    <string name="credits_icons_warning">Warning - Created by Gregor Cresnar - Flaticon</string>
+    <string name="credits_icons_info">Info - Created by Stockio - Flaticon</string>
+    <string name="credits_icons_exit">Exit - Created by Freepik - Flaticon</string>
+    <string name="credits_icons_settings">Settings - Created by Freepik - Flaticon</string>
 </resources>
