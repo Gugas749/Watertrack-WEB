@@ -18,10 +18,7 @@ import com.grupok.watertrack.R;
 import com.grupok.watertrack.database.entities.ContadorEntity;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class RVAdapterMainAcMainView extends RecyclerView.Adapter<RVAdapterMainAcMainView.MyViewHolder> implements Serializable{
 
@@ -70,7 +67,7 @@ public class RVAdapterMainAcMainView extends RecyclerView.Adapter<RVAdapterMainA
 
             int color = 0;
             TypedValue typedValue = new TypedValue();
-            holder.stateIcon.setImageResource(R.drawable.radios_button_icon);
+            holder.stateIcon.setImageResource(R.drawable.radios_button_icon_24);
             switch (contadorSelected.estado){
                 case 0: // Desativo
                     context.getTheme().resolveAttribute(R.attr.colorError, typedValue, true);
@@ -83,12 +80,12 @@ public class RVAdapterMainAcMainView extends RecyclerView.Adapter<RVAdapterMainA
                 case 2: //Com problema
                     context.getTheme().resolveAttribute(R.attr.colorWarning, typedValue, true);
                     color = typedValue.data;
-                    holder.stateIcon.setImageResource(R.drawable.warning);
+                    holder.stateIcon.setImageResource(R.drawable.warning_24);
                     break;
                 default:
                     context.getTheme().resolveAttribute(R.attr.colorWarning, typedValue, true);
                     color = typedValue.data;
-                    holder.stateIcon.setImageResource(R.drawable.warning);
+                    holder.stateIcon.setImageResource(R.drawable.warning_24);
                     break;
             }
             holder.stateIcon.setImageTintList(ColorStateList.valueOf(color));

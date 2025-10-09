@@ -14,6 +14,7 @@
     <color name="textFieldOutline_Light">#133085</color>
     <color name="textFieldOutlineDisable_Light">#475569</color>
     <color name="menuColor_Light">#F5F7FA</color>
+    <color name="iconTintPrimary_Light">#2563EB</color>
 
     <color name="background_Dark">#282828</color>
     <color name="cards_inputs_Dark">#3f3f3f</color>
@@ -29,5 +30,5 @@
     <color name="textFieldOutline_Dark">#F5F7FA</color>
     <color name="textFieldOutlineDisable_Dark">#475569</color>
     <color name="menuColor_Dark">#F5F7FA</color>
-
+    <color name="iconTintPrimary_Dark">#1D4ED8</color>
 </resources>

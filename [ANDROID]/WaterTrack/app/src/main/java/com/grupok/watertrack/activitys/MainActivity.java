@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -115,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
         binding.drawerLayoutMainAcSideMenu.addDrawerListener(drawerToggleSideMenu);
         drawerToggleSideMenu.syncState();
         //-----------------------------------------
+        TextView usernameSideMenu = findViewById(R.id.headerSideMenu_Username_MainAc);
+        TextView addressSideMenu = findViewById(R.id.headerSideMenu_Address_MainAc);
+        usernameSideMenu.setText(currentUserInfo.nome);
+        addressSideMenu.setText(currentUserInfo.Morada);
+        //-----------------------------------------
 
         binding.imageViewButtonSideMenuMainAC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,16 +136,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(!allDisable){
                     item.setEnabled(false);
-                    if (item.getItemId() == R.id.mainAc_SideBar_Share) {
+                    if (item.getItemId() == R.id.mainAc_SideMenu_Configs) {
                         //showShareBottomSheet();
-                    }else if(item.getItemId() == R.id.mainAc_SideBar_RateUs){
-
-                    }else if(item.getItemId() == R.id.mainAc_SideBar_Backups){
-                        //runSwipeRightAnimation("Backups");
-                    }else if(item.getItemId() == R.id.mainAc_SideBar_Configs){
-                        //runSwipeRightAnimation("Settings");
-                    }else if(item.getItemId() == R.id.mainAc_SideBar_Credits){
-                        //runSwipeRightAnimation("Credits");
                     }
                     item.setEnabled(true);
                 }

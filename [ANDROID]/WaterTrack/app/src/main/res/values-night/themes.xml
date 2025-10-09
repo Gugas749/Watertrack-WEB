@@ -12,7 +12,9 @@
         <item name="textColorButtons">@color/textColorButtons_Dark</item>
         <item name="textColorPrimary">@color/textColorPrimary_Dark</item>
         <item name="textColorSecondary">@color/textColorSecondary_Dark</item>
+        <item name="textColorSideMenu">@color/textColorSecondary_Dark</item>
         <item name="menuBackgroundColor">@color/menuColor_Dark</item>
+        <item name="iconTintPrimary">@color/iconTintPrimary_Dark</item>
     </style>
 
     <style name="Theme.WaterTrack" parent="Base.Theme.WaterTrack.Dark" />
