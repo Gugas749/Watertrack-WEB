@@ -41,8 +41,9 @@
                 android:layout_height="wrap_content"
                 android:text="Nome/Morada"
                 android:layout_toEndOf="@+id/holder_imageView_iconHolder_rvRowContadores_MainAc"
-                android:paddingLeft="@dimen/_11sdp"
+                android:paddingStart="@dimen/_11sdp"
                 android:paddingTop="@dimen/_11sdp"
+                android:paddingEnd="@dimen/_51sdp"
                 android:textSize="@dimen/_13sdp"
                 android:textStyle="bold"
                 android:textColor="?attr/textColorPrimary"/>
@@ -62,7 +63,7 @@
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_14sdp"
                 android:padding="@dimen/_3sdp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/radios_button_icon_24" />

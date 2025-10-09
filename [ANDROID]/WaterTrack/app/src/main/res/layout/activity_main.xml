@@ -32,6 +32,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
+                android:id="@+id/imageView_buttonBack_MainAC"
+                android:layout_width="@dimen/_31sdp"
+                android:layout_height="@dimen/_31sdp"
+                android:layout_gravity="start"
+                android:layout_marginTop="@dimen/_27sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:padding="@dimen/_4sdp"
+                android:visibility="gone"
+                android:scaleX="-1"
+                android:src="@drawable/arrow_24"
+                app:tint="?attr/buttonIcon"/>
+            <!-- flip horizontal android:scaleX="-1" -->
+            <ImageView
                 android:id="@+id/imageView_buttonSideMenu_MainAC"
                 android:layout_width="@dimen/_31sdp"
                 android:layout_height="@dimen/_31sdp"

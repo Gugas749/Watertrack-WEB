@@ -1,4 +1,4 @@
-package com.grupok.watertrack.fragments.mainactivityfrags;
+package com.grupok.watertrack.fragments.mainactivityfrags.mainview;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,13 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.grupok.watertrack.R;
 import com.grupok.watertrack.database.entities.ContadorEntity;
 import com.grupok.watertrack.activitys.MainActivity;
@@ -25,22 +24,22 @@ import com.grupok.watertrack.scripts.SnackBarShow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainACMainView extends Fragment {
+public class MainACMainViewFrag extends Fragment {
 
     private MainActivity parent;
     private Context context;
-    private MainACMainView THIS;
+    private MainACMainViewFrag THIS;
     private SnackBarShow snackBarShow;
     public int popUpMenuOption = 0; //1- Address 2-Name
     private FragmentMainACMainViewBinding binding;
     private List<ContadorEntity> contadoresEntityList;
     private RVAdapterMainAcMainView adapter;
 
-    public MainACMainView() {
+    public MainACMainViewFrag() {
         // Required empty public constructor
     }
 
-    public MainACMainView(MainActivity parent, List<ContadorEntity> contadoresEntityList) {
+    public MainACMainViewFrag(MainActivity parent, List<ContadorEntity> contadoresEntityList) {
         this.parent = parent;
         this.contadoresEntityList = contadoresEntityList;
     }
@@ -72,6 +71,8 @@ public class MainACMainView extends Fragment {
         contadoresEntityList.add(example);
         example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
+        example = new ContadorEntity("Gutti", "Rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
+        contadoresEntityList.add(example);
 
         loadRv();
         setupSearchButton();
@@ -93,11 +94,11 @@ public class MainACMainView extends Fragment {
                             int id = item.getItemId();
                             if (id == R.id.option_SearchByAddress_PopupMenu_MainView_MainAC) {
                                 popUpMenuOption = 1;
-                                binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+                                menuItemClickHandler();
                                 return true;
                             } else if (id == R.id.option_SearchByName_PopupMenu_MainView_MainAC) {
                                 popUpMenuOption = 2;
-                                binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+                                menuItemClickHandler();
                                 return true;
                             }
                             return false;
@@ -112,7 +113,7 @@ public class MainACMainView extends Fragment {
         binding.butAddContadorMainViewMainAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                parent.cycleFragments("AddContadorFrag");
             }
         });
     }
@@ -149,6 +150,19 @@ public class MainACMainView extends Fragment {
             binding.rvContadoresMainViewMainAc.setVisibility(View.GONE);
         }
 
+    }
+    private void menuItemClickHandler(){
+        binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+
+        binding.editTextSeachMainViewFragMainAc.postDelayed(() -> {
+            binding.editTextSeachMainViewFragMainAc.requestFocus();
+
+            InputMethodManager imm = (InputMethodManager) requireContext()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(binding.editTextSeachMainViewFragMainAc, InputMethodManager.SHOW_FORCED);
+            }
+        }, 150); // delay em ms para aparecer o teclado a tempo
     }
     private List<ContadorEntity> filterBySearch(String text){
         List<ContadorEntity> filtered = new ArrayList<>();

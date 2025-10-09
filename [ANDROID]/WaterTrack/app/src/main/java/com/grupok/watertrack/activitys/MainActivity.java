@@ -1,12 +1,16 @@
 package com.grupok.watertrack.activitys;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +38,8 @@ import com.grupok.watertrack.database.entities.TecnicoInfoEntity;
 import com.grupok.watertrack.database.entities.TiposContadoresEntity;
 import com.grupok.watertrack.database.entities.UserInfosEntity;
 import com.grupok.watertrack.databinding.ActivityMainBinding;
-import com.grupok.watertrack.fragments.mainactivityfrags.MainACMainView;
+import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
+import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
 import com.grupok.watertrack.scripts.localDBCRUD.LocalDBgetAll;
 
 import java.util.ArrayList;
@@ -90,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 currentUserInfo = result.userInfo;
 
                 setupSideMenu();
+                setupKeyboardListener();
 
                 cycleFragments("MainViewFrag");
             }
@@ -109,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
         tiposContadoresDao = localDataBase.tiposContadoresDao();
         userInfosDao = localDataBase.userInfosDao();
     }
+    private void setupBackButton(){
+        binding.imageViewButtonBackMainAC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
     //----------------------SIDE MENU---------------------------
     private void setupSideMenu(){
         //-------------menu---------------------
@@ -127,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(! binding.drawerLayoutMainAcSideMenu.isDrawerOpen(GravityCompat.END)){
                     binding.drawerLayoutMainAcSideMenu.openDrawer(GravityCompat.END);
+                    closeKeyboard();
                 }
             }
         });
@@ -146,12 +161,12 @@ public class MainActivity extends AppCompatActivity {
         });
         binding.navigationViewMainAcSideMenu.bringToFront();
     }
-    private void enableSwipeToOpenSideMenu() {
+    public void enableSwipeToOpenSideMenu() {
         if (binding.drawerLayoutMainAcSideMenu != null) {
             binding.drawerLayoutMainAcSideMenu.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
     }
-    private void disableSwipeToOpenSideMenu() {
+    public void disableSwipeToOpenSideMenu() {
         if (binding.drawerLayoutMainAcSideMenu != null) {
             binding.drawerLayoutMainAcSideMenu.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
@@ -173,7 +188,11 @@ public class MainActivity extends AppCompatActivity {
     public void cycleFragments(String goTo){
         switch (goTo){
             case "MainViewFrag":
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainACMainView(this, contadoresEntityList)).commitAllowingStateLoss();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainACMainViewFrag(this, contadoresEntityList)).commitAllowingStateLoss();
+                break;
+            case "AddContadorFrag":
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainAcAddContadorFrag(this)).commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -183,6 +202,46 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         if (newConfig.uiMode != getApplicationContext().getResources().getConfiguration().uiMode) {
             recreate();
+        }
+    }
+    //----------------------KEYBOARD LISTENNER---------------------------
+    private void setupKeyboardListener() {
+        View rootView = findViewById(android.R.id.content);
+
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private boolean wasOpen = false;
+
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                rootView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = rootView.getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+
+                boolean isOpen = keypadHeight > screenHeight * 0.15; // threshold for keyboard
+                if (isOpen != wasOpen) {
+                    wasOpen = isOpen;
+                    onKeyboardVisibilityChanged(isOpen);
+                }
+            }
+        });
+    }
+    private void onKeyboardVisibilityChanged(boolean isOpen) {
+        if(isOpen){
+            disableSwipeToOpenSideMenu();
+        }else{
+            enableSwipeToOpenSideMenu();
+        }
+    }
+    private void closeKeyboard(){
+        View view = getCurrentFocus();
+        if (view == null) {
+            view = new View(getApplicationContext());
+        }
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
     //----------------------DATABASE OPERATIONS---------------------------

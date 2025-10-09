@@ -1,4 +1,4 @@
-package com.grupok.watertrack.fragments.mainactivityfrags;
+package com.grupok.watertrack.fragments.mainactivityfrags.mainview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
