@@ -8,18 +8,18 @@ import androidx.room.PrimaryKey;
 public class TecnicoInfoEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
     @ColumnInfo(name = "id_user")
-    public long idUser;
+    public int idUser;
 
     @ColumnInfo(name = "id_empresa")
-    public Long idEmpresa;
+    public int idEmpresa;
 
     @ColumnInfo(name = "num_cedula_profissional")
     public String numCedulaProfissional;
 
-    public TecnicoInfoEntity(long idUser, Long idEmpresa, String numCedulaProfissional) {
+    public TecnicoInfoEntity(int idUser, int idEmpresa, String numCedulaProfissional) {
         this.idUser = idUser;
         this.idEmpresa = idEmpresa;
         this.numCedulaProfissional = numCedulaProfissional;

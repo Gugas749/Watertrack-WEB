@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+    //----------------------THEME DEBUGGER---------------------------
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class ContadorEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
     @ColumnInfo(name = "nome")
     public String nome;
@@ -17,13 +17,13 @@ public class ContadorEntity {
     public String morada;
 
     @ColumnInfo(name = "id_morador")
-    public Long idMorador;
+    public int idMorador;
 
     @ColumnInfo(name = "id_tipo")
-    public Long idTipo;
+    public int idTipo;
 
     @ColumnInfo(name = "id_empresa")
-    public Long idEmpresa;
+    public int idEmpresa;
 
     @ColumnInfo(name = "classe")
     public String classe;
@@ -43,7 +43,7 @@ public class ContadorEntity {
     @ColumnInfo(name = "estado")
     public int estado;
 
-    public ContadorEntity(String nome, String morada, Long idMorador, Long idTipo, Long idEmpresa,
+    public ContadorEntity(String nome, String morada, int idMorador, int idTipo, int idEmpresa,
                           String classe, String dataInstalacao, String capacidadeMax,
                           String unidadeMedida, String temperaturaSuportada, int estado) {
         this.nome = nome;

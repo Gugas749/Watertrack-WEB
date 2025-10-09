@@ -9,6 +9,7 @@
         <item name="colorError">@color/feedbackError_Dark</item>
         <item name="colorWarning">@color/feedbackWarn_Dark</item>
         <item name="colorSuccess">@color/feedbackSuccess_Dark</item>
+        <item name="textColorButtons">@color/textColorButtons_Dark</item>
         <item name="textColorPrimary">@color/textColorPrimary_Dark</item>
         <item name="textColorSecondary">@color/textColorSecondary_Dark</item>
         <item name="menuBackgroundColor">@color/menuColor_Dark</item>

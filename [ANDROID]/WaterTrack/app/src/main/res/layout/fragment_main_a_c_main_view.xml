@@ -6,49 +6,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.mainactivityfrags.MainACMainView">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_Contadores_MainView_MainAc"
-        android:layout_marginTop="@dimen/_5sdp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <TextView
-        android:id="@+id/textView_noItemsToDisplay_FragBackups"
-        android:layout_below="@+id/cardView_topNavigation_FragBackups"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mainActivity_MainViewFrag_TextView_NothingToDisplay"
-        android:textStyle="bold"
-        android:textColor="?attr/textColorPrimary"
-        android:textAlignment="center"
-        android:textSize="@dimen/_12sdp"
-        android:visibility="gone"
-        android:layout_margin="@dimen/_16sdp"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outlinedTextFieldSearch_MainViewFrag_MainAc"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_below="@+id/holder_imageView_Logo_LoginFrag"
-        android:hint="@string/mainActivity_MainViewFrag_TextField_Search"
-        app:hintTextColor="@color/textfield_stroke_colors"
-        app:boxStrokeColor="@color/textfield_stroke_colors"
-        app:boxStrokeErrorColor="?attr/colorError"
-        app:boxStrokeWidth="@dimen/_2sdp"
-        app:boxStrokeWidthFocused="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginLeft="@dimen/_15sdp"
-        android:layout_marginRight="@dimen/_15sdp"
-        app:startIconDrawable="@drawable/search"
-        app:startIconTint="?attr/textOutlineColor">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editText_Seach_MainViewFrag_MainAc"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_5sdp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_Contadores_MainView_MainAc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/outlinedTextFieldSearch_MainViewFrag_MainAc"/>
+        <TextView
+            android:id="@+id/textView_noItemsToDisplay_FragBackups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:inputType="textEmailAddress"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/mainActivity_MainViewFrag_TextView_NothingToDisplay"
+            android:textStyle="bold"
+            android:textColor="?attr/textColorPrimary"
+            android:textAlignment="center"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="gone"
+            android:layout_margin="@dimen/_16sdp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextFieldSearch_MainViewFrag_MainAc"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:hint="@string/mainActivity_MainViewFrag_TextField_Search"
+            app:hintTextColor="@color/textfield_stroke_colors"
+            app:boxStrokeColor="@color/textfield_stroke_colors"
+            app:boxStrokeErrorColor="?attr/colorError"
+            app:boxStrokeWidth="@dimen/_2sdp"
+            app:boxStrokeWidthFocused="@dimen/_3sdp"
+            android:layout_marginBottom="@dimen/_6sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            app:startIconDrawable="@drawable/search"
+            app:startIconTint="?attr/textOutlineColor">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_Seach_MainViewFrag_MainAc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>
     <!-- BOTTOM NAVIGATION -->
     <FrameLayout
         android:id="@+id/holder_bottomnavigation_MainView_MainAc"

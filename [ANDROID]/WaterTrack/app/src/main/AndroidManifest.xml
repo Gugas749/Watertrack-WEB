@@ -13,7 +13,8 @@
         android:theme="@style/Theme.WaterTrack">
         <activity
             android:name=".activitys.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activitys.AuthActivity"
             android:exported="true">

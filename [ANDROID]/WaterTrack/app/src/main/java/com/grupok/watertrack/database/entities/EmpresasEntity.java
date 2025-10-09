@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class EmpresasEntity {
 
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    public int id;
 
     @ColumnInfo(name = "nome")
     public String nome;
