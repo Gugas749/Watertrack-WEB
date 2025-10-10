@@ -101,9 +101,15 @@ public class RegisterFragment extends Fragment {
     private class LocalDatabaseUpdateTask extends AsyncTask<Void, Void, UserInfosEntity> {
         @Override
         protected UserInfosEntity doInBackground(Void... voids) {
-            UserInfosEntity aaa = new UserInfosEntity("admin", "example@example.com", "1234", "Rua das Flores 19, Lisboa",
+            UserInfosEntity aaa = new UserInfosEntity("admin", "admin", "1234", "Rua das Flores 19, Lisboa",
                     0, "Dark", "en-EN");
             userInfosDao.insert(aaa);
+            UserInfosEntity aaa1 = new UserInfosEntity("tecnico", "tecnico", "1234", "Rua das Flores 19, Lisboa",
+                    2, "Dark", "en-EN");
+            userInfosDao.insert(aaa1);
+            UserInfosEntity aaa2 = new UserInfosEntity("morador", "morador", "1234", "Rua das Flores 19, Lisboa",
+                    1, "Dark", "en-EN");
+            userInfosDao.insert(aaa2);
 
             return aaa;
         }

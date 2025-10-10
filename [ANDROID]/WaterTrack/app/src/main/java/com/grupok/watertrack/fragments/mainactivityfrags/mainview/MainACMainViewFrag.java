@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,10 +75,15 @@ public class MainACMainViewFrag extends Fragment {
         example = new ContadorEntity("Gutti", "Rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
 
+        if(parent.currentUserInfo.Cargo == 1){
+            binding.butAddContadorMainViewMainAc.setVisibility(View.GONE);
+        }
+
         loadRv();
         setupSearchButton();
         setupAddContadorButton();
         setupSeachTextChange();
+        disableBackPressed();
     }
     private void setupSearchButton(){
         binding.butSearchContadorMainViewMainAc.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +146,9 @@ public class MainACMainViewFrag extends Fragment {
     }
     //-------------------------FUNCTIONS-------------------------------
     private void loadRv(){
-        if(contadoresEntityList.size() > 0){
+        adapter.updateData(new ArrayList<>());
+        adapter.notifyDataSetChanged();
+        if(!contadoresEntityList.isEmpty()){
             adapter.updateData(contadoresEntityList);
             binding.rvContadoresMainViewMainAc.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.rvContadoresMainViewMainAc.setAdapter(adapter);
@@ -187,5 +195,18 @@ public class MainACMainViewFrag extends Fragment {
         }
 
         return filtered;
+    }
+    private void disableBackPressed(){
+        binding.getRoot().setFocusableInTouchMode(true);
+        binding.getRoot().requestFocus();
+        binding.getRoot().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

@@ -54,8 +54,9 @@
                 android:text="Morada/ID"
                 android:layout_below="@+id/textView_NameOrAddress_rvRowContadores_MainAc"
                 android:layout_toEndOf="@+id/holder_imageView_iconHolder_rvRowContadores_MainAc"
-                android:paddingLeft="@dimen/_11sdp"
+                android:paddingStart="@dimen/_11sdp"
                 android:paddingBottom="@dimen/_11sdp"
+                android:paddingEnd="@dimen/_51sdp"
                 android:textSize="@dimen/_10sdp"
                 android:textColor="?attr/textColorPrimary"/>
             <ImageView
