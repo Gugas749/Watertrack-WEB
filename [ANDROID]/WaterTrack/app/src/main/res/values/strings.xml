@@ -10,9 +10,12 @@
 
     <!-- GENERAL -->
     <string name="general_continue">Continue</string>
+    <string name="general_confirm">Confirm</string>
     <string name="general_ok">Ok</string>
     <string name="general_yes">Yes</string>
     <string name="general_save">Save</string>
+    <string name="general_dontSave">Don\'t Save</string>
+    <string name="general_no">No</string>
     <string name="general_cancel">Cancel</string>
     <string name="general_delete">Delete</string>
     <!-- AUTH ACTIVITY | LOGIN FRAGMENT -->
@@ -31,6 +34,8 @@
     <string name="mainActivity_SideMenu_Settings">Settings</string>
     <string name="mainActivity_SideMenu_Credits">Credits</string>
     <string name="mainActivity_SideMenu_Logout">Logout</string>
+    <string name="mainActivity_AlertDialog_BackPressed_AddContador_Title">Exit</string>
+    <string name="mainActivity_AlertDialog_BackPressed_AddContador_Desc">Do you wish to exit without saving?</string>
     <!-- MAIN ACTIVITY | MAIN VIEW -->
     <string name="mainActivity_MainViewFrag_TextView_NothingToDisplay">Theres no Meters to be displayed.</string>
     <string name="mainActivity_MainViewFrag_SnackBar_NothingToSearch">Theres no Meters to be searched.</string>
@@ -38,6 +43,9 @@
     <string name="mainActivity_MainViewFrag_PopUpMenu_Address">Address</string>
     <string name="mainActivity_MainViewFrag_PopUpMenu_Name">Name</string>
     <string name="mainActivity_MainViewFrag_SnackBar_OptionNotSelected">Please select address or name.</string>
+    <!-- MAIN ACTIVITY | ADD CONTADOR -->
+    <string name="mainActivity_AddContadorFrag_TextField_Address">Address</string>
+    <string name="mainActivity_AddContadorFrag_ComboBox_Residents">Resident</string>
     <!-- CREDITS -->
     <string name="credits_icons_search">Search - Created by Royyan Wijaya - Flaticon</string>
     <string name="credits_icons_water_drop">Water Drop - Created by Good Ware - Flaticon</string>

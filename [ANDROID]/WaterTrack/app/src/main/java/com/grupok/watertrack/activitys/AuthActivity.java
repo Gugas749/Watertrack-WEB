@@ -59,6 +59,7 @@ public class AuthActivity extends AppCompatActivity {
                 break;
             case "MainAC":
                 Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+                intent.putExtra("currentUser", extra);
                 startActivity(intent);
                 break;
         }

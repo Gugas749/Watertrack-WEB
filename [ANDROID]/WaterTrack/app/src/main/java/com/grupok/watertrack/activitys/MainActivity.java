@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -38,17 +39,22 @@ import com.grupok.watertrack.database.entities.TecnicoInfoEntity;
 import com.grupok.watertrack.database.entities.TiposContadoresEntity;
 import com.grupok.watertrack.database.entities.UserInfosEntity;
 import com.grupok.watertrack.databinding.ActivityMainBinding;
+import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
+import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
 import com.grupok.watertrack.scripts.localDBCRUD.LocalDBgetAll;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+    CustomAlertDialogFragment.ConfirmButtonClickAlertDialogQuestionFrag,
+    CustomAlertDialogFragment.CancelButtonClickAlertDialogQuestionFrag{
 
     private ActivityMainBinding binding;
     private MainActivity THIS;
+    private int currentView;
     public UserInfosEntity currentUserInfo;
     private Boolean allDisable;
     private ActionBarDrawerToggle drawerToggleSideMenu;
@@ -76,10 +82,12 @@ public class MainActivity extends AppCompatActivity {
         //EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
-        init();
+        String value = getIntent().getStringExtra("currentUser");
+
+        init(value);
     }
 
-    private void init(){
+    private void init(String value){
         THIS = this;
         allDisable = false;
         disableBackPressed();
@@ -95,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 currentUserInfo = result.userInfo;
 
                 setupSideMenu();
+                setupBackButton();
                 setupKeyboardListener();
 
                 cycleFragments("MainViewFrag");
@@ -102,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         setupLocalDataBase();
-        new LocalDatabaseGetAllDataTask(callback).execute();
+        new LocalDatabaseGetAllDataTask(callback, value).execute();
     }
     //----------------------SETUPS---------------------------
     private void setupLocalDataBase(){
@@ -119,7 +128,17 @@ public class MainActivity extends AppCompatActivity {
         binding.imageViewButtonBackMainAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                switch (currentView){
+                    case 1:
+                        CustomAlertDialogFragment customAlertDialogFragment = new CustomAlertDialogFragment();
+                        customAlertDialogFragment.setConfirmListenner(THIS);
+                        customAlertDialogFragment.setCancelListenner(THIS);
+                        AlertDialogQuestionFragment fragment = new AlertDialogQuestionFragment(getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Title), getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Desc), customAlertDialogFragment, customAlertDialogFragment, "2");
+                        customAlertDialogFragment.setCustomFragment(fragment);
+                        customAlertDialogFragment.setTag("MainACAddContadorView_BackPressed");
+                        customAlertDialogFragment.show(getSupportFragmentManager(), "CustomAlertDialogFragment");
+                        break;
+                }
             }
         });
     }
@@ -189,10 +208,12 @@ public class MainActivity extends AppCompatActivity {
         switch (goTo){
             case "MainViewFrag":
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainACMainViewFrag(this, contadoresEntityList)).commitAllowingStateLoss();
+                currentView = 0;
                 break;
             case "AddContadorFrag":
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainAcAddContadorFrag(this)).commitAllowingStateLoss();
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 1;
                 break;
         }
     }
@@ -244,12 +265,30 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+    //----------------------QUESTION ALERTDIALOG---------------------------
+    @Override
+    public void onCancelButtonClicked(String Tag) {
+        switch (Tag){
+            case "MainACAddContadorView_BackPressed":
+                break;
+        }
+    }
+    @Override
+    public void onConfirmButtonClicked(String Tag) {
+        switch (Tag){
+            case "MainACAddContadorView_BackPressed":
+                cycleFragments("MainViewFrag");
+                break;
+        }
+    }
     //----------------------DATABASE OPERATIONS---------------------------
     private class LocalDatabaseGetAllDataTask extends AsyncTask<Void, Void, LocalDBgetAll> {
         private DatabaseCallback callback;
+        private String currentUserEmail;
 
-        public LocalDatabaseGetAllDataTask(DatabaseCallback callback) {
+        public LocalDatabaseGetAllDataTask(DatabaseCallback callback, String currentUserEmail) {
             this.callback = callback;
+            this.currentUserEmail = currentUserEmail;
         }
 
         @Override
@@ -261,9 +300,18 @@ public class MainActivity extends AppCompatActivity {
             List<EmpresasEntity> list4 = empresasDao.getEmpresas();
             List<TecnicoInfoEntity> list5 = tecnicoInfoDao.getTecnicosInfo();
             List<TiposContadoresEntity> list6 = tiposContadoresDao.getTiposContadores();
-            UserInfosEntity userInfos = userInfosDao.getUserInfos().get(0);//TODO: id
+            List<UserInfosEntity> userList = userInfosDao.getUserInfos();
+            UserInfosEntity userInfo = null;
+            for(UserInfosEntity user : userList){
+                if(user.email.equals(currentUserEmail)){
+                    userInfo = user;
+                    break;
+                } else if (currentUserEmail.isEmpty()) {
+                    userInfo = userInfosDao.getUserInfos().get(0);
+                }
+            }
 
-            return new LocalDBgetAll(list1, list2, list3, list4, list5, list6, userInfos);
+            return new LocalDBgetAll(list1, list2, list3, list4, list5, list6, userInfo);
         }
 
         @Override

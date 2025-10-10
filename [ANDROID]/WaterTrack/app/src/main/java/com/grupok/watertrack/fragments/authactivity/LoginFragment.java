@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment {
         binding.butLoginLoginFragAuthAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parent.cycleFragments("MainAC", "");
+                parent.cycleFragments("MainAC", binding.editTextEmailLoginFragAuthAc.getText().toString());
             }
         });
     }
