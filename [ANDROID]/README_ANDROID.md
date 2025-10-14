@@ -1,6 +1,7 @@
 > ver logs: `WATERTRACKINFO`
 > 
 > Anatomia dos IDS (componentes): tipo_paraQueServe_Fragment_Activity
+> 
 > Exemplo: datePicker_DataInstalacao_AddContadorFrag_MainAc
  
 ## SNACKBAR:
