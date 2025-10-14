@@ -46,6 +46,15 @@
     <!-- MAIN ACTIVITY | ADD CONTADOR -->
     <string name="mainActivity_AddContadorFrag_TextField_Address">Address</string>
     <string name="mainActivity_AddContadorFrag_ComboBox_Residents">Resident</string>
+    <string name="mainActivity_AddContadorFrag_ComboBox_Type">Type</string>
+    <string name="mainActivity_AddContadorFrag_ComboBox_Enterprise">Enterprise</string>
+    <string name="mainActivity_AddContadorFrag_ComboBox_Class">Class</string>
+    <string name="mainActivity_AddContadorFrag_DatePicker_Date">Installation Date</string>
+    <string name="mainActivity_AddContadorFrag_DatePicker_Date_IconDesc">Open Date Picker</string>
+    <string name="mainActivity_AddContadorFrag_TextField_MaxCap">Maximum Capacity</string>
+    <string name="mainActivity_AddContadorFrag_ComboBox_MeasureUnity">Measure Unity</string>
+    <string name="mainActivity_AddContadorFrag_TextField_SupportedTemp">Supported Temperature</string>
+    <string name="mainActivity_AddContadorFrag_ComboBox_Status">Status</string>
     <!-- CREDITS -->
     <string name="credits_icons_search">Search - Created by Royyan Wijaya - Flaticon</string>
     <string name="credits_icons_water_drop">Water Drop - Created by Good Ware - Flaticon</string>
@@ -54,4 +63,5 @@
     <string name="credits_icons_info">Info - Created by Stockio - Flaticon</string>
     <string name="credits_icons_exit">Exit - Created by Freepik - Flaticon</string>
     <string name="credits_icons_settings">Settings - Created by Freepik - Flaticon</string>
+    <string name="credits_icons_arrow">Arrow - Created by Ilham Fitrotul Hayat - Flaticon</string>
 </resources>

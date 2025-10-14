@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.grupok.watertrack.R;
 import com.grupok.watertrack.activitys.MainActivity;
 import com.grupok.watertrack.database.LocalDataBase;
@@ -20,8 +21,11 @@ import com.grupok.watertrack.database.daos.UserInfosDao;
 import com.grupok.watertrack.database.entities.UserInfosEntity;
 import com.grupok.watertrack.databinding.FragmentMainAcAddContadorBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainAcAddContadorFrag extends Fragment {
 
@@ -57,7 +61,10 @@ public class MainAcAddContadorFrag extends Fragment {
     }
     private void init(){
         disableBackPressed();
+
         setupLocalDataBase();
+        setupDatePicker();
+
         new LocalDatabaseUpdateTask().execute();
         fillDropdownMenu(listString);
         validateInsertionDropdownMenu();
@@ -67,6 +74,31 @@ public class MainAcAddContadorFrag extends Fragment {
         localDataBase = Room.databaseBuilder(getContext(), LocalDataBase.class, "WaterTrackLocalDB").build();
         userInfosDao = localDataBase.userInfosDao();
     }
+    private void setupDatePicker() {
+        // CRIAR A INSTANCIA DO DATEPICKER
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Select installation date")
+                .setTheme(R.style.CustomDatePickerTheme)
+                .build();
+
+        // MOSTRAR O FRAG/POPUP DO DATEPICKER
+        View.OnClickListener openPickerListener = v -> {
+            if (!datePicker.isAdded()) {
+                datePicker.show(getParentFragmentManager(), "DATE_PICKER");
+            }
+        };
+
+        binding.datePickerInstallationDateAddContadorFragMainAc.setOnClickListener(openPickerListener);
+        binding.inputLayoutDatePickerInstallationDateAddContadorFragMainAc.setEndIconOnClickListener(openPickerListener);
+
+        // CLICK OK
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            String formattedDate = sdf.format(new Date(selection));
+
+            binding.datePickerInstallationDateAddContadorFragMainAc.setText(formattedDate);
+        });
+    }
     //---------------------------DROPDOWN RELATED---------------------------
     private void fillDropdownMenu(List<String> list) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -75,14 +107,14 @@ public class MainAcAddContadorFrag extends Fragment {
                 list
         );
 
-        binding.autoCompleteResidentsAddContadorFragMainAc.setAdapter(adapter);
+        binding.comboBoxResidentsAddContadorFragMainAc.setAdapter(adapter);
 
         // CODIGO PARA QUANDO CLICAR O ICON NO FIM DO INPUT ABRIR A DROPDOWN DIRETO
-        binding.textInputLayoutComboBoxResidentsAddContadorFragMainAc.setEndIconOnClickListener(v -> binding.autoCompleteResidentsAddContadorFragMainAc.showDropDown());
-        binding.autoCompleteResidentsAddContadorFragMainAc.setOnClickListener(v -> binding.autoCompleteResidentsAddContadorFragMainAc.showDropDown());
+        binding.textInputLayoutComboBoxResidentsAddContadorFragMainAc.setEndIconOnClickListener(v -> binding.comboBoxResidentsAddContadorFragMainAc.showDropDown());
+        binding.comboBoxResidentsAddContadorFragMainAc.setOnClickListener(v -> binding.comboBoxResidentsAddContadorFragMainAc.showDropDown());
     }
     private void validateInsertionDropdownMenu() {
-        binding.autoCompleteResidentsAddContadorFragMainAc.setOnItemClickListener((parent, view, position, id) -> {
+        binding.comboBoxResidentsAddContadorFragMainAc.setOnItemClickListener((parent, view, position, id) -> {
             String selected = (String) parent.getItemAtPosition(position);
             Toast.makeText(getContext(), ""+selected, Toast.LENGTH_SHORT).show();
         });

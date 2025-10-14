@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom style for your M3 DatePicker -->
+    <style name="CustomDatePickerTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <!-- Header background -->
+        <item name="colorPrimary">@color/datePicker_HeaderBackground_Light</item>
+
+        <!-- Header text color -->
+        <item name="colorOnPrimary">@color/datePicker_Background_Light</item>
+
+        <!-- Calendar background -->
+        <item name="colorSurface">@color/datePicker_HeaderText_Light</item>
+
+        <!-- Calendar day text -->
+        <item name="colorOnSurface">@color/datePicker_DayText_Light</item>
+
+        <!-- Selected day circle -->
+        <item name="colorSecondary">@color/datePicker_SelectedCircle_Light</item>
+
+        <!-- Today’s outline circle -->
+        <item name="colorOutline">@color/datePicker_TodayCircle_Light</item>
+    </style>
+</resources>
