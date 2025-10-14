@@ -1,3 +1,24 @@
+## TODO:
+
+> ### AddContadorFrag
+> teste para adição e adição no botão add
+> 
+> AlertDialog no botao add para fazer resumo e confirmação
+> 
+> Fill das combos
+> 
+> ReportsFrag
+> 
+> DetailsFrag
+> 
+> CreditosFrag
+> 
+> SettingsFrag
+>
+> Script da Conexao com a api
+
+## INFOS:
+
 > ver logs: `WATERTRACKINFO`
 > 
 > Anatomia dos IDS (componentes): tipo_paraQueServe_Fragment_Activity
