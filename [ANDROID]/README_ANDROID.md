@@ -7,15 +7,15 @@
 > 
 > Fill das combos
 > 
-> ReportsFrag
+> ### ReportsFrag
 > 
-> DetailsFrag
+> ### DetailsFrag
 > 
-> CreditosFrag
+> ### CreditosFrag
 > 
-> SettingsFrag
+> ### SettingsFrag
 >
-> Script da Conexao com a api
+> ### Script da Conexao com a api
 
 ## INFOS:
 
