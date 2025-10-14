@@ -1,5 +1,8 @@
-ver logs: `WATERTRACKINFO`
-
+> ver logs: `WATERTRACKINFO`
+> 
+> Anatomia dos IDS (componentes): tipo_paraQueServe_Fragment_Activity
+> Exemplo: datePicker_DataInstalacao_AddContadorFrag_MainAc
+ 
 ## SNACKBAR:
 
 snackBarShow.display(binding.getRoot(), "FOI", -1, 1, binding.butSearchContadorMainViewMainAc, context);
