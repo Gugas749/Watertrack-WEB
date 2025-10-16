@@ -5,8 +5,9 @@
 
 [WaterTrack] - Plataforma para Gestão de Contadores de Água
 
-## Android README
-![README Android](https://github.com/Gugas749/WaterTrack/blob/main/%5BANDROID%5D/README_ANDROID.md)
+## README'S
+* ![README Android](https://github.com/Gugas749/WaterTrack/blob/main/%5BANDROID%5D/README_ANDROID.md)
+* ![README Web](https://github.com/Gugas749/WaterTrack/blob/main/%5WEB%5D/README_WEB.md)
 
 ## LINKS
 * [Link do Jira](https://my-team-f1esiobq.atlassian.net/jira/software/projects/JGK/summary)
