@@ -43,6 +43,7 @@ import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionF
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
 import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
+import com.grupok.watertrack.scripts.apiCRUD.APIGets;
 import com.grupok.watertrack.scripts.localDBCRUD.LocalDBgetAll;
 
 import java.util.ArrayList;
@@ -105,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements
                 setupSideMenu();
                 setupBackButton();
                 setupKeyboardListener();
+
+                APIGets apiGets = new APIGets();
+                apiGets.getUsers(THIS);
 
                 cycleFragments("MainViewFrag");
             }
