@@ -11,7 +11,6 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -36,9 +35,6 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,

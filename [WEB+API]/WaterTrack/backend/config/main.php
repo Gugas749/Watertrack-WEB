@@ -12,8 +12,8 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+        'api' => [
+            'class' => 'backend\modules\api\ModuleAPI',
         ],
     ],
     'components' => [
