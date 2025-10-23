@@ -10,6 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_5sdp">
+        <TextView
+            android:id="@+id/txt_LabelContadores_MainView_MainAc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:text="@string/mainActivity_MainViewFrag_LabelConadores"
+            android:textColor="?attr/textColorPrimary"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_Contadores_MainView_MainAc"
             android:layout_width="match_parent"
@@ -25,6 +34,7 @@
             android:textAlignment="center"
             android:textSize="@dimen/_12sdp"
             android:visibility="gone"
+            android:layout_below="@+id/txt_LabelContadores_MainView_MainAc"
             android:layout_margin="@dimen/_16sdp"/>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextFieldSearch_MainViewFrag_MainAc"
@@ -41,8 +51,11 @@
             android:layout_marginBottom="@dimen/_6sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
+            android:layout_below="@+id/txt_LabelContadores_MainView_MainAc"
             app:startIconDrawable="@drawable/search_24"
-            app:startIconTint="?attr/textOutlineColor">
+            app:startIconTint="?attr/textOutlineColor"
+            app:endIconMode="clear_text"
+            app:endIconTint="?attr/textOutlineColor">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_Seach_MainViewFrag_MainAc"

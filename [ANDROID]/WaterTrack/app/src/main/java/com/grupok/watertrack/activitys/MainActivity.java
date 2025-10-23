@@ -41,6 +41,10 @@ import com.grupok.watertrack.database.entities.UserInfosEntity;
 import com.grupok.watertrack.databinding.ActivityMainBinding;
 import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
+
+import com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview.MainACReadingsContadorFrag;
+import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
+import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
 import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
 import com.grupok.watertrack.scripts.apiCRUD.APIGets;
@@ -107,10 +111,11 @@ public class MainActivity extends AppCompatActivity implements
                 setupBackButton();
                 setupKeyboardListener();
 
+                cycleFragments("MainViewFrag", null);
+
                 APIGets apiGets = new APIGets();
                 apiGets.getUsers(THIS);
 
-                cycleFragments("MainViewFrag");
             }
         };
 
@@ -208,7 +213,8 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
     }
-    public void cycleFragments(String goTo){
+
+    public void cycleFragments(String goTo, Bundle data){
         switch (goTo){
             case "MainViewFrag":
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainACMainViewFrag(this, contadoresEntityList)).commitAllowingStateLoss();
@@ -219,6 +225,21 @@ public class MainActivity extends AppCompatActivity implements
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 1;
                 break;
+
+            case "DetailsContadorFrag":
+                MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
+                if (data != null) {
+                    detailsFrag.setArguments(data);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_fragmentContainer_MainAC, detailsFrag)
+                        .commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 2;
+                break;
+
+
         }
     }
     //----------------------THEME DEBUGGER---------------------------
@@ -281,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onConfirmButtonClicked(String Tag) {
         switch (Tag){
             case "MainACAddContadorView_BackPressed":
-                cycleFragments("MainViewFrag");
+                cycleFragments("MainViewFrag", null);
                 break;
         }
     }
@@ -325,5 +346,4 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
     }
-
 }

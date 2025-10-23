@@ -25,7 +25,7 @@ import com.grupok.watertrack.scripts.SnackBarShow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainACMainViewFrag extends Fragment {
+public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainView.ContadorItemClick {
 
     private MainActivity parent;
     private Context context;
@@ -65,12 +65,16 @@ public class MainACMainViewFrag extends Fragment {
     private void init(){
         THIS = this;
         context = getContext();
-        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo);
+
+        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo, parent);
+        adapter.setItemClickListenner(this);
         snackBarShow = new SnackBarShow();
 
-        ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
+        ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 0);
         contadoresEntityList.add(example);
-        example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
+        example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 1);
+        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo, parent);
+        snackBarShow = new SnackBarShow();
         contadoresEntityList.add(example);
         example = new ContadorEntity("Gutti", "Rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
@@ -92,6 +96,32 @@ public class MainACMainViewFrag extends Fragment {
                 if(binding.textViewNoItemsToDisplayFragBackups.getVisibility() == View.VISIBLE){
                     snackBarShow.display(binding.getRoot(), getString(R.string.mainActivity_MainViewFrag_SnackBar_NothingToSearch), -1, 1, binding.butSearchContadorMainViewMainAc, context);
                 }else{
+
+                    if(binding.outlinedTextFieldSearchMainViewFragMainAc.getVisibility() == View.VISIBLE) {
+                        binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.GONE);
+                    }
+                    else{
+                        PopupMenu popupMenu = new PopupMenu(context, binding.butSearchContadorMainViewMainAc);
+                        popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mainview_mainac, popupMenu.getMenu());
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                int id = item.getItemId();
+                                if (id == R.id.option_SearchByAddress_PopupMenu_MainView_MainAC) {
+                                    popUpMenuOption = 1;
+                                    menuItemClickHandler();
+                                    return true;
+                                } else if (id == R.id.option_SearchByName_PopupMenu_MainView_MainAC) {
+                                    popUpMenuOption = 2;
+                                    menuItemClickHandler();
+                                    return true;
+                                }
+                                return false;
+                            }
+                        });
+                        popupMenu.show();
+                    }
+
                     PopupMenu popupMenu = new PopupMenu(context, binding.butSearchContadorMainViewMainAc);
                     popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mainview_mainac, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -111,6 +141,7 @@ public class MainACMainViewFrag extends Fragment {
                         }
                     });
                     popupMenu.show();
+
                 }
             }
         });
@@ -119,7 +150,7 @@ public class MainACMainViewFrag extends Fragment {
         binding.butAddContadorMainViewMainAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parent.cycleFragments("AddContadorFrag");
+                parent.cycleFragments("AddContadorFrag", null);
             }
         });
     }
@@ -160,6 +191,24 @@ public class MainACMainViewFrag extends Fragment {
 
     }
     private void menuItemClickHandler(){
+
+
+        if (binding.outlinedTextFieldSearchMainViewFragMainAc.getVisibility() == View.GONE) {
+            binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
+
+            binding.editTextSeachMainViewFragMainAc.postDelayed(() -> {
+                binding.editTextSeachMainViewFragMainAc.requestFocus();
+
+                InputMethodManager imm = (InputMethodManager) requireContext()
+                        .getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.showSoftInput(binding.editTextSeachMainViewFragMainAc, InputMethodManager.SHOW_FORCED);
+                }
+            }, 150);// delay em ms para aparecer o teclado a tempo
+        }
+        else
+            binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.GONE);
+
         binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
 
         binding.editTextSeachMainViewFragMainAc.postDelayed(() -> {
@@ -171,6 +220,7 @@ public class MainACMainViewFrag extends Fragment {
                 imm.showSoftInput(binding.editTextSeachMainViewFragMainAc, InputMethodManager.SHOW_FORCED);
             }
         }, 150); // delay em ms para aparecer o teclado a tempo
+
     }
     private List<ContadorEntity> filterBySearch(String text){
         List<ContadorEntity> filtered = new ArrayList<>();
@@ -209,4 +259,15 @@ public class MainACMainViewFrag extends Fragment {
             }
         });
     }
+
+
+    @Override
+    public void onBackupsItemClick(ContadorEntity contador) {
+        Bundle data = new Bundle();
+        data.putInt("contadorId", contador.id);
+        parent.cycleFragments("DetailsContadorFrag", data);
+
+    }
+
+
 }
