@@ -64,10 +64,6 @@
             android:layout_marginRight="@dimen/_25sdp"
             app:startIconDrawable="@drawable/baseline_lock_24"
             app:startIconTint="?attr/colorOnSurfaceVariant"
-<<<<<<< HEAD
-
-=======
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
             app:endIconMode="password_toggle"
             app:endIconTint="?attr/colorOnSurfaceVariant">
 

@@ -25,11 +25,7 @@ import com.grupok.watertrack.scripts.SnackBarShow;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainView.ContadorItemClick {
-=======
-public class MainACMainViewFrag extends Fragment {
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 
     private MainActivity parent;
     private Context context;
@@ -69,7 +65,7 @@ public class MainACMainViewFrag extends Fragment {
     private void init(){
         THIS = this;
         context = getContext();
-<<<<<<< HEAD
+
         adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo, parent);
         adapter.setItemClickListenner(this);
         snackBarShow = new SnackBarShow();
@@ -77,22 +73,12 @@ public class MainACMainViewFrag extends Fragment {
         ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 0);
         contadoresEntityList.add(example);
         example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 1);
-=======
-        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo);
+        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo, parent);
         snackBarShow = new SnackBarShow();
-
-        ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
-        contadoresEntityList.add(example);
-        example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
         contadoresEntityList.add(example);
         example = new ContadorEntity("Gutti", "Rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
         if(parent.currentUserInfo.Cargo == 1){
             binding.butAddContadorMainViewMainAc.setVisibility(View.GONE);
         }
@@ -110,7 +96,7 @@ public class MainACMainViewFrag extends Fragment {
                 if(binding.textViewNoItemsToDisplayFragBackups.getVisibility() == View.VISIBLE){
                     snackBarShow.display(binding.getRoot(), getString(R.string.mainActivity_MainViewFrag_SnackBar_NothingToSearch), -1, 1, binding.butSearchContadorMainViewMainAc, context);
                 }else{
-<<<<<<< HEAD
+
                     if(binding.outlinedTextFieldSearchMainViewFragMainAc.getVisibility() == View.VISIBLE) {
                         binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.GONE);
                     }
@@ -135,7 +121,7 @@ public class MainACMainViewFrag extends Fragment {
                         });
                         popupMenu.show();
                     }
-=======
+
                     PopupMenu popupMenu = new PopupMenu(context, binding.butSearchContadorMainViewMainAc);
                     popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mainview_mainac, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -155,7 +141,7 @@ public class MainACMainViewFrag extends Fragment {
                         }
                     });
                     popupMenu.show();
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
+
                 }
             }
         });
@@ -164,11 +150,7 @@ public class MainACMainViewFrag extends Fragment {
         binding.butAddContadorMainViewMainAc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
                 parent.cycleFragments("AddContadorFrag", null);
-=======
-                parent.cycleFragments("AddContadorFrag");
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
             }
         });
     }
@@ -209,7 +191,7 @@ public class MainACMainViewFrag extends Fragment {
 
     }
     private void menuItemClickHandler(){
-<<<<<<< HEAD
+
 
         if (binding.outlinedTextFieldSearchMainViewFragMainAc.getVisibility() == View.GONE) {
             binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
@@ -226,7 +208,7 @@ public class MainACMainViewFrag extends Fragment {
         }
         else
             binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.GONE);
-=======
+
         binding.outlinedTextFieldSearchMainViewFragMainAc.setVisibility(View.VISIBLE);
 
         binding.editTextSeachMainViewFragMainAc.postDelayed(() -> {
@@ -238,7 +220,7 @@ public class MainACMainViewFrag extends Fragment {
                 imm.showSoftInput(binding.editTextSeachMainViewFragMainAc, InputMethodManager.SHOW_FORCED);
             }
         }, 150); // delay em ms para aparecer o teclado a tempo
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
+
     }
     private List<ContadorEntity> filterBySearch(String text){
         List<ContadorEntity> filtered = new ArrayList<>();
@@ -277,7 +259,7 @@ public class MainACMainViewFrag extends Fragment {
             }
         });
     }
-<<<<<<< HEAD
+
 
     @Override
     public void onBackupsItemClick(ContadorEntity contador) {
@@ -286,6 +268,6 @@ public class MainACMainViewFrag extends Fragment {
         parent.cycleFragments("DetailsContadorFrag", data);
 
     }
-=======
->>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
+
+
 }
