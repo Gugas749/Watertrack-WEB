@@ -85,6 +85,8 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'auth'; // 👈 força o uso do layout views/layouts/auth.php
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -95,11 +97,11 @@ class SiteController extends Controller
         }
 
         $model->password = '';
-
         return $this->render('login', [
             'model' => $model,
         ]);
     }
+
 
     /**
      * Logs out the current user.
