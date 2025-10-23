@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -42,9 +41,7 @@ import com.grupok.watertrack.databinding.ActivityMainBinding;
 import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
 
-import com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview.MainACReadingsContadorFrag;
-import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
-import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
+import com.grupok.watertrack.fragments.mainactivityfrags.readingscontadorview.MainACReadingsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
 import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
 import com.grupok.watertrack.scripts.apiCRUD.APIGets;
@@ -114,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements
                 cycleFragments("MainViewFrag", null);
 
                 APIGets apiGets = new APIGets();
-                apiGets.getUsers(THIS);
+                //apiGets.getUsers(THIS);
 
             }
         };
@@ -137,15 +134,19 @@ public class MainActivity extends AppCompatActivity implements
         binding.imageViewButtonBackMainAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CustomAlertDialogFragment customAlertDialogFragment = new CustomAlertDialogFragment();
+                AlertDialogQuestionFragment fragment= new AlertDialogQuestionFragment(getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Title), getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Desc), customAlertDialogFragment, customAlertDialogFragment, "2");
+
                 switch (currentView){
                     case 1:
-                        CustomAlertDialogFragment customAlertDialogFragment = new CustomAlertDialogFragment();
                         customAlertDialogFragment.setConfirmListenner(THIS);
                         customAlertDialogFragment.setCancelListenner(THIS);
-                        AlertDialogQuestionFragment fragment = new AlertDialogQuestionFragment(getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Title), getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Desc), customAlertDialogFragment, customAlertDialogFragment, "2");
                         customAlertDialogFragment.setCustomFragment(fragment);
                         customAlertDialogFragment.setTag("MainACAddContadorView_BackPressed");
                         customAlertDialogFragment.show(getSupportFragmentManager(), "CustomAlertDialogFragment");
+                        break;
+                    case 2:
+                        cycleFragments("MainViewFrag", null);
                         break;
                 }
             }
@@ -227,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
 
             case "DetailsContadorFrag":
+                Log.d("LOGTESTE", "passou");
                 MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
                 if (data != null) {
                     detailsFrag.setArguments(data);

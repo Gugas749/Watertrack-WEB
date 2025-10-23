@@ -121,10 +121,7 @@ public class RVAdapterMainAcMainView extends RecyclerView.Adapter<RVAdapterMainA
 
             if (listenner != null) {
                 listenner.onBackupsItemClick(contadorSelected);
-
                 Log.d("LOGTESTE", "Clicked on contador: " + contadorSelected.id);
-
-
             }
         });
     }
