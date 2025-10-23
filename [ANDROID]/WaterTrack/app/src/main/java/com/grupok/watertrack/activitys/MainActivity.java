@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+<<<<<<< HEAD
+=======
+import android.widget.Toast;
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -40,9 +44,15 @@ import com.grupok.watertrack.database.entities.UserInfosEntity;
 import com.grupok.watertrack.databinding.ActivityMainBinding;
 import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
+<<<<<<< HEAD
 import com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview.MainACReadingsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
 import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
+=======
+import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
+import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
+import com.grupok.watertrack.scripts.apiCRUD.APIGets;
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 import com.grupok.watertrack.scripts.localDBCRUD.LocalDBgetAll;
 
 import java.util.ArrayList;
@@ -106,7 +116,14 @@ public class MainActivity extends AppCompatActivity implements
                 setupBackButton();
                 setupKeyboardListener();
 
+<<<<<<< HEAD
                 cycleFragments("MainViewFrag", null);
+=======
+                APIGets apiGets = new APIGets();
+                apiGets.getUsers(THIS);
+
+                cycleFragments("MainViewFrag");
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
             }
         };
 
@@ -204,7 +221,11 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
     }
+<<<<<<< HEAD
     public void cycleFragments(String goTo, Bundle data){
+=======
+    public void cycleFragments(String goTo){
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
         switch (goTo){
             case "MainViewFrag":
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainACMainViewFrag(this, contadoresEntityList)).commitAllowingStateLoss();
@@ -215,6 +236,7 @@ public class MainActivity extends AppCompatActivity implements
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 1;
                 break;
+<<<<<<< HEAD
             case "DetailsContadorFrag":
                 MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
                 if (data != null) {
@@ -227,6 +249,8 @@ public class MainActivity extends AppCompatActivity implements
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 2;
                 break;
+=======
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
         }
     }
     //----------------------THEME DEBUGGER---------------------------
@@ -289,7 +313,11 @@ public class MainActivity extends AppCompatActivity implements
     public void onConfirmButtonClicked(String Tag) {
         switch (Tag){
             case "MainACAddContadorView_BackPressed":
+<<<<<<< HEAD
                 cycleFragments("MainViewFrag", null);
+=======
+                cycleFragments("MainViewFrag");
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
                 break;
         }
     }

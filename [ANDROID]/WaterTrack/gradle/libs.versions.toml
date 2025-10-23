@@ -7,6 +7,7 @@ appcompat = "1.7.1"
 material = "1.13.0"
 activity = "1.11.0"
 constraintlayout = "2.2.1"
+<<<<<<< HEAD
 #DIMEN
 sdpAndroid = "1.1.1"
 sspAndroid = "1.1.1"
@@ -15,6 +16,19 @@ roomRuntime = "2.8.1"
 roomCompiler = "2.8.1"
 #MAIL_SENDING
 mail = "1.6.8"
+=======
+# DIMEN
+sdpAndroid = "1.1.1"
+sspAndroid = "1.1.1"
+# ROOM
+roomRuntime = "2.8.1"
+roomCompiler = "2.8.1"
+# MAIL_SENDING
+mail = "1.6.8"
+# API
+volley = "1.2.1"
+gson = "2.10.1"
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,17 +38,33 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+<<<<<<< HEAD
 #DIMEN
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }
 #ROOM
+=======
+# DIMEN
+sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
+ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }
+# ROOM
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 room-common = { group = "androidx.room", name = "room-common", version.ref = "roomRuntime" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomRuntime" }
+<<<<<<< HEAD
 #MAIL_SENDING
 android-mail = { group = "com.sun.mail", name = "android-mail", version.ref = "mail" }
 android-activation = { group = "com.sun.mail", name = "android-activation", version.ref = "mail" }
+=======
+# MAIL_SENDING
+android-mail = { group = "com.sun.mail", name = "android-mail", version.ref = "mail" }
+android-activation = { group = "com.sun.mail", name = "android-activation", version.ref = "mail" }
+# API
+volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

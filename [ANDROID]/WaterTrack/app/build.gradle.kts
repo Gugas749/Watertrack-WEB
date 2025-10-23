@@ -61,4 +61,11 @@ dependencies {
     //MAIL SENDING
     implementation(libs.android.mail)
     implementation(libs.android.activation)
+<<<<<<< HEAD
+=======
+
+    //API
+    implementation(libs.volley)
+    implementation(libs.gson)
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 }

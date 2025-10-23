@@ -37,7 +37,10 @@
     <string name="mainActivity_AlertDialog_BackPressed_AddContador_Title">Exit</string>
     <string name="mainActivity_AlertDialog_BackPressed_AddContador_Desc">Do you wish to exit without saving?</string>
     <!-- MAIN ACTIVITY | MAIN VIEW -->
+<<<<<<< HEAD
     <string name="mainActivity_MainViewFrag_LabelConadores">Meus Contadores</string>
+=======
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
     <string name="mainActivity_MainViewFrag_TextView_NothingToDisplay">Theres no Meters to be displayed.</string>
     <string name="mainActivity_MainViewFrag_SnackBar_NothingToSearch">Theres no Meters to be searched.</string>
     <string name="mainActivity_MainViewFrag_TextField_Search">Search</string>
@@ -65,5 +68,8 @@
     <string name="credits_icons_exit">Exit - Created by Freepik - Flaticon</string>
     <string name="credits_icons_settings">Settings - Created by Freepik - Flaticon</string>
     <string name="credits_icons_arrow">Arrow - Created by Ilham Fitrotul Hayat - Flaticon</string>
+<<<<<<< HEAD
     <string name="credits_icons_close">Close - Created by inkubators - Flaticon</string>
+=======
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
 </resources>

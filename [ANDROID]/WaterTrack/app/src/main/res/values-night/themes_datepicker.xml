@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomDatePickerTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <!-- Header background -->
+        <item name="colorPrimary">@color/datePicker_HeaderBackground_Dark</item>
+
+        <!-- Header text color -->
+        <item name="colorOnPrimary">@color/datePicker_Background_Dark</item>
+
+        <!-- Calendar background -->
+        <item name="colorSurface">@color/datePicker_HeaderText_Dark</item>
+
+        <!-- Calendar day text -->
+        <item name="colorOnSurface">@color/datePicker_DayText_Dark</item>
+
+        <!-- Selected day circle -->
+        <item name="colorSecondary">@color/datePicker_SelectedCircle_Dark</item>
+
+        <!-- Today’s outline circle -->
+        <item name="colorOutline">@color/datePicker_TodayCircle_Dark</item>
+    </style>
+</resources>

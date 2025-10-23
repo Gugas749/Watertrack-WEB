@@ -26,7 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_minus16sdp"
+<<<<<<< HEAD
             app:cardCornerRadius="@dimen/_10sdp"
+=======
+            app:cardCornerRadius="@dimen/_20sdp"
+>>>>>>> 7ccd8bf874a14ccef39542c5ae475fe9fffc3675
             android:backgroundTint="?attr/colorContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
