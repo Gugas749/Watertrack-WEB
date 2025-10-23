@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardView_Holder_rvRowReadings_ReadingsContadores"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?attr/colorContainer"
+    app:cardCornerRadius="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_8sdp"
+    android:layout_marginLeft="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_4sdp"
+    android:layout_marginBottom="@dimen/_4sdp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioData_rvRowReadings_ReadingsContadores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:buttonTint="?attr/colorPrimary"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
+
+        <TextView
+            android:id="@+id/textView_Data_rvRowReadings_ReadingsContadores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/radioData_rvRowReadings_ReadingsContadores"
+            android:paddingStart="@dimen/_11sdp"
+            android:paddingTop="@dimen/_11sdp"
+            android:paddingEnd="@dimen/_51sdp"
+            android:text="16/10/2025"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold"
+            android:textColor="?attr/textColorPrimary" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+</RelativeLayout>
