@@ -15,6 +15,9 @@ return [
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],
+        'api' => [
+            'class' => 'backend\modules\api\ModuleAPI',
+        ],
     ],
     'components' => [
         'request' => [
@@ -45,6 +48,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule','controller' => 'api/user'],
             ],
         ],
     ],
