@@ -5,44 +5,13 @@
 
 [WaterTrack] - Plataforma para Gestão de Contadores de Água
 
-## TEMA LIGHT
-### Base
-* Fundo - `#FFFFFF`
-* Cards, inputs, boxes - `#F5F7FA`
-### Texto
-* Texto primário - `#1E293B`
-* Texto secundário - `#64748B`
-### Ações / Botões
-* Cor primária (botões, ícones de ação, “+”) - `#2563EB`
-* Hover / Destaque - `#1D4ED8`
-* Estado desativado - `#93C5FD`
-### Feedback e Alertas
-* Sucesso - `#16A34A`
-* Aviso - `#EAB308`
-* Erro - `#DC2626`
+## README'S
+* ![README Android](https://github.com/Gugas749/WaterTrack/blob/main/%5BANDROID%5D/README_ANDROID.md)
+* ![README Web](https://github.com/Gugas749/WaterTrack/blob/main/%5BWEB%2BAPI%5D/README_WEB.md)
+* ![README Api](https://github.com/Gugas749/WaterTrack/blob/main/%5BWEB%2BAPI%5D/README_API.md)
 
-## TEMA DARK
-### Base
-* Fundo - `#0F172A`
-* Cards, inputs, boxes - `#1E293B`
-* Bordas / divisores - `#334155`
-### Texto
-* Texto primário - `#F1F5F9`
-* Texto secundário - `#94A3B8`
-* Texto desativado - `#64748B`
-### Ações / Botões
-* Cor primária (botões, ícones de ação, “+”) - `#1D4ED8`
-* Hover / Destaque - `#2563EB`
-* Estado desativado - `#475569`
-### Feedback e Alertas
-* Sucesso - `#22C55E`
-* Aviso - `#EAB308`
-* Erro - `#F87171`
-
-## API
-
-## ANDROID
-
-ver logs: `WATERTRACKINFO`
-
-## WEB
+## LINKS
+* [Link do Jira](https://my-team-f1esiobq.atlassian.net/jira/software/projects/JGK/summary)
+* [Link do Relatório de Especificação do SI](https://myipleiria-my.sharepoint.com/:w:/r/personal/2241570_my_ipleiria_pt/_layouts/15/Doc.aspx?sourcedoc=%7B0A52FA89-BE96-455D-B7EF-5D4A91EFDBCA%7D&file=IPL-TeSP-PSI-PSI-2526-Template_especificacao_SI.docx&fromShare=true&action=default&mobileredirect=true)
+* [Link do Figma](https://www.figma.com/design/8INSuZ4p0Tkv7IUZTKT7BC/Design-WaterTrack?node-id=55-312&p=f&t=h24WxBbD3etWSUig-0)
+* [Link do Docs](https://docs.google.com/document/d/1OzIOerLNs7PPII6IhRsYwgCvOh3YNf_8-Bh9OG0dDG8/edit?tab=t.q69v8pswmsz6)
