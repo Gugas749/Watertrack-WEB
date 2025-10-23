@@ -1,4 +1,4 @@
-package com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview;
+package com.grupok.watertrack.fragments.mainactivityfrags.readingscontadorview;
 
 import android.content.Context;
 import android.view.LayoutInflater;

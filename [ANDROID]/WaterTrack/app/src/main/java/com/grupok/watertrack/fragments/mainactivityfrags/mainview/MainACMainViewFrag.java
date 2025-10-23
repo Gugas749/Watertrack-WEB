@@ -65,7 +65,6 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
     private void init(){
         THIS = this;
         context = getContext();
-
         adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo, parent);
         adapter.setItemClickListenner(this);
         snackBarShow = new SnackBarShow();
@@ -73,11 +72,10 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
         ContadorEntity example = new ContadorEntity("Gui", "R. Dr. Duarte Álvares Abreu 21, Cadaval, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 0);
         contadoresEntityList.add(example);
         example = new ContadorEntity("Diogo", "R. Das Flores 21, Lourinha, Lisboa, Portugal", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 1);
-        adapter = new RVAdapterMainAcMainView(this.getContext(), contadoresEntityList, parent.currentUserInfo.Cargo, parent);
-        snackBarShow = new SnackBarShow();
         contadoresEntityList.add(example);
         example = new ContadorEntity("Gutti", "Rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", 1,1,1,"A", "dataInstalacao", "capMax", "uniMedida", "tempSup", 2);
         contadoresEntityList.add(example);
+
 
         if(parent.currentUserInfo.Cargo == 1){
             binding.butAddContadorMainViewMainAc.setVisibility(View.GONE);
@@ -121,27 +119,6 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
                         });
                         popupMenu.show();
                     }
-
-                    PopupMenu popupMenu = new PopupMenu(context, binding.butSearchContadorMainViewMainAc);
-                    popupMenu.getMenuInflater().inflate(R.menu.popup_menu_mainview_mainac, popupMenu.getMenu());
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            int id = item.getItemId();
-                            if (id == R.id.option_SearchByAddress_PopupMenu_MainView_MainAC) {
-                                popUpMenuOption = 1;
-                                menuItemClickHandler();
-                                return true;
-                            } else if (id == R.id.option_SearchByName_PopupMenu_MainView_MainAC) {
-                                popUpMenuOption = 2;
-                                menuItemClickHandler();
-                                return true;
-                            }
-                            return false;
-                        }
-                    });
-                    popupMenu.show();
-
                 }
             }
         });
@@ -259,15 +236,10 @@ public class MainACMainViewFrag extends Fragment implements RVAdapterMainAcMainV
             }
         });
     }
-
-
     @Override
     public void onBackupsItemClick(ContadorEntity contador) {
         Bundle data = new Bundle();
         data.putInt("contadorId", contador.id);
         parent.cycleFragments("DetailsContadorFrag", data);
-
     }
-
-
 }

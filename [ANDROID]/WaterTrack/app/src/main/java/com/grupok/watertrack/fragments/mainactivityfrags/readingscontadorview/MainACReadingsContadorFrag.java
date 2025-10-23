@@ -1,4 +1,4 @@
-package com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview;
+package com.grupok.watertrack.fragments.mainactivityfrags.readingscontadorview;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import com.grupok.watertrack.activitys.MainActivity;
 import com.grupok.watertrack.database.entities.ContadorEntity;
 import com.grupok.watertrack.database.entities.LogsContadoresEntity;
 import com.grupok.watertrack.databinding.FragmentMainACReadingsContadorBinding;
-import com.grupok.watertrack.scripts.SnackBarShow;
 
 import java.util.ArrayList;
 import java.util.List;
