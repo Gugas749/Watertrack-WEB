@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use app\models\Enterprise;
 use app\models\User;
 
 /**
