@@ -63,28 +63,3 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
-
-/* align the logout "link" (button in form) of the navbar */
-.nav li > form > button.logout {
-    padding-top: 7px;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-@media(max-width:767px) {
-    .nav li > form > button.logout {
-        display:block;
-        text-align: left;
-        width: 100%;
-        padding: 10px 0;
-    }
-}
-
-.nav > li > form > button.logout:focus,
-.nav > li > form > button.logout:hover {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.75);
-}
-
-.nav > li > form > button.logout:focus {
-    outline: none;
-}

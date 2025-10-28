@@ -1,5 +1,5 @@
 <?php
-use app\assets\AppAsset;
+use frontend\assets\AppAsset;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\helpers\Url;
