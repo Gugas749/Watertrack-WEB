@@ -2,133 +2,123 @@
 $this->title = '';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-6">
-            <?= \hail812\adminlte\widgets\Alert::widget([
-                'type' => 'success',
-                'body' => '<h3>Congratulations!</h3>',
-            ]) ?>
-            <?= \hail812\adminlte\widgets\Callout::widget([
-                'type' => 'danger',
-                'head' => 'I am a danger callout!',
-                'body' => 'There is a problem that we need to fix. A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.'
-            ]) ?>
-        </div>
+<div class="container d-flex justify-content-center flex-wrap">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-10 m-2">
+        <?= \hail812\adminlte\widgets\InfoBox::widget([
+            'text' => 'Total de Contadores Ativos',
+            'number' => '32',
+            'icon' => 'fas fa-tint',
+        ]) ?>
     </div>
-
-    <div class="row">
-        <div class="col-12 col-sm-6 col-md-3">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'CPU Traffic',
-                'number' => '10 <small>%</small>',
-                'icon' => 'fas fa-cog',
-            ]) ?>
-        </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-10 m-2">
+        <?= \hail812\adminlte\widgets\InfoBox::widget([
+            'text' => 'Total de Leituas Criadas',
+            'number' => '410',
+            'icon' => 'fas fa-clipboard-list',
+        ]) ?>
     </div>
-
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Messages',
-                'number' => '1,410',
-                'icon' => 'far fa-envelope',
-            ]) ?>
-        </div>
-        <div class="col-md-4 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Bookmarks',
-                'number' => '410',
-                 'theme' => 'success',
-                'icon' => 'far fa-flag',
-            ]) ?>
-        </div>
-        <div class="col-md-4 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Uploads',
-                'number' => '13,648',
-                'theme' => 'gradient-warning',
-                'icon' => 'far fa-copy',
-            ]) ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Bookmarks',
-                'number' => '41,410',
-                'icon' => 'far fa-bookmark',
-                'progress' => [
-                    'width' => '70%',
-                    'description' => '70% Increase in 30 Days'
-                ]
-            ]) ?>
-        </div>
-        <div class="col-md-4 col-sm-6 col-12">
-            <?php $infoBox = \hail812\adminlte\widgets\InfoBox::begin([
-                'text' => 'Likes',
-                'number' => '41,410',
-                'theme' => 'success',
-                'icon' => 'far fa-thumbs-up',
-                'progress' => [
-                    'width' => '70%',
-                    'description' => '70% Increase in 30 Days'
-                ]
-            ]) ?>
-            <?= \hail812\adminlte\widgets\Ribbon::widget([
-                'id' => $infoBox->id.'-ribbon',
-                'text' => 'Ribbon',
-            ]) ?>
-            <?php \hail812\adminlte\widgets\InfoBox::end() ?>
-        </div>
-        <div class="col-md-4 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\InfoBox::widget([
-                'text' => 'Events',
-                'number' => '41,410',
-                'theme' => 'gradient-warning',
-                'icon' => 'far fa-calendar-alt',
-                'progress' => [
-                    'width' => '70%',
-                    'description' => '70% Increase in 30 Days'
-                ],
-                'loadingStyle' => true
-            ]) ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => '150',
-                'text' => 'New Orders',
-                'icon' => 'fas fa-shopping-cart',
-            ]) ?>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <?php $smallBox = \hail812\adminlte\widgets\SmallBox::begin([
-                'title' => '150',
-                'text' => 'New Orders',
-                'icon' => 'fas fa-shopping-cart',
-                'theme' => 'success'
-            ]) ?>
-            <?= \hail812\adminlte\widgets\Ribbon::widget([
-                'id' => $smallBox->id.'-ribbon',
-                'text' => 'Ribbon',
-                'theme' => 'warning',
-                'size' => 'lg',
-                'textSize' => 'lg'
-            ]) ?>
-            <?php \hail812\adminlte\widgets\SmallBox::end() ?>
-        </div>
-        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-            <?= \hail812\adminlte\widgets\SmallBox::widget([
-                'title' => '44',
-                'text' => 'User Registrations',
-                'icon' => 'fas fa-user-plus',
-                'theme' => 'gradient-success',
-                'loadingStyle' => true
-            ]) ?>
-        </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-10 m-2">
+        <?= \hail812\adminlte\widgets\InfoBox::widget([
+            'text' => 'Total de Utilizadores',
+            'number' => '16',
+            'icon' => 'fas fa-users',
+        ]) ?>
     </div>
 </div>
+
+<div class="container-fluid py-4" style="background-color:#f8f9fc;">
+    <div class="row justify-content-center">
+
+        <!-- Gráfico de Consumo -->
+        <div class="col-lg-7 col-md-12 mb-4">
+            <div class="card shadow-sm border-0" style="border-radius: 16px;">
+                <div class="card-body">
+                    <h6 class="mb-3 fw-bold text-secondary">Gráfico de Leituras Criadas</h6>
+                    <div style="height: 250px; background: linear-gradient(90deg, rgba(108,99,255,0.1), rgba(255,107,230,0.1)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color:#777;">
+                        <span>Gráfico aqui</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Última Leitura -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card shadow-sm border-0" style="border-radius: 16px;">
+                <div class="card-body text-center">
+                    <h6 class="fw-bold text-secondary mb-3">Contadores</h6>
+                    <div style="width:160px; height:160px; margin:auto; border-radius:50%; background: conic-gradient(#4f46e5 0% 35%, #f59e0b 35% 65%, #f43f5e 65% 100%); display:flex; align-items:center; justify-content:center; color:#1f2937; font-size:22px; font-weight:600;">
+                    </div>
+                    <button class="btn btn-sm btn-secondary my-3 rounded-4">Ver Contadores</button>
+                    <div class="d-flex justify-content-center mt-3gap-3">
+                        <span><i class="fas fa-circle text-indigo-600 mx-1"></i>Ativos</span>
+                        <span><i class="fas fa-circle text-amber-400 mx-1"></i>Inativos</span>
+                        <span><i class="fas fa-circle text-rose-500 mx-1"></i>Com Problema</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alertas Ativos -->
+        <div class="col-lg-11 col-md-12">
+            <div class="card shadow-sm border-0" style="border-radius:16px;">
+                <div class="card-body">
+                    <h6 class="fw-bold text-secondary mb-3">Alertas Ativos</h6>
+                    <table class="table align-middle">
+                        <thead class="text-muted small">
+                        <tr>
+                            <th>Referência do Contador</th>
+                            <th>Contador Nome</th>
+                            <th>Última Inspeção</th>
+                            <th>Total de Ocorrências</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>#876364</td>
+                            <td><i class="fas fa-tint text-primary me-2"></i> Câmara Municipal</td>
+                            <td>15/01/2000</td>
+                            <td><span class="badge bg-light text-dark px-3">2</span></td>
+                            <td><a href="#" class="btn btn-sm btn-primary rounded-4">Ver Relatório</a></td>
+                        </tr>
+                        <tr>
+                            <td>#876368</td>
+                            <td><i class="fas fa-tint text-info me-2"></i> Bairro Central</td>
+                            <td>15/01/2000</td>
+                            <td><span class="badge bg-light text-dark px-3">1</span></td>
+                            <td><a href="#" class="btn btn-sm btn-primary rounded-4">Ver Relatório</a></td>
+                        </tr>
+                        <tr>
+                            <td>#876412</td>
+                            <td><i class="fas fa-tint text-warning me-2"></i> Zona Industrial</td>
+                            <td>15/01/2000</td>
+                            <td><span class="badge bg-light text-dark px-3">5</span></td>
+                            <td><a href="#" class="btn btn-sm btn-primary rounded-4">Ver Relatório</a></td>
+                        </tr>
+                        <tr>
+                            <td>#876621</td>
+                            <td><i class="fas fa-tint text-danger me-2"></i> Área Norte</td>
+                            <td>15/01/2000</td>
+                            <td><span class="badge bg-light text-dark px-3">2</span></td>
+                            <td><a href="#" class="btn btn-sm btn-primary rounded-4">Ver Relatório</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style> /*EVITAR SCROLL HORIZONTAL*/
+    body {
+        overflow-x: hidden;
+    }
+    .container, .container-fluid {
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+</style>
+
+
