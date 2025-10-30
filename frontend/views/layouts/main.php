@@ -8,11 +8,11 @@ AppAsset::register($this);
 $this->registerCsrfMetaTags();
 $this->title = $this->title ?: 'WaterTrack';
 
-// Verifica a rota atual (ex: 'site/login', 'site/signup', etc.)
+// Verifica a rota atual (ex: 'dashboard/login', 'dashboard/signup', etc.)
 $route = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
 
 // Define se deve mostrar a sidebar
-$showSidebar = !in_array($route, ['site/login', 'site/signup', 'site/request-password-reset', 'site/reset-password']);
+$showSidebar = !in_array($route, ['dashboard/login', 'dashboard/signup', 'dashboard/request-password-reset', 'dashboard/reset-password']);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -103,17 +103,17 @@ $showSidebar = !in_array($route, ['site/login', 'site/signup', 'site/request-pas
     <!-- SIDEBAR -->
     <div class="sidebar">
         <div class="logo">
-            <?= Html::a('💧 WaterTrack', Url::to(['/site/index'])) ?>
+            <?= Html::a('💧 WaterTrack', Url::to(['/dashboard/index'])) ?>
         </div>
 
         <?= Nav::widget([
                 'options' => ['class' => 'nav flex-column'],
                 'items' => [
-                        ['label' => '📊 Dashboard', 'url' => ['/site/index']],
+                        ['label' => '📊 Dashboard', 'url' => ['/dashboard/index']],
                         ['label' => '🧮 Contadores', 'url' => ['/contador/index']],
                         ['label' => '📖 Leituras', 'url' => ['/leitura/index']],
                         ['label' => '📈 Relatório', 'url' => ['/relatorio/index']],
-                        ['label' => '⚙️ Definições', 'url' => ['/site/settings']],
+                        ['label' => '⚙️ Definições', 'url' => ['/dashboard/settings']],
                 ],
                 'encodeLabels' => false
         ]) ?>

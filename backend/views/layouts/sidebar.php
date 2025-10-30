@@ -18,7 +18,7 @@
                     'role' => 'menu'
                 ],
                 'items' => [
-                    ['label' => 'Dashboard', 'icon' => 'home', 'url' => ['site/index']],
+                    ['label' => 'Dashboard', 'icon' => 'home', 'url' => ['dashboard/index']],
                     ['label' => 'Utilizadores', 'icon' => 'users', 'url' => ['users/index']],
                     ['label' => 'Contadores', 'icon' => 'tint', 'url' => ['contadores/index']],
                     ['label' => 'Leituras', 'icon' => 'book-open', 'url' => ['leituras/index']],

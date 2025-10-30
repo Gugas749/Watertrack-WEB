@@ -35,7 +35,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'dashboard/error',
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',

@@ -42,8 +42,9 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'dashboard/error',
         ],
+        'defaultRoute' => 'dashboard/index',
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

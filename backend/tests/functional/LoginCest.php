@@ -32,7 +32,7 @@ class LoginCest
      */
     public function loginUser(FunctionalTester $I)
     {
-        $I->amOnRoute('/site/login');
+        $I->amOnRoute('/dashboard/login');
         $I->fillField('Username', 'erau');
         $I->fillField('Password', 'password_0');
         $I->click('login-button');

@@ -3,20 +3,12 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
-use Yii;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
-use yii\web\Response;
 
-/**
- * Site controller
- */
-class SiteController extends Controller
+class UsersController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -43,40 +35,28 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function actions()
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => 'yii\web\ErrorAction',
+                'view' => '@backend/views/layouts/contents/users/error.php',
             ],
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('@backend/views/layouts/contents/users/index.php');
     }
 
-    /**
-     * Login action.
-     *
-     * @return string|Response
-     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $this->layout = 'blank';
+        $this->layout = 'layouts/contents/users/index';
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -90,15 +70,11 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
         return $this->goHome();
     }
+
 }

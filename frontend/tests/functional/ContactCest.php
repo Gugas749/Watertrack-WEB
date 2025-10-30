@@ -10,7 +10,7 @@ class ContactCest
 {
     public function _before(FunctionalTester $I)
     {
-        $I->amOnRoute('site/contact');
+        $I->amOnRoute('dashboard/contact');
     }
 
     public function checkContact(FunctionalTester $I)
