@@ -41,9 +41,6 @@ return [
                 ],
             ],
         ],
-        'errorHandler' => [
-            'errorAction' => 'dashboard/error',
-        ],
         'defaultRoute' => 'dashboard/index',
         'urlManager' => [
             'enablePrettyUrl' => true,

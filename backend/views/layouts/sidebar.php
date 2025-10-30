@@ -19,10 +19,10 @@
                 ],
                 'items' => [
                     ['label' => 'Dashboard', 'icon' => 'home', 'url' => ['dashboard/index']],
-                    ['label' => 'Utilizadores', 'icon' => 'users', 'url' => ['users/index']],
-                    ['label' => 'Contadores', 'icon' => 'tint', 'url' => ['contadores/index']],
-                    ['label' => 'Leituras', 'icon' => 'book-open', 'url' => ['leituras/index']],
-                    ['label' => 'Definições', 'icon' => 'cog', 'url' => ['settings/index']],
+                    ['label' => 'Utilizadores', 'icon' => 'user', 'url' => ['user/index']],
+                    ['label' => 'Contadores', 'icon' => 'tint', 'url' => ['meter/index']],
+                    ['label' => 'Leituras', 'icon' => 'book-open', 'url' => ['reading/index']],
+                    ['label' => 'Definições', 'icon' => 'cog', 'url' => ['setting/index']],
                 ],
             ]);
             ?>

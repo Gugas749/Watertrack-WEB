@@ -14,7 +14,7 @@ use app\models\Meter;
  * @property string|null $contactEmail
  * @property string|null $website
  *
- * @property Meter[] $meters
+ * @property Meter[] $meter
  * @property Technicianinfo[] $technicianinfos
  */
 class Enterprise extends \yii\db\ActiveRecord

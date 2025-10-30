@@ -1,7 +1,7 @@
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
         <div class="d-flex justify-content-between align-items-center mb-4 px-3">
-            <h4 class="fw-bold text-dark">Utilizadores</h4>
+            <h4 class="fw-bold text-dark">Contadores</h4>
             <div class="d-flex align-items-center gap-3">
 
                 <div class="input-group mx-5" style="width:220px;">
@@ -14,14 +14,14 @@
                 </div>
 
                 <button class="btn btn-primary rounded-4" style="background-color:#4f46e5; border:none;">
-                    <i class="fas fa-plus me-1"></i> Adicionar Utilizador
+                    <i class="fas fa-plus me-1"></i> Adicionar Contador
                 </button>
             </div>
         </div>
 
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
-                <h6 class="fw-bold text-secondary mb-3">Total de Utilizadores :69</h6>
+                <h6 class="fw-bold text-secondary mb-3">Total de Contadores: 69</h6>
                 <div class="table-responsive">
                     <table class="table align-middle">
                         <thead class="text-muted small">
@@ -101,5 +101,3 @@
         overflow-x: hidden;
     }
 </style>
-
-

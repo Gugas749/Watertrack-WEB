@@ -8,7 +8,7 @@ namespace common\models;
  * @property int $id
  * @property string $description
  *
- * @property Meter[] $meters
+ * @property Meter[] $meter
  */
 class MeterType extends \yii\db\ActiveRecord
 {
