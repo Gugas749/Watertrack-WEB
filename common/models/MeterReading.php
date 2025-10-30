@@ -2,19 +2,28 @@
 
 namespace common\models;
 
+use app\models\Meter;
+use app\models\Meterproblem;
+use app\models\User;
+
 /**
  * This is the model class for table "meterreading".
  *
  * @property int $id
+ * @property int $userID
  * @property int $meterID
+ * @property int|null $problemID
  * @property string $reading
  * @property string $accumulatedConsumption
  * @property string $date
  * @property string $waterPressure
  * @property string $desc
+ * @property int $readingType
  * @property int $problemState
  *
  * @property Meter $meter
+ * @property Meterproblem $problem
+ * @property User $user
  */
 class MeterReading extends \yii\db\ActiveRecord
 {
@@ -34,11 +43,14 @@ class MeterReading extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['meterID', 'reading', 'accumulatedConsumption', 'date', 'waterPressure', 'desc', 'problemState'], 'required'],
-            [['meterID', 'problemState'], 'integer'],
+            [['problemID'], 'default', 'value' => null],
+            [['userID', 'meterID', 'reading', 'accumulatedConsumption', 'date', 'waterPressure', 'desc', 'readingType', 'problemState'], 'required'],
+            [['userID', 'meterID', 'problemID', 'readingType', 'problemState'], 'integer'],
             [['date'], 'safe'],
             [['reading', 'accumulatedConsumption', 'waterPressure', 'desc'], 'string', 'max' => 100],
             [['meterID'], 'exist', 'skipOnError' => true, 'targetClass' => Meter::class, 'targetAttribute' => ['meterID' => 'id']],
+            [['problemID'], 'exist', 'skipOnError' => true, 'targetClass' => Meterproblem::class, 'targetAttribute' => ['problemID' => 'id']],
+            [['userID'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['userID' => 'id']],
         ];
     }
 
@@ -49,12 +61,15 @@ class MeterReading extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'userID' => 'User ID',
             'meterID' => 'Meter ID',
+            'problemID' => 'Problem ID',
             'reading' => 'Reading',
             'accumulatedConsumption' => 'Accumulated Consumption',
             'date' => 'Date',
             'waterPressure' => 'Water Pressure',
             'desc' => 'Desc',
+            'readingType' => 'Reading Type',
             'problemState' => 'Problem State',
         ];
     }
@@ -67,6 +82,26 @@ class MeterReading extends \yii\db\ActiveRecord
     public function getMeter()
     {
         return $this->hasOne(Meter::class, ['id' => 'meterID']);
+    }
+
+    /**
+     * Gets query for [[Problem]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProblem()
+    {
+        return $this->hasOne(Meterproblem::class, ['id' => 'problemID']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'userID']);
     }
 
 }

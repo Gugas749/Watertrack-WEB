@@ -50,9 +50,24 @@ return [
             'showScriptName' => false,
             'rules' => [
                 [
-                    'class' => 'yii\rest\UrlRule','controller' => ['api/user'],
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => [
+                        'api/user',
+                        'api/user-profile',
+                        'api/technician-info',
+                        'api/enterprise',
+                        'api/meter',
+                        'api/meter-problem',
+                        'api/meter-reading',
+                        'api/meter-type'
+                    ],
                     'extraPatterns' => [
                         'GET count' => 'count',
+                        'GET nomes' => 'nomes',
+                        'GET profile/{id}' => 'profile',
+                    ],
+                    'tokens' => [
+                        '{id}' => '<id:\\d+>',
                     ],
                 ],
             ],
