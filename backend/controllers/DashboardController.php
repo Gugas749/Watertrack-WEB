@@ -52,7 +52,7 @@ class DashboardController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('@backend/views/layouts/contents/dashboard/index');
+        return $this->render('@backend/views/layouts/contents/dashboard/index.php');
     }
 
     public function actionLogin()
@@ -61,8 +61,6 @@ class DashboardController extends Controller
             return $this->goHome();
         }
 
-        $this->layout = 'layouts/contents/dashboard/index';
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
@@ -70,9 +68,7 @@ class DashboardController extends Controller
 
         $model->password = '';
 
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->render('@backend/views/layouts/contents/dashboard/login.php', ['model' => $model]); // resolves to $viewPath/login.php
     }
 
     public function actionLogout()
