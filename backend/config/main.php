@@ -23,11 +23,14 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
+        'errorHandler' => [
+            'errorAction' => 'site/error',
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-            'loginUrl' => ['dashboard/login'],
+            'loginUrl' => ['site/login'],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -69,6 +72,19 @@ return [
                     ],
                 ],
             ],
+        ],
+        'as beforeRequest' => [
+            'class' => 'yii\filters\AccessControl',
+            'except' => ['site/login', 'site/error'],
+            'rules' => [
+                [
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+            ],
+            'denyCallback' => function ($rule, $action) {
+                return Yii::$app->response->redirect(['site/login']);
+            },
         ],
     ],
     'params' => $params,
