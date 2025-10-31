@@ -5,6 +5,7 @@ $params = array_merge(
     require __DIR__ . '/params.php',
     require __DIR__ . '/params-local.php'
 );
+Yii::setAlias('@contentsViews', '@backend/views/layouts/contents');
 
 return [
     'id' => 'app-backend',

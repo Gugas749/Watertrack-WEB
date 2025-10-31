@@ -28,20 +28,9 @@ class DashboardController extends Controller
             ],
         ];
     }
-
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-                'view' => '@backend/views/layouts/contents/dashboard/error.php',
-            ],
-        ];
-    }
-
     public function actionIndex()
     {
-        return $this->render('@backend/views/layouts/contents/dashboard/index.php');
+        return $this->render('@contentsViews/dashboard/index');
     }
 
     public function actionLogout()
