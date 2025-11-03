@@ -21,7 +21,9 @@
 
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
-                <h6 class="fw-bold text-secondary mb-3">Total de Utilizadores: 69</h6>
+                <h6 class="fw-bold text-secondary mb-3">
+                    Total de Utilizadores: <?= count($users) ?>
+                </h6>
                 <div class="table-responsive">
                     <table class="table align-middle">
                         <thead class="text-muted small">
@@ -30,24 +32,57 @@
                             <th>Nome</th>
                             <th>Morada</th>
                             <th>Contadores</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="#" class="text-decoration-none text-primary">Joao</a></td>
-                            <td>R. Dr. Duarte Álvares Abreu 21</td>
-                            <td><span class="text-success fw-semibold">0</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#" class="text-decoration-none text-primary">Pedro</a></td>
-                            <td>R. Dr. Duarte Álvares Abreu 21</td>
-                            <td><span class="text-success fw-semibold">15</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
+                        <?php if (!empty($users)): ?>
+                            <?php foreach ($users as $user): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($user->id) ?></td>
+                                    <td>
+                                        <a href="#" class="text-decoration-none text-primary">
+                                            <?= htmlspecialchars($user->username) ?>
+                                        </a>
+                                    </td>
+                                    <td><?= htmlspecialchars($user->profile->address ?? 'N/A') ?></td>
+                                    <td>
+                                        <span class="text-success fw-semibold">
+                                            <?= htmlspecialchars($user->contador_count ?? 0) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $statusText = match ($user->status ?? null) {
+                                            10 => 'ACTIVE',
+                                            9  => 'INACTIVE',
+                                            0  => 'DELETED',
+                                            default => 'UNKNOWN',
+                                        };
+
+                                        $statusClass = match ($user->status ?? null) {
+                                            10 => 'text-success',
+                                            9  => 'text-warning',
+                                            0  => 'text-danger',
+                                            default => 'text-muted',
+                                        };
+                                        ?>
+                                        <span class="<?= $statusClass ?> fw-semibold">
+                                            <?= htmlspecialchars($statusText) ?>
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <a href="#" class="text-primary fw-semibold">Ver Detalhes</a>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">Nenhum utilizador encontrado.</td>
+                            </tr>
+                        <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

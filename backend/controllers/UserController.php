@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\User;
 use yii\web\Controller;
 
 class UserController extends Controller
@@ -25,6 +26,17 @@ class UserController extends Controller
     }
     public function actionIndex()
     {
-        return $this->render('@contentsViews/user/index');
+        $users = $this->getUsers();
+        return $this->render('@contentsViews/user/index', [
+            'users' => $users,
+        ]);
     }
+
+    public function getUsers()
+    {
+        return User::find()
+            ->with('profile')
+            ->all();
+    }
+
 }

@@ -60,6 +60,15 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * defenir a relacao entre user e userprofile
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(UserProfile::class, ['userID' => 'id']);
+    }
+
+
+    /**
      * {@inheritdoc}
      */
     public static function findIdentity($id)
@@ -102,6 +111,10 @@ class User extends ActiveRecord implements IdentityInterface
             'password_reset_token' => $token,
             'status' => self::STATUS_ACTIVE,
         ]);
+    }
+
+    public static function getAllUsers(){
+        return User::find()->all();
     }
 
     /**
