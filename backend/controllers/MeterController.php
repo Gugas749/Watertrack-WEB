@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Meter;
 use yii\web\Controller;
 
 class MeterController extends Controller
@@ -25,7 +26,15 @@ class MeterController extends Controller
     }
     public function actionIndex()
     {
-        return $this->render('@contentsViews/meter/index');
+        $meters = $this->getMeters();
+        return $this->render('@contentsViews/meter/index', [
+            'meters' => $meters,
+        ]);
     }
 
+    public function getMeters()
+    {
+        return Meter::find()
+            ->all();
+    }
 }

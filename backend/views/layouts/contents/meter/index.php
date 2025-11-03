@@ -21,7 +21,9 @@
 
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
-                <h6 class="fw-bold text-secondary mb-3">Total de Contadores: 69</h6>
+                <h6 class="fw-bold text-secondary mb-3">
+                    Total de Contadores: <?= count($meters) ?>
+                </h6>
                 <div class="table-responsive">
                     <table class="table align-middle">
                         <thead class="text-muted small">
@@ -34,54 +36,46 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="#" class="text-decoration-none text-primary">R. Dr. Duarte Álvares Abreu 21</a>
-                            </td>
-                            <td>10/10/2000</td>
-                            <td><span class="text-success fw-semibold">Ativo</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a href="#" class="text-decoration-none text-primary">R. Dr. Duarte Álvares Abreu 21</a>
-                            </td>
-                            <td>10/10/2000</td>
-                            <td><span class="text-warning fw-semibold">Problema Relatado</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><a href="#" class="text-decoration-none text-primary">R. Dr. Duarte Álvares Abreu 21</a>
-                            </td>
-                            <td>10/10/2000</td>
-                            <td><span class="text-danger fw-semibold">Inativo</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><a href="#" class="text-decoration-none text-primary">R. Dr. Duarte Álvares Abreu 21</a>
-                            </td>
-                            <td>10/10/2000</td>
-                            <td><span class="text-success fw-semibold">Ativo</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td><a href="#" class="text-decoration-none text-primary">R. Dr. Duarte Álvares Abreu 21</a>
-                            </td>
-                            <td>10/10/2000</td>
-                            <td><span class="text-success fw-semibold">Ativo</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td><a href="#" class="text-decoration-none text-primary">R. Dr. Duarte Álvares Abreu 21</a>
-                            </td>
-                            <td>10/10/2000</td>
-                            <td><span class="text-success fw-semibold">Ativo</span></td>
-                            <td><a href="#" class="text-primary fw-semibold">Ver Detalhes</a></td>
-                        </tr>
+                            <?php if (!empty($meters)): ?>
+                                <?php foreach ($meters as $meter): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($meter->id) ?></td>
+                                        <td>
+                                            <a href="#" class="text-decoration-none text-primary">
+                                                <?= htmlspecialchars($meter->address) ?>
+                                            </a>
+                                        </td>
+                                        <td><?= htmlspecialchars($meter->instalationDate ?? 'N/A') ?></td>
+                                        <td>
+                                            <?php
+                                            $statusText = match ($meter->state ?? null) {
+                                                1 => 'ACTIVE',
+                                                2  => 'PROBLEM',
+                                                0  => 'DEACTIVATED',
+                                                default => 'UNKNOWN',
+                                            };
+    
+                                            $statusClass = match ($meter->state ?? null) {
+                                                1 => 'text-success',
+                                                2  => 'text-warning',
+                                                0  => 'text-muted',
+                                                default => 'text-muted',
+                                            };
+                                            ?>
+                                            <span class="<?= $statusClass ?> fw-semibold">
+                                                    <?= htmlspecialchars($statusText) ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-primary fw-semibold">Ver Detalhes</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted">Nenhum contador encontrado.</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

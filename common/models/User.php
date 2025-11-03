@@ -67,6 +67,14 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(UserProfile::class, ['userID' => 'id']);
     }
 
+    /**
+     * defenir a relacao entre user e technicianinfo
+     */
+    public function getTechnicianInfo()
+    {
+        return $this->hasOne(TechnicianInfo::class, ['userID' => 'id']);
+    }
+
 
     /**
      * {@inheritdoc}

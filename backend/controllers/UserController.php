@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\AdduserForm;
 use common\models\User;
 use yii\web\Controller;
 
@@ -26,8 +27,11 @@ class UserController extends Controller
     }
     public function actionIndex()
     {
+        $addUserModel = new AdduserForm();
+
         $users = $this->getUsers();
         return $this->render('@contentsViews/user/index', [
+            'addUserModel' => $addUserModel,
             'users' => $users,
         ]);
     }
@@ -36,7 +40,7 @@ class UserController extends Controller
     {
         return User::find()
             ->with('profile')
+            ->with('technicianInfo')
             ->all();
     }
-
 }
