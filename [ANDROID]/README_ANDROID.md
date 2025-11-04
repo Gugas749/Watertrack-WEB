@@ -11,6 +11,8 @@
 > 
 > ### DetailsContadorFrag
 > 
+> revisar/limpar excesso de codigo
+> 
 > ### CreditosFrag
 > 
 > ### SettingsFrag

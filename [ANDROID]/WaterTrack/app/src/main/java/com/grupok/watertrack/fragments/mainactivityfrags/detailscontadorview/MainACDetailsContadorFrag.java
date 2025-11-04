@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.grupok.watertrack.R;
 import com.grupok.watertrack.activitys.MainActivity;
@@ -75,5 +76,13 @@ public class MainACDetailsContadorFrag extends Fragment {
 
         binding.rvFieldsInfoContadorMainAc.setLayoutManager(new LinearLayoutManager(context));
         binding.rvFieldsInfoContadorMainAc.setAdapter(fieldsAdapter);
+
+
+        binding.buttonDetailsContador.setOnClickListener(v -> {
+            Bundle data = new Bundle();
+            data.putInt("contadorId", contadorId);
+            parent.cycleFragments("ReadingsContadorFrag", data);
+        });
     }
+
 }

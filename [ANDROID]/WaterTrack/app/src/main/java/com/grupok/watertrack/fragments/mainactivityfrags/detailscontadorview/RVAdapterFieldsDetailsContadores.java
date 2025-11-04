@@ -22,6 +22,12 @@ public class RVAdapterFieldsDetailsContadores extends RecyclerView.Adapter<RVAda
     private final Context context;
     private List<RVAdapterFieldsDetailsContadores.ShownFields> fieldsList;
 
+    private ContadorItemClick callback;
+
+    public interface ContadorItemClick{
+        void onBackupsItemClick(ContadorEntity contador);
+    }
+
     public RVAdapterFieldsDetailsContadores(Context context, ContadorEntity leitura) {
         this.context = context;
         fieldsList = new ArrayList<>();
