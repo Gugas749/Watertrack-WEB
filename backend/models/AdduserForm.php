@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\models\User;
+use common\models\UserProfile;
 use Yii;
 use yii\base\Model;
 
@@ -11,10 +12,10 @@ use yii\base\Model;
  */
 class AdduserForm extends Model
 {
+    //USER MODEL
     public $username;
     public $email;
     public $password;
-
 
     /**
      * {@inheritdoc}
@@ -43,7 +44,7 @@ class AdduserForm extends Model
      *
      * @return bool whether the creating new account was successful and email was sent
      */
-    public function signup()
+    public function createuser()
     {
         if (!$this->validate()) {
             return null;
@@ -56,7 +57,17 @@ class AdduserForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
 
-        return $user->save() && $this->sendEmail($user);
+        if ($user->save()) {
+            $userProfile = new UserProfile();
+            $userProfile->userID = $user->id;
+            $userProfile->birthDate = '2000-01-01';
+            $userProfile->address = 'N/A';
+            $userProfile->save(false); // skip validation
+
+            return true;
+        }
+
+        return false;
     }
 
     /**

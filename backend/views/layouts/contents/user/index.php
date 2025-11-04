@@ -1,4 +1,13 @@
 <?php
+/** @var yii\bootstrap5\ActiveForm $form */
+/** @var yii\web\View $this */
+
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
+
+$this->title = 'Utilizadores';
+$this->params['breadcrumbs'][] = $this->title;
+
 $this->registerCssFile('@web/css/user-index.css', ['depends' => [\yii\bootstrap4\BootstrapAsset::class]]);
 $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAsset::class]]);
 ?>
@@ -105,15 +114,18 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 </button>
             </div>
             <div class="p-3">
-                <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'add-user-form']); ?>
+                <?php $form = \yii\widgets\ActiveForm::begin([
+                        'id' => 'add-user-form',
+                        'action' => ['user/createuser'],
+                        'method' => 'post',
+                ]); ?>
+                    <?= $form->field($addUserModel, 'username')->textInput(['placeholder' => 'Username', 'autofocus' => true]) ?>
+                    <?= $form->field($addUserModel, 'email')->textInput(['placeholder' => 'Email']) ?>
+                    <?= $form->field($addUserModel, 'password')->passwordInput(['placeholder' => 'Password']) ?>
 
-                <?= $form->field($addUserModel, 'username')->textInput(['placeholder' => 'Username']) ?>
-                <?= $form->field($addUserModel, 'email')->textInput(['placeholder' => 'Email']) ?>
-                <?= $form->field($addUserModel, 'password')->passwordInput(['placeholder' => 'Password']) ?>
-
-                <div class="text-end mt-3">
-                    <?= \yii\helpers\Html::submitButton('Criar Utilizador', ['class' => 'btn btn-primary']) ?>
-                </div>
+                    <div class="text-end mt-3">
+                        <?= \yii\helpers\Html::submitButton('Criar Utilizador', ['class' => 'btn btn-primary', 'name' => 'createuser-button']) ?>
+                    </div>
 
                 <?php \yii\widgets\ActiveForm::end(); ?>
             </div>
