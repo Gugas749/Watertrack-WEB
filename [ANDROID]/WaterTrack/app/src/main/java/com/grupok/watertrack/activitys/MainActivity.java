@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
 
             case "DetailsContadorFrag":
-                Log.d("LOGTESTE", "passou");
+
 
                  MainACDetailsContadorFrag detailsFrag = new MainACDetailsContadorFrag(this, contadoresEntityList);
 
@@ -240,6 +240,21 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, detailsFrag)
+                        .commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 2;
+                break;
+
+            case "ReadingsContadorFrag":
+                Log.d("LOGTESTE", "passou");
+
+                MainACReadingsContadorFrag readingsContadorFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
+                if (data != null) {
+                    readingsContadorFrag.setArguments(data);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_fragmentContainer_MainAC, readingsContadorFrag)
                         .commitAllowingStateLoss();
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 2;
