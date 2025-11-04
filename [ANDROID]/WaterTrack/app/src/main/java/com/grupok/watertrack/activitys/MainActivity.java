@@ -41,6 +41,7 @@ import com.grupok.watertrack.databinding.ActivityMainBinding;
 import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
 
+import com.grupok.watertrack.fragments.mainactivityfrags.creditsview.MainACCreditsFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview.MainACDetailsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.readingscontadorview.MainACReadingsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
     CustomAlertDialogFragment.CancelButtonClickAlertDialogQuestionFrag{
 
     private ActivityMainBinding binding;
+    private MainActivity parent;
     private MainActivity THIS;
     private int currentView;
     public UserInfosEntity currentUserInfo;
@@ -181,8 +183,9 @@ public class MainActivity extends AppCompatActivity implements
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(!allDisable){
                     item.setEnabled(false);
-                    if (item.getItemId() == R.id.mainAc_SideMenu_Configs) {
-                        //showShareBottomSheet();
+                    if (item.getItemId() == R.id.mainAc_SideMenu_Credits) {
+                        Bundle data = null;
+                        cycleFragments("CreditsFrag", data);
                     }
                     item.setEnabled(true);
                 }
@@ -227,10 +230,7 @@ public class MainActivity extends AppCompatActivity implements
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 1;
                 break;
-
             case "DetailsContadorFrag":
-
-
                  MainACDetailsContadorFrag detailsFrag = new MainACDetailsContadorFrag(this, contadoresEntityList);
 
                 //MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
@@ -257,10 +257,20 @@ public class MainActivity extends AppCompatActivity implements
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, readingsContadorFrag)
                         .commitAllowingStateLoss();
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
-                currentView = 2;
+                currentView = 3;
                 break;
 
+            case "CreditsFrag":
+                Log.d("LOGTESTE", "passou");
 
+                MainACCreditsFrag creditsFrag = new MainACCreditsFrag();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_fragmentContainer_MainAC, creditsFrag)
+                        .commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 4;
+                break;
         }
     }
     //----------------------THEME DEBUGGER---------------------------
