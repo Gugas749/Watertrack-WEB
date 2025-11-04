@@ -1,5 +1,6 @@
 package com.grupok.watertrack.fragments.mainactivityfrags.creditsview;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,7 @@ public class MainACCreditsFrag extends Fragment {
 
     private MainActivity parent;
 
+
     private FragmentMainACCreditsBinding binding;
 
 
@@ -42,24 +44,25 @@ public class MainACCreditsFrag extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMainACCreditsBinding.inflate(inflater);
 
-        if(parent.currentUserInfo != null){
-            init();
-        }
+        init();
 
         return binding.getRoot();
-
-
     }
 
     private void init(){
         List<String> credits = new ArrayList<>();
-        credits.add("Desenvolvido por: Guilherme Silva");
-        credits.add("Orientador: João Santos");
-        credits.add("Curso: TeSP PSI");
-        credits.add("Instituição: ESTG - IPLeiria");
-        credits.add("Ano: 2025");
+        credits.add(getString(R.string.credits_icons_search));
+        credits.add(getString(R.string.credits_icons_water_drop));
+        credits.add(getString(R.string.credits_icons_radios_button_icon));
+        credits.add(getString(R.string.credits_icons_warning));
+        credits.add(getString(R.string.credits_icons_info));
+        credits.add(getString(R.string.credits_icons_exit));
+        credits.add(getString(R.string.credits_icons_settings));
+        credits.add(getString(R.string.credits_icons_arrow));
+        credits.add(getString(R.string.credits_icons_close));
 
-        CreditsAdapter adapter = new CreditsAdapter(credits);
+
+        RVAdapterCredits adapter = new RVAdapterCredits(credits);
         binding.rvCreditsMainAc.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvCreditsMainAc.setAdapter(adapter);
     }
