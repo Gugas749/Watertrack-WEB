@@ -41,6 +41,7 @@ import com.grupok.watertrack.databinding.ActivityMainBinding;
 import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
 
+import com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview.MainACDetailsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.readingscontadorview.MainACReadingsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
 import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
@@ -229,7 +230,10 @@ public class MainActivity extends AppCompatActivity implements
 
             case "DetailsContadorFrag":
                 Log.d("LOGTESTE", "passou");
-                MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
+
+                 MainACDetailsContadorFrag detailsFrag = new MainACDetailsContadorFrag(this, contadoresEntityList);
+
+                //MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
                 if (data != null) {
                     detailsFrag.setArguments(data);
                 }
