@@ -19,5 +19,4 @@ class UserProfileController extends ActiveController
 
         return $recs;
     }
-
 }

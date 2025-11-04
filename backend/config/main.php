@@ -64,9 +64,23 @@ return [
                         'api/meter-type'
                     ],
                     'extraPatterns' => [
+                        // USERS
                         'GET count' => 'count',
                         'GET nomes' => 'nomes',
+                        // USER-PROFILE
                         'GET profile/{id}' => 'profile',
+                        // TECHNICIAN-INFO
+                        'GET techinfo/{id}' => 'techinfo',
+                        // METER AND METER-PROBLEM AND METER-READING
+                        'GET fromuser/{id}' => 'fromuser',
+                        // METER
+                        'GET fromenterprise/{id}' => 'fromenterprise',
+                        'GET type/{id}' => 'type',
+                        'GET withstate/{id}' => 'withstate',
+                        // METER-PROBLEM AND METER-READING
+                        'GET frommeter/{id}' => 'frommeter',
+                        // METER-READING
+                        'GET problem/{id}' => 'problem',
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
