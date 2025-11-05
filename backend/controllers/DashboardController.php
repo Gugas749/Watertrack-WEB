@@ -3,7 +3,11 @@
 namespace backend\controllers;
 
 use common\models\LoginForm;
+use common\models\Meter;
+use common\models\MeterReading;
+use common\models\User;
 use Yii;
+use yii\httpclient\Client;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -30,7 +34,14 @@ class DashboardController extends Controller
     }
     public function actionIndex()
     {
-        return $this->render('@contentsViews/dashboard/index');
+        $activeMeterCount = $this->getActiveMeterCount();
+        $readingCount = $this->getReadingCount();
+        $userCount = $this->getUserCount();
+        return $this->render('@contentsViews/dashboard/index', [
+            'activeMeterCount' => $activeMeterCount,
+            'readingCount' => $readingCount,
+            'userCount' => $userCount,
+        ]);
     }
 
     public function actionLogout()
@@ -38,5 +49,29 @@ class DashboardController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function getActiveMeterCount()
+    {
+        $meters=Meter::find()->all();
+        $meterCount = 0;
+        foreach ($meters as $meter) {
+            if($meter->state==1){
+                $meterCount++;
+            }
+        }
+        return $meterCount;
+    }
+
+    public function getReadingCount()
+    {
+        $readings=MeterReading::find()->all();
+        return count($readings);
+    }
+
+    public function getUserCount()
+    {
+        $users=User::find()->all();
+        return count($users);
     }
 }

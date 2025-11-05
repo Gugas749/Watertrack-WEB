@@ -5,21 +5,21 @@
         <div class="col-lg-3 col-md-4 col-sm-6 col-10 m-2">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
                 'text' => 'Total de Contadores Ativos',
-                'number' => '32',
+                'number' => $activeMeterCount,
                 'icon' => 'fas fa-tint',
             ]) ?>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-10 m-2">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
                 'text' => 'Total de Leituas Criadas',
-                'number' => '410',
+                'number' => $readingCount,
                 'icon' => 'fas fa-clipboard-list',
             ]) ?>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-10 m-2">
             <?= \hail812\adminlte\widgets\InfoBox::widget([
                 'text' => 'Total de Utilizadores',
-                'number' => '16',
+                'number' => $userCount,
                 'icon' => 'fas fa-user',
             ]) ?>
         </div>

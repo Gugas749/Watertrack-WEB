@@ -67,6 +67,7 @@ return [
                         // USERS
                         'GET count' => 'count',
                         'GET nomes' => 'nomes',
+                        'PUT putstatus/{id}' => 'putstatus',
                         // USER-PROFILE
                         'GET profile/{id}' => 'profile',
                         // TECHNICIAN-INFO
@@ -76,7 +77,7 @@ return [
                         // METER
                         'GET fromenterprise/{id}' => 'fromenterprise',
                         'GET type/{id}' => 'type',
-                        'GET withstate/{id}' => 'withstate',
+                        'GET withstate/{state}' => 'withstate',
                         // METER-PROBLEM AND METER-READING
                         'GET frommeter/{id}' => 'frommeter',
                         // METER-READING
@@ -84,6 +85,7 @@ return [
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
+                        '{state}' => '<state:\\d+>',
                     ],
                 ],
             ],

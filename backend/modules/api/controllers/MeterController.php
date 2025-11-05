@@ -11,7 +11,7 @@ class MeterController extends ActiveController
     public function actionFromuser($id)
     {
         $userprofilemodel = new $this->modelClass;
-        $recs = $userprofilemodel::find()->where(['userID' => $id])->one();
+        $recs = $userprofilemodel::find()->where(['userID' => $id])->all();
 
         if (!$recs) {
             return ['error' => 'Meters not found'];
@@ -23,7 +23,7 @@ class MeterController extends ActiveController
     public function actionFromenterprise($id)
     {
         $userprofilemodel = new $this->modelClass;
-        $recs = $userprofilemodel::find()->where(['enterpriseID' => $id])->one();
+        $recs = $userprofilemodel::find()->where(['enterpriseID' => $id])->all();
 
         if (!$recs) {
             return ['error' => 'Meters not found'];
@@ -35,7 +35,7 @@ class MeterController extends ActiveController
     public function actionType($id)
     {
         $userprofilemodel = new $this->modelClass;
-        $recs = $userprofilemodel::find()->where(['meterTypeID' => $id])->one();
+        $recs = $userprofilemodel::find()->where(['meterTypeID' => $id])->all();
 
         if (!$recs) {
             return ['error' => 'Meters not found'];
@@ -44,10 +44,10 @@ class MeterController extends ActiveController
         return $recs;
     }
 
-    public function actionWithstate($id)
+    public function actionWithstate($state)
     {
-        $userprofilemodel = new $this->modelClass;
-        $recs = $userprofilemodel::find()->where(['state' => $id])->one();
+        $model = new $this->modelClass;
+        $recs = $model::find()->where(['state' => $state])->all();
 
         if (!$recs) {
             return ['error' => 'Meters not found'];
