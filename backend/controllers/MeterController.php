@@ -2,7 +2,10 @@
 
 namespace backend\controllers;
 
+use backend\models\AddmeterForm;
+use backend\models\AdduserForm;
 use common\models\Meter;
+use Yii;
 use yii\web\Controller;
 
 class MeterController extends Controller
@@ -26,11 +29,27 @@ class MeterController extends Controller
     }
     public function actionIndex()
     {
-        $meters = $this->getMeters();
+        $queryParam = Yii::$app->request->get('q');
+
+        $meters = Meter::find()->all();
+
+        if (!empty($queryParam)) {
+            $meters = array_filter($meters, function ($meters) use ($queryParam) {
+                return stripos($meters->address, $queryParam) !== false;
+            });
+        }
+
         return $this->render('@contentsViews/meter/index', [
             'meters' => $meters,
+            'addMeterModel' => new AddmeterForm(),
         ]);
     }
+
+    public function actionCreatemeter()
+    {
+
+    }
+
 
     public function getMeters()
     {

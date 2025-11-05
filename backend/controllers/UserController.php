@@ -28,12 +28,19 @@ class UserController extends Controller
     }
     public function actionIndex()
     {
-        $addUserModel = new AdduserForm();
+        $queryParam = Yii::$app->request->get('q');
 
-        $users = $this->getUsers();
+        $users = User::find()->joinWith(['profile', 'technicianInfo'])->all();
+
+        if (!empty($queryParam)) {
+            $users = array_filter($users, function ($user) use ($queryParam) {
+                return stripos($user->username, $queryParam) !== false;
+            });
+        }
+
         return $this->render('@contentsViews/user/index', [
-            'addUserModel' => $addUserModel,
             'users' => $users,
+            'addUserModel' => new AdduserForm(),
         ]);
     }
 

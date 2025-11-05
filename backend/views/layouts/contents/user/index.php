@@ -13,20 +13,29 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
+        <!-- NAVIGATION? -->
         <div class="d-flex justify-content-between align-items-center mb-4 px-3">
             <h4 class="fw-bold text-dark">Utilizadores</h4>
             <div class="d-flex align-items-center gap-3">
-
                 <!-- Search -->
                 <div class="input-group mx-5" style="width:220px;">
-                    <input type="text" class="form-control form-control-sm rounded-pill ps-3 pe-5" placeholder="Search"
+                    <?php $form = ActiveForm::begin([
+                            'method' => 'get',
+                            'action' => ['user/index'],
+                            'options' => ['class' => 'd-flex align-items-center w-100'],
+                    ]); ?>
+                    <input type="text"
+                           name="q"
+                           class="form-control form-control-sm rounded-pill ps-3 pe-5"
+                           placeholder="Search"
+                           value="<?= Html::encode(Yii::$app->request->get('q')) ?>"
                            style="border:1px solid #e5e7eb;">
-                    <span class="input-group-text bg-transparent border-0 text-muted"
-                          style="position:absolute; right:10px; top:50%; transform:translateY(-50%);">
-            <i class="fas fa-search"></i>
-          </span>
+                    <button type="submit" class="input-group-text bg-transparent border-0 text-muted"
+                            style="position:absolute; right:10px; top:50%; transform:translateY(-50%);">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <?php ActiveForm::end(); ?>
                 </div>
-
                 <!-- Open Panel Button -->
                 <button class="btn btn-primary rounded-4"
                         data-toggle="right-panel"
