@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = document.getElementById('rightPanel');
     const closeBtn = document.getElementById('closePanel');
     const overlay = document.getElementById('overlay');
-    const form = document.getElementById('add-user-form');
+    const form = document.getElementById('add-meter-form');
 
     function openPanel() {
         panel.style.display = 'block';

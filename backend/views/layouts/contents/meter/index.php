@@ -4,6 +4,7 @@
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 $this->title = 'Contadores';
 $this->params['breadcrumbs'][] = $this->title;
@@ -110,21 +111,36 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\web\JqueryAs
         <!-- RIGHT PANEL -->
         <div id="rightPanel" class="right-panel bg-white shadow" style="display:none;">
             <div class="right-panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
-                <h5 class="mb-0 fw-bold text-dark">Adicionar Utilizador</h5>
+                <h5 class="mb-0 fw-bold text-dark">Adicionar Contador</h5>
                 <button type="button" class="btn btn-sm btn-light" id="closePanel">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="p-3">
                 <?php $form = \yii\widgets\ActiveForm::begin([
-                        'id' => 'add-user-form',
+                        'id' => 'add-meter-form',
                         'action' => ['meter/createmeter'],
                         'method' => 'post',
                 ]); ?>
                 <?= $form->field($addMeterModel, 'address')->textInput(['placeholder' => 'Morada', 'autofocus' => true]) ?>
-                <?= $form->field($addMeterModel, 'userID')->textInput(['placeholder' => 'User id']) ?>
-                <?= $form->field($addMeterModel, 'meterTypeID')->textInput(['placeholder' => 'Meter type id']) ?>
-                <?= $form->field($addMeterModel, 'enterpriseID')->textInput(['placeholder' => 'Enterprise id']) ?>
+                <?= $form->field($addMeterModel, 'userID')->dropDownList(
+                        ArrayHelper::map($users, 'id', function($type) {
+                            return $type->id . ' - ' . $type->username;
+                        }),
+                        ['prompt' => 'Selecione o Utilizador']
+                ) ?>
+                <?= $form->field($addMeterModel, 'meterTypeID')->dropDownList(
+                        ArrayHelper::map($meterTypes, 'id', function($type) {
+                            return $type->id . ' - ' . $type->description;
+                        }),
+                        ['prompt' => 'Selecione o Tipo de Contador']
+                ) ?>
+                <?= $form->field($addMeterModel, 'enterpriseID')->dropDownList(
+                        ArrayHelper::map($enterprises, 'id', function($enterprise) {
+                            return $enterprise->id . ' - ' . $enterprise->name;
+                        }),
+                        ['prompt' => 'Selecione a Empresa']
+                ) ?>
                 <?php
                     $classOptions = [
                             'A' => 'Classe A',
@@ -137,10 +153,39 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\web\JqueryAs
                         $classOptions,
                         ['prompt' => 'Selecione a Classe']
                 ) ?>
-
+                <?= $form->field($addMeterModel, 'instalationDate')->input('date', [
+                        'placeholder' => 'Data de Instalação'
+                ]) ?>
+                <?= $form->field($addMeterModel, 'maxCapacity')->textInput(['placeholder' => 'Capacidade Maxima']) ?>
+                <?php
+                $measureUnityOptions = [
+                        '1' => 'm^3',
+                        '2' => 'm^3/h',
+                        '3' => 'L/s',
+                        '4' => 'bar',
+                        '5' => 'Litros',
+                        '6' => 'Decilitros',
+                ];
+                ?>
+                <?= $form->field($addMeterModel, 'measureUnity')->dropDownList(
+                        $measureUnityOptions,
+                        ['prompt' => 'Selecione a Unidade de Medida']
+                ) ?>
+                <?= $form->field($addMeterModel, 'supportedTemperature')->textInput(['placeholder' => 'Temperatura Suportada']) ?>
+                <?php
+                $stateOptions = [
+                        '1' => 'ACTIVE',
+                        '2' => 'PROBLEM',
+                        '0' => 'INACTIVE',
+                ];
+                ?>
+                <?= $form->field($addMeterModel, 'state')->dropDownList(
+                        $stateOptions,
+                        ['prompt' => 'Selecione o Estado']
+                ) ?>
 
                 <div class="text-end mt-3">
-                    <?= \yii\helpers\Html::submitButton('Criar Utilizador', ['class' => 'btn btn-primary', 'name' => 'createuser-button']) ?>
+                    <?= \yii\helpers\Html::submitButton('Criar Contador', ['class' => 'btn btn-primary', 'name' => 'createmeter-button']) ?>
                 </div>
 
                 <?php \yii\widgets\ActiveForm::end(); ?>

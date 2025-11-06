@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use app\models\User;
-
 /**
  * This is the model class for table "meter".
  *
