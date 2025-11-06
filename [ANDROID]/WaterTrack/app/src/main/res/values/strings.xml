@@ -37,7 +37,7 @@
     <string name="mainActivity_AlertDialog_BackPressed_AddContador_Title">Exit</string>
     <string name="mainActivity_AlertDialog_BackPressed_AddContador_Desc">Do you wish to exit without saving?</string>
     <!-- MAIN ACTIVITY | MAIN VIEW -->
-    <string name="mainActivity_MainViewFrag_LabelConadores">Meus Contadores</string>
+    <string name="mainActivity_MainViewFrag_LabelConadores">My Meters</string>
     <string name="mainActivity_MainViewFrag_TextView_NothingToDisplay">Theres no Meters to be displayed.</string>
     <string name="mainActivity_MainViewFrag_SnackBar_NothingToSearch">Theres no Meters to be searched.</string>
     <string name="mainActivity_MainViewFrag_TextField_Search">Search</string>
@@ -56,6 +56,11 @@
     <string name="mainActivity_AddContadorFrag_ComboBox_MeasureUnity">Measure Unity</string>
     <string name="mainActivity_AddContadorFrag_TextField_SupportedTemp">Supported Temperature</string>
     <string name="mainActivity_AddContadorFrag_ComboBox_Status">Status</string>
+    <!-- MAIN ACTIVITY | ADD REPORT -->
+    <string name="mainActivity_ReportFrag_TextField_Meter">Meter</string>
+    <string name="mainActivity_ReportFrag_ComboBox_Problem">Problem</string>
+    <string name="mainActivity_ReportFrag_TextField_Description">Description</string>
+
     <!-- CREDITS -->
     <string name="credits_icons_search">Search - Created by Royyan Wijaya - Flaticon</string>
     <string name="credits_icons_water_drop">Water Drop - Created by Good Ware - Flaticon</string>
