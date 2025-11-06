@@ -12,7 +12,7 @@
 ## LINKS
 * [Link do Repositorio WEB](https://github.com/Gugas749/Watertrack-WEB)
 * [Link do Jira](https://my-team-f1esiobq.atlassian.net/jira/software/projects/JGK/summary)
-* [Link do Relatório de Especificação do SI](https://myipleiria-my.sharepoint.com/:w:/g/personal/2241567_my_ipleiria_pt/EaT5NY_eRrFElQ4yMcYTbckBpykHccAJKue7UYbFlKJWAA?e=L5ohDw)
+* [Link do Relatório de Especificação do SI]()
 * [Link do Docs](https://docs.google.com/document/d/1OzIOerLNs7PPII6IhRsYwgCvOh3YNf_8-Bh9OG0dDG8/edit?tab=t.q69v8pswmsz6)
 * [Link do Figma](https://www.figma.com/design/8INSuZ4p0Tkv7IUZTKT7BC/Design-WaterTrack?node-id=55-312&p=f&t=h24WxBbD3etWSUig-0)
 * [Link do Flaticon](https://www.flaticon.com/search?word=close)
