@@ -33,7 +33,7 @@
                     android:id="@+id/editText_Meter_ReportFrag_MainAc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
             <!-- PROBLEM - COMBO BOX -->
@@ -60,6 +60,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="none"
                     android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:clickable="true"
                     android:importantForAutofill="no"
                     android:padding="@dimen/_12sdp"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -85,7 +87,7 @@
                     android:id="@+id/editText_Description_ReportFragFrag_MainAc"
                     android:layout_width="match_parent"
                     android:layout_height="109dp"
-                    android:inputType="textPassword"
+                    android:inputType="text"
                     android:maxLines="10"/>
             </com.google.android.material.textfield.TextInputLayout>
             <!-- ADD - BUTTON -->
@@ -103,6 +105,7 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="?attr/buttonTint"
                 android:textColor="?attr/textColorButtons"/>
+
         </RelativeLayout>
     </ScrollView>
 

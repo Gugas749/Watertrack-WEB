@@ -41,6 +41,7 @@ import com.grupok.watertrack.databinding.ActivityMainBinding;
 import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
 
+import com.grupok.watertrack.fragments.mainactivityfrags.addreportview.MainACReportFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.creditsview.MainACCreditsFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview.MainACDetailsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.readingscontadorview.MainACReadingsContadorFrag;
@@ -267,6 +268,16 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, creditsFrag)
+                        .commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 4;
+                break;
+
+            case "ReportFrag":
+                MainACReportFrag reportFrag = new MainACReportFrag();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_fragmentContainer_MainAC, reportFrag)
                         .commitAllowingStateLoss();
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 4;
