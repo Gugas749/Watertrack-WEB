@@ -75,7 +75,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                     <td><?= htmlspecialchars($user->profile->address ?? 'N/A') ?></td>
                                     <td>
                                         <?php
-                                        $enterpriseText = $user->technicianInfo === null ? 'Morador' : 'Técnico';
+                                        $enterpriseText = count($user->technicianinfos) === 0 ? 'Morador' : 'Técnico';
                                         ?>
                                         <span class="fw-semibold"><?= htmlspecialchars($enterpriseText) ?></span>
                                     </td>
@@ -96,8 +96,8 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                         };
                                         ?>
                                         <span class="<?= $statusClass ?> fw-semibold">
-                        <?= htmlspecialchars($statusText) ?>
-                      </span>
+                                            <?= htmlspecialchars($statusText) ?>
+                                        </span>
                                     </td>
                                     <td>
                                         <button class="text-primary fw-semibold" data-toggle="detail-panel">Ver Detalhes</button>

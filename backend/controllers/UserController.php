@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\AdduserForm;
 use common\models\User;
+use common\models\UserProfile;
 use Yii;
 use yii\web\Controller;
 
@@ -30,7 +31,7 @@ class UserController extends Controller
     {
         $queryParam = Yii::$app->request->get('q');
 
-        $users = User::find()->joinWith(['profile', 'technicianInfo'])->all();
+        $users = User::find()->all();
 
         if (!empty($queryParam)) {
             $users = array_filter($users, function ($user) use ($queryParam) {
@@ -38,7 +39,7 @@ class UserController extends Controller
             });
         }
 
-        return $this->render('@contentsViews/user/index', [
+        return $this->render('index', [
             'users' => $users,
             'addUserModel' => new AdduserForm(),
         ]);
@@ -58,7 +59,7 @@ class UserController extends Controller
 
         // Se falhar a validaçao refaz a view outra vez
         $users = $this->getUsers();
-        return $this->render('@contentsViews/user/index', [
+        return $this->render('index', [
             'addUserModel' => $model,
             'users' => $users,
         ]);
@@ -66,6 +67,7 @@ class UserController extends Controller
 
     public function getUsers()
     {
+
         return User::find()
             ->with('profile')
             ->with('technicianInfo')

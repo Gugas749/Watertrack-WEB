@@ -61,19 +61,53 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * defenir a relacao entre user e userprofile
+     * Gets query for [[Meterproblems]].
+     *
+     * @return \yii\db\ActiveQuery
      */
-    public function getProfile()
+    public function getMeterproblems()
     {
-        return $this->hasOne(UserProfile::class, ['userID' => 'id']);
+        return $this->hasMany(Meterproblem::class, ['userID' => 'id']);
     }
 
     /**
-     * defenir a relacao entre user e technicianinfo
+     * Gets query for [[Meterreadings]].
+     *
+     * @return \yii\db\ActiveQuery
      */
-    public function getTechnicianInfo()
+    public function getMeterreadings()
     {
-        return $this->hasOne(TechnicianInfo::class, ['userID' => 'id']);
+        return $this->hasMany(Meterreading::class, ['userID' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Meters]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMeters()
+    {
+        return $this->hasMany(Meter::class, ['userID' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Technicianinfos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTechnicianinfos()
+    {
+        return $this->hasMany(Technicianinfo::class, ['userID' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Userprofile]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserprofile()
+    {
+        return $this->hasOne(Userprofile::class, ['userID' => 'id']);
     }
 
 

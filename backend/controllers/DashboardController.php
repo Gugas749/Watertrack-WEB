@@ -37,7 +37,7 @@ class DashboardController extends Controller
         $activeMeterCount = $this->getActiveMeterCount();
         $readingCount = $this->getReadingCount();
         $userCount = $this->getUserCount();
-        return $this->render('@contentsViews/dashboard/index', [
+        return $this->render('index', [
             'activeMeterCount' => $activeMeterCount,
             'readingCount' => $readingCount,
             'userCount' => $userCount,
