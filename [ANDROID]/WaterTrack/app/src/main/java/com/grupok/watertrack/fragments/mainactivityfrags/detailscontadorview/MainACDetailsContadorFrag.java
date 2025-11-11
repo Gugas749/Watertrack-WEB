@@ -77,11 +77,16 @@ public class MainACDetailsContadorFrag extends Fragment {
         binding.rvFieldsInfoContadorMainAc.setLayoutManager(new LinearLayoutManager(context));
         binding.rvFieldsInfoContadorMainAc.setAdapter(fieldsAdapter);
 
+        Bundle data = new Bundle();
 
         binding.buttonDetailsContador.setOnClickListener(v -> {
-            Bundle data = new Bundle();
             data.putInt("contadorId", contadorId);
             parent.cycleFragments("ReadingsContadorFrag", data);
+        });
+
+        binding.buttonAddReport.setOnClickListener(v ->{
+            data.putInt("contadorId", contadorId);
+            parent.cycleFragments("ReportFrag", data);
         });
     }
 

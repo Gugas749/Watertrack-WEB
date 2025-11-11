@@ -47,7 +47,7 @@
         android:gravity="top|center_horizontal"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/layoutCampos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +62,16 @@
             android:layout_margin="8dp"
             android:contentDescription=""
             app:srcCompat="@drawable/outline_content_paste_search_24"
+            android:backgroundTint="@color/butPrimary_Dark"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            style="?attr/floatingActionButtonStyle"
+            android:id="@+id/button_add_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:contentDescription=""
+            app:srcCompat="@drawable/rounded_bug_report_24"
             android:backgroundTint="@color/butPrimary_Dark"/>
 
     </LinearLayout>
