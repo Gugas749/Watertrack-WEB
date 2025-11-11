@@ -100,7 +100,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                       </span>
                                     </td>
                                     <td>
-                                        <a href="#" class="text-primary fw-semibold">Ver Detalhes</a>
+                                        <button class="text-primary fw-semibold" data-toggle="detail-panel">Ver Detalhes</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -118,7 +118,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
         <div id="rightPanel" class="right-panel bg-white shadow" style="display:none;">
             <div class="right-panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
                 <h5 class="mb-0 fw-bold text-dark">Adicionar Utilizador</h5>
-                <button type="button" class="btn btn-sm btn-light" id="closePanel">
+                <button type="button" class="btn btn-sm btn-light" id="closeRightPanel">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -128,17 +128,71 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                         'action' => ['user/createuser'],
                         'method' => 'post',
                 ]); ?>
-                    <?= $form->field($addUserModel, 'username')->textInput(['placeholder' => 'Username', 'autofocus' => true]) ?>
-                    <?= $form->field($addUserModel, 'email')->textInput(['placeholder' => 'Email']) ?>
-                    <?= $form->field($addUserModel, 'password')->passwordInput(['placeholder' => 'Password']) ?>
+                <?= $form->field($addUserModel, 'username')->textInput(['placeholder' => 'Username', 'autofocus' => true]) ?>
+                <?= $form->field($addUserModel, 'email')->textInput(['placeholder' => 'Email']) ?>
+                <?= $form->field($addUserModel, 'password')->passwordInput(['placeholder' => 'Password']) ?>
 
-                    <div class="text-end mt-3">
-                        <?= \yii\helpers\Html::submitButton('Criar Utilizador', ['class' => 'btn btn-primary', 'name' => 'createuser-button']) ?>
-                    </div>
+                <div class="text-end mt-3">
+                    <?= \yii\helpers\Html::submitButton('Criar Utilizador', ['class' => 'btn btn-primary', 'name' => 'createuser-button']) ?>
+                </div>
 
                 <?php \yii\widgets\ActiveForm::end(); ?>
             </div>
         </div>
+        <!-- DETAIL PANEL -->
+        <div id="detailPanel" class="detail-panel bg-white shadow" style="display:none;">
+            <div class="modal-content border-0 shadow-lg rounded-4 p-4" style="background-color:#fff">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold text-dark mb-0">Detalhes do Utilizador</h5>
+                    <button type="button" class="closeDetailPanel btn btn-sm btn-light">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="d-flex justify-content-start align-items-center mb-4">
+                    <span class="badge bg-success rounded-pill px-3 py-2">Ativo</span>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold small text-muted">Referência</label>
+                        <input type="text" class="form-control rounded-3" value="123" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold small text-muted">Nome</label>
+                        <input type="text" class="form-control rounded-3" value="João Silva" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold small text-muted">Tipo de Utilizador</label>
+                        <input type="text" class="form-control rounded-3" value="Técnico" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold small text-muted">Email</label>
+                        <input type="text" class="form-control rounded-3" value="joao@exemplo.pt" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold small text-muted">Morada</label>
+                        <input type="text" class="form-control rounded-3" value="Rua das Flores, 45" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold small text-muted">Data de Registo</label>
+                        <input type="text" class="form-control rounded-3" value="10/01/2023" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold small text-muted">Último Acesso</label>
+                        <input type="text" class="form-control rounded-3" value="05/11/2025" readonly>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4 gap-2">
+                    <button type="button" class="closeDetailPanel btn btn-light rounded-4 px-4">Fechar</button>
+                    <button type="button" class="btn btn-primary rounded-4 px-4" style="background-color:#4f46e5; border:none;">Editar</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Overlay -->
         <div id="overlay"></div>
     </div>
