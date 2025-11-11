@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use backend\models\AdduserForm;
+use backend\models\AddUserForm;
 use common\models\User;
 use common\models\UserProfile;
 use Yii;
@@ -47,14 +47,14 @@ class UserController extends Controller
 
         return $this->render('index', [
             'users' => $users,
-            'addUserModel' => new AdduserForm(),
+            'addUserModel' => new AddUserForm(),
             'detailUser' => $detailUser,
         ]);
     }
 
     public function actionCreateuser()
     {
-        $model = new AdduserForm();
+        $model = new AddUserForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->createuser()) {
             Yii::$app->session->setFlash('success', 'Utilizador criado com sucesso!');

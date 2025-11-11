@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\AddmeterForm;
-use backend\models\AdduserForm;
+use backend\models\AddMeterForm;
+use backend\models\AddUserForm;
 use common\models\Enterprise;
 use common\models\Meter;
 use common\models\MeterType;
@@ -44,7 +44,7 @@ class MeterController extends Controller
 
         return $this->render('index', [
             'meters' => $meters,
-            'addMeterModel' => new AddmeterForm(),
+            'addMeterModel' => new AddMeterForm(),
             'meterTypes' => MeterType::find()->all(),
             'enterprises' => Enterprise::find()->all(),
             'users' => User::find()->all(),
@@ -53,7 +53,7 @@ class MeterController extends Controller
 
     public function actionCreatemeter()
     {
-        $model = new AddmeterForm();
+        $model = new AddMeterForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->createmeter()) {
             Yii::$app->session->setFlash('success', 'Contador criado com sucesso!');

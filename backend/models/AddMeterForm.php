@@ -8,7 +8,7 @@ use common\models\UserProfile;
 use Yii;
 use yii\base\Model;
 
-class AddmeterForm extends Model
+class AddMeterForm extends Model
 {
     //METER MODEL
     public $address;

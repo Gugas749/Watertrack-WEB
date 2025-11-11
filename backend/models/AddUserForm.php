@@ -10,7 +10,7 @@ use yii\base\Model;
 /**
  * Signup form
  */
-class AdduserForm extends Model
+class AddUserForm extends Model
 {
     //USER MODEL
     public $username;

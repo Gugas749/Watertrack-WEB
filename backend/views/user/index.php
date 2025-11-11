@@ -82,10 +82,10 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                     <td>
                                         <?php
                                         $statusText = match ($user->status ?? null) {
-                                            10 => 'ACTIVE',
-                                            9  => 'INACTIVE',
-                                            0  => 'DELETED',
-                                            default => 'UNKNOWN',
+                                            10 => 'Ativo',
+                                            9  => 'Inativo',
+                                            0  => 'Desativado',
+                                            default => 'Desconhecido',
                                         };
 
                                         $statusClass = match ($user->status ?? null) {
@@ -166,7 +166,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                         $statusText = match ($detailUser->status ?? null) {
                             10 => 'Ativo',
                             9  => 'Inativo',
-                            0  => 'Eliminado',
+                            0  => 'Desativado',
                             default => 'Desconhecido',
                         };
                         ?>
@@ -220,14 +220,20 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
         <?php endif; ?>
 
 
+        <!--ATIVAR O DETAIL PANEL -->
         <?php if ($detailUser): ?>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     const detailPanel = document.getElementById('detailPanel');
                     const overlay = document.getElementById('overlay');
-                    detailPanel.classList.add('show');
+
                     overlay.style.display = 'block';
+                    detailPanel.style.display = 'block';
                     document.body.style.overflow = 'hidden';
+
+                    requestAnimationFrame(() => {
+                        detailPanel.classList.add('show');
+                    });
                 });
             </script>
         <?php endif; ?>

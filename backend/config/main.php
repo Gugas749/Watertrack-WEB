@@ -31,7 +31,7 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-            'loginUrl' => ['site/login'],
+            'loginUrl' => null //['site/login'], REDIRECIONA_TODO O TRAFICO SE TIVER INVÁLIDO
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend

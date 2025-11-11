@@ -3,22 +3,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const rightPanel = document.getElementById('rightPanel');
     const closeRightBtn = document.getElementById('closeRightPanel');
     const overlay = document.getElementById('overlay');
-    const form = document.getElementById('add-user-form');
+    const form = document.getElementById('add-enterprise-form');
 
     function openRightPanel() {
         rightPanel.style.display = 'block';
         overlay.style.display = 'block';
-        document.body.style.overflow = 'hidden'; //lock scroll
+        document.body.style.overflow = 'hidden';
         requestAnimationFrame(() => rightPanel.classList.add('show'));
     }
 
     function closeRightPanel() {
         rightPanel.classList.remove('show');
         overlay.style.display = 'none';
-        document.body.style.overflow = ''; // unlock scroll
+        document.body.style.overflow = '';
         setTimeout(() => {
             rightPanel.style.display = 'none';
-            // 🧹 Auto-reset form when rightPanel closes
             if (form) form.reset();
         }, 300);
     }
@@ -27,9 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeRightBtn) closeRightBtn.addEventListener('click', closeRightPanel);
     if (overlay) overlay.addEventListener('click', closeRightPanel);
 
-    //----------------------------------------------------
-    //----------------------------------------------------
-    //----------------------------------------------------
     const detailPanel = document.getElementById('detailPanel');
     const closeDetailBtns = document.querySelectorAll('.closeDetailPanel');
 
@@ -42,8 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
 
-    closeDetailBtns.forEach(btn => {
-        btn.addEventListener('click', closeDetailPanel);
-    });
+    closeDetailBtns.forEach(btn => btn.addEventListener('click', closeDetailPanel));
     if (overlay) overlay.addEventListener('click', closeDetailPanel);
 });

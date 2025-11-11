@@ -22,6 +22,8 @@
                     ['label' => 'Utilizadores', 'icon' => 'user', 'url' => ['user/index']],
                     ['label' => 'Contadores', 'icon' => 'tint', 'url' => ['meter/index']],
                     ['label' => 'Leituras', 'icon' => 'book-open', 'url' => ['reading/index']],
+                    ['label' => 'Empresas', 'icon' => 'building', 'url' => ['enterprise/index']],
+                    ['label' => 'Extras', 'icon' => 'cube', 'url' => ['extras/index']],
                     ['label' => 'Definições', 'icon' => 'cog', 'url' => ['setting/index']],
                 ],
             ]);
