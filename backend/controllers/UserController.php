@@ -65,19 +65,10 @@ class UserController extends Controller
         }
 
         // Se falhar a validaçao refaz a view outra vez
-        $users = $this->getUsers();
+        $users = User::find()->all();
         return $this->render('index', [
             'addUserModel' => $model,
             'users' => $users,
         ]);
-    }
-
-    public function getUsers()
-    {
-
-        return User::find()
-            ->with('profile')
-            ->with('technicianInfo')
-            ->all();
     }
 }
