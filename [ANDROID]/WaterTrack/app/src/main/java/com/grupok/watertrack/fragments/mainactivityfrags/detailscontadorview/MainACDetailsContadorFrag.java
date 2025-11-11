@@ -36,6 +36,7 @@ public class MainACDetailsContadorFrag extends Fragment {
     private List<ContadorEntity> contadoresEntityList;
     private RVAdapterFieldsDetailsContadores fieldsAdapter;
     private int contadorId;
+    private String contadorNome;
 
     public MainACDetailsContadorFrag() {
         // Required empty public constructor
@@ -56,12 +57,15 @@ public class MainACDetailsContadorFrag extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMainACDetailsContadorBinding.inflate(inflater);
 
+
+
         if(parent.currentUserInfo != null){
             init();
         }
 
         if (getArguments() != null) {
             contadorId = getArguments().getInt("contadorId", -1);
+            contadorNome = getArguments().getString("contadorNome", "");
             Log.d("LOGTESTE", "Received contadorId: " + contadorId);
         }
 

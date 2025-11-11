@@ -8,6 +8,8 @@
         <item>System Sync</item>
     </string-array>
 
+
+
     <!-- GENERAL -->
     <string name="general_continue">Continue</string>
     <string name="general_confirm">Confirm</string>
@@ -32,6 +34,7 @@
     <string name="authActivity_RegisterFrag_TextButton_OldUser">Already a User? Login Now</string>
     <!-- MAIN ACTIVITY -->
     <string name="mainActivity_SideMenu_Settings">Settings</string>
+    <string name="mainActivity_SideMenu_Reports">Reports</string>
     <string name="mainActivity_SideMenu_Credits">Credits</string>
     <string name="mainActivity_SideMenu_Logout">Logout</string>
     <string name="mainActivity_AlertDialog_BackPressed_AddContador_Title">Exit</string>
@@ -60,6 +63,7 @@
     <string name="mainActivity_ReportFrag_TextField_Meter">Meter</string>
     <string name="mainActivity_ReportFrag_ComboBox_Problem">Problem</string>
     <string name="mainActivity_ReportFrag_TextField_Description">Description</string>
+    <string name="mainActivity_ReportFrag_TextField_Other_Problem">Other</string>
 
     <!-- CREDITS -->
     <string name="credits_icons_search">Search - Created by Royyan Wijaya - Flaticon</string>

@@ -188,6 +188,10 @@ public class MainActivity extends AppCompatActivity implements
                         Bundle data = null;
                         cycleFragments("CreditsFrag", data);
                     }
+                    else if(item.getItemId() == R.id.mainAc_SideMenu_Reports) {
+                        Bundle data = null;
+                        cycleFragments("ReportFrag", data);
+                    }
                     item.setEnabled(true);
                 }
                 return true;
@@ -274,13 +278,16 @@ public class MainActivity extends AppCompatActivity implements
                 break;
 
             case "ReportFrag":
-                MainACReportFrag reportFrag = new MainACReportFrag();
+                MainACReportFrag reportFrag = new MainACReportFrag(this, contadoresEntityList);
+                if (data != null) {
+                    reportFrag.setArguments(data);
+                }
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, reportFrag)
                         .commitAllowingStateLoss();
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
-                currentView = 4;
+                currentView = 5;
                 break;
         }
     }
