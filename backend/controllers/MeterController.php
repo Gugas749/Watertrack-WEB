@@ -42,7 +42,7 @@ class MeterController extends Controller
             });
         }
 
-        return $this->render('@contentsViews/meter/index', [
+        return $this->render('index', [
             'meters' => $meters,
             'addMeterModel' => new AddmeterForm(),
             'meterTypes' => MeterType::find()->all(),
@@ -64,7 +64,7 @@ class MeterController extends Controller
         }
 
         $meters = $this->getMeters();
-        return $this->render('@contentsViews/meter/index', [
+        return $this->render('index', [
             'addMeterModel' => $model,
             'meters' => $meters,
         ]);

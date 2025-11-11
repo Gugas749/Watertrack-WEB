@@ -24,7 +24,7 @@ class SiteController extends Controller
 
         $model->password = '';
 
-        return $this->render('@backend/views/site/login', ['model' => $model]);
+        return $this->render('site/login', ['model' => $model]);
     }
 
     public function actionError()
@@ -35,7 +35,7 @@ class SiteController extends Controller
             if (Yii::$app->user->isGuest) {
                 return $this->redirect(['site/login']);
             } else {
-                return $this->redirect(['dashboard/index']);
+                return $this->redirect(['index']);
             }
         }
     }

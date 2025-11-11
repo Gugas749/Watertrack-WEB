@@ -30,6 +30,7 @@ class UserController extends Controller
     public function actionIndex()
     {
         $queryParam = Yii::$app->request->get('q');
+        $userIdParam = Yii::$app->request->get('userID');
 
         $users = User::find()->all();
 
@@ -39,9 +40,15 @@ class UserController extends Controller
             });
         }
 
+        $detailUser = null;
+        if ($userIdParam !== null) {
+            $detailUser = User::find()->where(['id' => $userIdParam])->with('userprofile')->one();
+        }
+
         return $this->render('index', [
             'users' => $users,
             'addUserModel' => new AdduserForm(),
+            'detailUser' => $detailUser,
         ]);
     }
 

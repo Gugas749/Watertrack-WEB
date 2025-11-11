@@ -100,7 +100,11 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                         </span>
                                     </td>
                                     <td>
-                                        <button class="text-primary fw-semibold" data-toggle="detail-panel">Ver Detalhes</button>
+                                        <?= Html::a('Ver Detalhes', ['user/index', 'userID' => $user->id],
+                                                [
+                                                    'class' => 'text-primary fw-semibold text-decoration-none',
+                                                ]
+                                        )?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -139,59 +143,94 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 <?php \yii\widgets\ActiveForm::end(); ?>
             </div>
         </div>
+
         <!-- DETAIL PANEL -->
-        <div id="detailPanel" class="detail-panel bg-white shadow" style="display:none;">
-            <div class="modal-content border-0 shadow-lg rounded-4 p-4" style="background-color:#fff">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold text-dark mb-0">Detalhes do Utilizador</h5>
-                    <button type="button" class="closeDetailPanel btn btn-sm btn-light">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <div class="d-flex justify-content-start align-items-center mb-4">
-                    <span class="badge bg-success rounded-pill px-3 py-2">Ativo</span>
-                </div>
-
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold small text-muted">Referência</label>
-                        <input type="text" class="form-control rounded-3" value="123" readonly>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold small text-muted">Nome</label>
-                        <input type="text" class="form-control rounded-3" value="João Silva" readonly>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold small text-muted">Tipo de Utilizador</label>
-                        <input type="text" class="form-control rounded-3" value="Técnico" readonly>
+        <?php if ($detailUser): ?>
+            <div id="detailPanel" class="detail-panel bg-white shadow show">
+                <div class="modal-content border-0 shadow-lg rounded-4 p-4" style="background-color:#fff">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold text-dark mb-0">Detalhes do Utilizador</h5>
+                        <button type="button" class="closeDetailPanel btn btn-sm btn-light">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold small text-muted">Email</label>
-                        <input type="text" class="form-control rounded-3" value="joao@exemplo.pt" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold small text-muted">Morada</label>
-                        <input type="text" class="form-control rounded-3" value="Rua das Flores, 45" readonly>
+                    <div class="d-flex justify-content-start align-items-center mb-4">
+                        <?php
+                        $statusClass = match ($detailUser->status ?? null) {
+                            10 => 'bg-success',
+                            9  => 'bg-warning',
+                            0  => 'bg-danger',
+                            default => 'bg-secondary',
+                        };
+                        $statusText = match ($detailUser->status ?? null) {
+                            10 => 'Ativo',
+                            9  => 'Inativo',
+                            0  => 'Eliminado',
+                            default => 'Desconhecido',
+                        };
+                        ?>
+                        <span class="badge <?= $statusClass ?> rounded-pill px-3 py-2"><?= $statusText ?></span>
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold small text-muted">Data de Registo</label>
-                        <input type="text" class="form-control rounded-3" value="10/01/2023" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold small text-muted">Último Acesso</label>
-                        <input type="text" class="form-control rounded-3" value="05/11/2025" readonly>
-                    </div>
-                </div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small text-muted">Referência</label>
+                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->id) ?>" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small text-muted">Nome</label>
+                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->username) ?>" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small text-muted">Tipo de Utilizador</label>
+                            <?php
+                            $type = count($detailUser->technicianinfos) === 0 ? 'Morador' : 'Técnico';
+                            ?>
+                            <input type="text" class="form-control rounded-3" value="<?= $type ?>" readonly>
+                        </div>
 
-                <div class="d-flex justify-content-end mt-4 gap-2">
-                    <button type="button" class="closeDetailPanel btn btn-light rounded-4 px-4">Fechar</button>
-                    <button type="button" class="btn btn-primary rounded-4 px-4" style="background-color:#4f46e5; border:none;">Editar</button>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-muted">Email</label>
+                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->email) ?>" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-muted">Morada</label>
+                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->profile->address ?? 'N/A') ?>" readonly>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-muted">Data de Registo</label>
+                            <input type="text" class="form-control rounded-3" value="<?= Yii::$app->formatter->asDate($detailUser->created_at) ?>" readonly>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-muted">Último Update</label>
+                            <input type="text" class="form-control rounded-3" value="<?= Yii::$app->formatter->asDate($detailUser->updated_at ?? 'N/A') ?>" readonly>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4 gap-2">
+                        <button type="button" class="closeDetailPanel btn btn-light rounded-4 px-4">Fechar</button>
+                        <button type="button" class="btn btn-primary rounded-4 px-4" style="background-color:#4f46e5; border:none;">Editar</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
+
+
+        <?php if ($detailUser): ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const detailPanel = document.getElementById('detailPanel');
+                    const overlay = document.getElementById('overlay');
+                    detailPanel.classList.add('show');
+                    overlay.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            </script>
+        <?php endif; ?>
 
         <!-- Overlay -->
         <div id="overlay"></div>

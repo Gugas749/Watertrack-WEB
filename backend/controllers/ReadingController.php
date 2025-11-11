@@ -23,7 +23,7 @@ class ReadingController extends \yii\web\Controller
     }
     public function actionIndex()
     {
-        return $this->render('@contentsViews/reading/index');
+        return $this->render('index');
     }
 
 }
