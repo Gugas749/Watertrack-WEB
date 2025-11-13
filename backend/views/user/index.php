@@ -68,9 +68,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                 <tr>
                                     <td><?= htmlspecialchars($user->id) ?></td>
                                     <td>
-                                        <a href="#" class="text-decoration-none text-primary">
-                                            <?= htmlspecialchars($user->username) ?>
-                                        </a>
+                                        <?= htmlspecialchars($user->username) ?>
                                     </td>
                                     <td><?= htmlspecialchars($user->profile->address ?? 'N/A') ?></td>
                                     <td>

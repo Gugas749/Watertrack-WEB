@@ -66,9 +66,7 @@ $this->registerJsFile('@web/js/enterprise-index.js', ['depends' => [\yii\web\Jqu
                                 <tr>
                                     <td><?= htmlspecialchars($enterprise->id) ?></td>
                                     <td>
-                                        <a href="#" class="text-decoration-none text-primary">
-                                            <?= htmlspecialchars($enterprise->name) ?>
-                                        </a>
+                                        <?= htmlspecialchars($enterprise->name) ?>
                                     </td>
                                     <td><?= htmlspecialchars($enterprise->address) ?></td>
                                     <td><?= htmlspecialchars($enterprise->contactNumber) ?></td>
