@@ -2,38 +2,34 @@ package com.grupok.watertrack.fragments.mainactivityfrags.addreportview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.Toast;
-
 import com.grupok.watertrack.R;
 import com.grupok.watertrack.activitys.MainActivity;
 import com.grupok.watertrack.database.entities.ContadorEntity;
 import com.grupok.watertrack.databinding.FragmentMainACReportBinding;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainACReportFrag extends Fragment {
 
     private MainActivity parent;
     private FragmentMainACReportBinding binding;
-    private MainACReportFrag THIS;
     private List<ContadorEntity> contadoresEntityList;
     private List<String> listString = new ArrayList<>();
-    private Context context;
-    private int contadorId = -1;
-    private String contadorNome = "";
-    private String contadorMorada = "";
+    private int contadorId;
+    private String contadorNome;
+    private String contadorMorada;
 
     public MainACReportFrag() {
         // Required empty public constructor
@@ -45,23 +41,13 @@ public class MainACReportFrag extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMainACReportBinding.inflate(inflater, container, false);
 
-        // 🔹 Receber argumentos (se existirem)
         if (getArguments() != null) {
-            int id = getArguments().getInt("contadorId", -1);
-            if (id == -1) {
-                setArguments(null);
-            }
+            contadorId = getArguments().getInt("contadorId", -1);
         }
 
-        // 🔹 Procurar contador correspondente
         if (contadoresEntityList != null && contadorId != -1) {
             for (ContadorEntity c : contadoresEntityList) {
                 if (c.id == contadorId) {
@@ -84,38 +70,18 @@ public class MainACReportFrag extends Fragment {
 
         fillProblem(listString);
         setupComboProblem();
+        setupComboMeter();
         setupButtonSave();
         setupUserType(cargo);
-
-        // 🔹 Só mostra todos os contadores se não veio de bundle
-        if (contadorId == -1) {
-//            mostrarTodosContadores();
-            setupFiltroPorId(); // só técnico sem bundle pode filtrar
-        }
     }
 
     private void fillProblem(List<String> list) {
-        list.add("Fuga de água no contador");
-        list.add("Leitura incorreta do consumo");
-        list.add("Vidro do mostrador embaciado");
-        list.add("Bloqueio do mecanismo interno");
-        list.add("Contador avariado ou parado");
-        list.add("Ligação solta ou danificada");
-        list.add("Presença de ar nas tubagens");
-        list.add("Infiltração de sujidade ou detritos");
-        list.add("Congelamento do contador (em tempo frio)");
-        list.add("Manipulação indevida do equipamento");
-        list.add("Oxidação ou ferrugem nas ligações metálicas");
-        list.add("Falha na comunicação com o sistema remoto");
-        list.add("Bateria interna descarregada (em contadores eletrónicos)");
-        list.add("Selo de segurança rompido");
-        list.add("Instalação incorreta do contador");
-        list.add("Outro");
+        String[] problemas = getResources().getStringArray(R.array.problem_report);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 android.R.layout.simple_dropdown_item_1line,
-                list
+                problemas
         );
 
         binding.comboBoxProblemReportFragMainAc.setAdapter(adapter);
@@ -129,11 +95,36 @@ public class MainACReportFrag extends Fragment {
     private void setupComboProblem() {
         binding.comboBoxProblemReportFragMainAc.setOnItemClickListener((adapterView, view, position, id) -> {
             String selected = listString.get(position);
-            if (selected.equalsIgnoreCase("Outro")) {
+            if (selected.equalsIgnoreCase("Other")) {
                 binding.inputLayoutTextInputOtherProblemReportFragMainAc.setVisibility(View.VISIBLE);
             } else {
                 binding.inputLayoutTextInputOtherProblemReportFragMainAc.setVisibility(View.GONE);
             }
+        });
+    }
+
+    private void setupComboMeter() {
+        if (contadoresEntityList == null || contadoresEntityList.isEmpty()) return;
+
+        // Cria adaptador personalizado
+        MeterAdapter adapter = new MeterAdapter(requireContext(), contadoresEntityList);
+        binding.comboBoxMeterReportFragMainAc.setAdapter(adapter);
+
+        // Mostrar lista ao clicar
+        binding.comboBoxMeterReportFragMainAc.setOnClickListener(v -> binding.comboBoxMeterReportFragMainAc.showDropDown());
+        binding.comboBoxMeterReportFragMainAc.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) binding.comboBoxMeterReportFragMainAc.showDropDown();
+        });
+
+        // Mostrar lista novamente quando texto for apagado
+        binding.comboBoxMeterReportFragMainAc.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().isEmpty()) {
+                    binding.comboBoxMeterReportFragMainAc.showDropDown();
+                }
+            }
+            @Override public void afterTextChanged(Editable s) { }
         });
     }
 
@@ -142,7 +133,7 @@ public class MainACReportFrag extends Fragment {
             if (binding.inputLayoutTextInputOtherProblemReportFragMainAc.getVisibility() == View.VISIBLE) {
                 String novoProblema = binding.editTextOtherProblemReportFragMainAc.getText().toString().trim();
                 if (!novoProblema.isEmpty() && !listString.contains(novoProblema)) {
-                    listString.add(listString.size() - 1, novoProblema); // adiciona antes do "Outro"
+                    listString.add(listString.size() - 1, novoProblema);
                     ((ArrayAdapter<String>) binding.comboBoxProblemReportFragMainAc.getAdapter()).notifyDataSetChanged();
                     binding.editTextOtherProblemReportFragMainAc.setText("");
                     binding.inputLayoutTextInputOtherProblemReportFragMainAc.setVisibility(View.GONE);
@@ -151,95 +142,89 @@ public class MainACReportFrag extends Fragment {
         });
     }
 
-    // 🔹 Configurar tipo de utilizador
     private void setupUserType(int cargo) {
-        if (cargo == 1) { // Técnico
+        if (cargo == 1) { // técnico
             if (contadorId != -1) {
+                // Se veio um contador no bundle → mostra-o
                 String texto = "" + contadorId;
-                if (!contadorMorada.isEmpty()) {
-                    texto += " — " + contadorMorada;
-                }
-                binding.editTextMeterReportFragMainAc.setText(texto);
-                binding.editTextMeterReportFragMainAc.setEnabled(false); // 🔒 bloqueado
+                if (!contadorMorada.isEmpty()) texto += " — " + contadorMorada;
+                binding.comboBoxMeterReportFragMainAc.setText(texto);
             } else {
-                binding.editTextMeterReportFragMainAc.setText("");
-                binding.editTextMeterReportFragMainAc.setHint("Digite o ID do contador");
-                binding.editTextMeterReportFragMainAc.setEnabled(true); // ✏️ desbloqueado
+                // Caso NÃO venha bundle → deixa o campo vazio, mas lista aparece igual
+                binding.comboBoxMeterReportFragMainAc.setText("");
+                binding.comboBoxMeterReportFragMainAc.setHint("Selecione o contador");
+                // Abre lista ao focar
+                binding.comboBoxMeterReportFragMainAc.setOnFocusChangeListener((v, hasFocus) -> {
+                    if (hasFocus) binding.comboBoxMeterReportFragMainAc.showDropDown();
+                });
             }
+            Toast.makeText(requireContext(), "Técnico", Toast.LENGTH_SHORT).show();
 
-            Toast.makeText(requireContext(), "Morador", Toast.LENGTH_SHORT).show();
-
-        } else if (cargo == 0) { // Morador
+        } else if (cargo == 0) { // morador
             if (contadorId != -1) {
                 String texto = "" + contadorId;
-                if (!contadorNome.isEmpty()) {
-                    texto += " — " + contadorNome;
-                }
-                binding.editTextMeterReportFragMainAc.setText(texto);
+                if (!contadorNome.isEmpty()) texto += " — " + contadorNome;
+                binding.comboBoxMeterReportFragMainAc.setText(texto);
             }
-
-            binding.editTextMeterReportFragMainAc.setEnabled(false); // 🔒 bloqueado
-            Toast.makeText(requireContext(), "Tecnico", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Morador", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void mostrarTodosContadores() {
-        if (contadoresEntityList == null || contadoresEntityList.isEmpty()) return;
+    private static class MeterAdapter extends ArrayAdapter<String> implements Filterable {
+        private final Context context;
+        private final List<ContadorEntity> originalList;
+        private List<String> filteredList;
 
-        StringBuilder sb = new StringBuilder();
-        for (ContadorEntity c : contadoresEntityList) {
-            sb.append("ID: ").append(c.id)
-                    .append(" — Nome: ").append(c.nome)
-                    .append(" — Morada: ").append(c.morada)
-                    .append("\n");
+        public MeterAdapter(Context context, List<ContadorEntity> contadores) {
+            super(context, android.R.layout.simple_dropdown_item_1line, new ArrayList<>());
+            this.context = context;
+            this.originalList = contadores;
+            this.filteredList = buildStringList(contadores);
+            addAll(filteredList);
         }
-        binding.editTextMeterReportFragMainAc.setText(sb.toString());
-    }
 
-    // 🔹 Filtro por ID (só usado por técnico sem bundle)
-    private void setupFiltroPorId() {
-        TextWatcher watcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        private static List<String> buildStringList(List<ContadorEntity> list) {
+            List<String> result = new ArrayList<>();
+            for (ContadorEntity c : list) {
+                String texto = c.id + " — " + c.nome + " (" + c.morada + ")";
+                result.add(texto);
+            }
+            return result;
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String input = s.toString().trim();
-                if (input.isEmpty()) return;
-
-                try {
-                    int idPesquisado = Integer.parseInt(input);
-                    ContadorEntity c = null;
-                    for (ContadorEntity contador : contadoresEntityList) {
-                        if (contador.id == idPesquisado) {
-                            c = contador;
-                            break;
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    List<String> filtered = new ArrayList<>();
+                    if (constraint == null || constraint.length() == 0) {
+                        filtered = buildStringList(originalList);
+                    } else {
+                        String query = constraint.toString().toLowerCase(Locale.ROOT);
+                        for (ContadorEntity c : originalList) {
+                            if (String.valueOf(c.id).contains(query) ||
+                                    c.nome.toLowerCase(Locale.ROOT).contains(query) ||
+                                    c.morada.toLowerCase(Locale.ROOT).contains(query)) {
+                                filtered.add(c.id + " — " + c.nome + " (" + c.morada + ")");
+                            }
                         }
                     }
-
-                    binding.editTextMeterReportFragMainAc.removeTextChangedListener(this);
-
-                    if (c != null) {
-                        String texto = "ID: " + c.id + " — Nome: " + c.nome + " — Morada: " + c.morada;
-                        binding.editTextMeterReportFragMainAc.setText(texto);
-                    } else {
-                        binding.editTextMeterReportFragMainAc.setText("Contador não encontrado");
-                    }
-
-                    binding.editTextMeterReportFragMainAc.addTextChangedListener(this);
-
-                } catch (NumberFormatException e) {
-                    binding.editTextMeterReportFragMainAc.removeTextChangedListener(this);
-                    binding.editTextMeterReportFragMainAc.setText("ID inválido");
-                    binding.editTextMeterReportFragMainAc.setText("");
-                    binding.editTextMeterReportFragMainAc.addTextChangedListener(this);
+                    FilterResults results = new FilterResults();
+                    results.values = filtered;
+                    results.count = filtered.size();
+                    return results;
                 }
-            }
-        };
 
-        binding.editTextMeterReportFragMainAc.addTextChangedListener(watcher);
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    clear();
+                    if (results != null && results.values != null) {
+                        addAll((List<String>) results.values);
+                    }
+                    notifyDataSetChanged();
+                }
+            };
+        }
     }
 }
