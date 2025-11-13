@@ -9,6 +9,25 @@
     </string-array>
 
 
+    <string-array name="problem_report">
+        <item>Water leak in the meter</item>
+        <item>Incorrect consumption reading</item>
+        <item>Fogged display glass</item>
+        <item>Internal mechanism blockage</item>
+        <item>Meter malfunction or stopped</item>
+        <item>Loose or damaged connection</item>
+        <item>Presence of air in the pipes</item>
+        <item>Dirt or debris infiltration</item>
+        <item>Meter freezing (in cold weather)</item>
+        <item>Improper handling of the equipment</item>
+        <item>Oxidation or rust on metal connections</item>
+        <item>Communication failure with remote system</item>
+        <item>Internal battery discharged (in electronic meters)</item>
+        <item>Broken security seal</item>
+        <item>Incorrect meter installation</item>
+        <item>Other</item>
+    </string-array>
+
 
     <!-- GENERAL -->
     <string name="general_continue">Continue</string>
@@ -60,7 +79,7 @@
     <string name="mainActivity_AddContadorFrag_TextField_SupportedTemp">Supported Temperature</string>
     <string name="mainActivity_AddContadorFrag_ComboBox_Status">Status</string>
     <!-- MAIN ACTIVITY | ADD REPORT -->
-    <string name="mainActivity_ReportFrag_TextField_Meter">Meter</string>
+    <string name="mainActivity_ReportFrag_ComboBox_Meter">Meter</string>
     <string name="mainActivity_ReportFrag_ComboBox_Problem">Problem</string>
     <string name="mainActivity_ReportFrag_TextField_Description">Description</string>
     <string name="mainActivity_ReportFrag_TextField_Other_Problem">Other</string>

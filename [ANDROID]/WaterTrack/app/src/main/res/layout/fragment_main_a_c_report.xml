@@ -13,29 +13,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <!--ID Meter - TEXT INPUT -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputLayout_TextInput_Meter_ReportFrag_MainAc"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="@dimen/_12sdp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="@dimen/_12sdp"
-                android:hint="@string/mainActivity_ReportFrag_TextField_Meter"
+                android:hint="@string/mainActivity_ReportFrag_ComboBox_Meter"
+                app:hintTextColor="@color/textfield_stroke_colors"
                 app:boxStrokeColor="@color/textfield_stroke_colors"
                 app:boxStrokeErrorColor="?attr/colorError"
                 app:boxStrokeWidth="@dimen/_2sdp"
                 app:boxStrokeWidthFocused="@dimen/_3sdp"
-                app:hintTextColor="@color/textfield_stroke_colors">
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_12sdp"
+                app:endIconMode="dropdown_menu">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText_Meter_ReportFrag_MainAc"
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/comboBox_Meter_ReportFrag_MainAc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:singleLine="true" />
+                    android:inputType="textAutoComplete"
+                    android:focusable="true"
+                    android:importantForAutofill="no"
+                    android:padding="@dimen/_12sdp"/>
             </com.google.android.material.textfield.TextInputLayout>
+
             <!-- PROBLEM - COMBO BOX -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inputLayout_ComboBox_Problem_ReportFrag_MainAc"

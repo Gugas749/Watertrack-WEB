@@ -279,9 +279,6 @@ public class MainActivity extends AppCompatActivity implements
 
             case "ReportFrag":
                 MainACReportFrag reportFrag = new MainACReportFrag(this, contadoresEntityList);
-                if (data != null) {
-                    reportFrag.setArguments(data);
-                }
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, reportFrag)
