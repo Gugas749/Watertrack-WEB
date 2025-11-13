@@ -2,11 +2,12 @@
 
 namespace backend\controllers;
 
-use backend\models\AddUserForm;
+use backend\models\AdduserForm;
 use common\models\User;
 use common\models\UserProfile;
 use Yii;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 
 class UserController extends Controller
 {
@@ -15,18 +16,20 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
+                'except' => ['error'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
-                    return Yii::$app->response->redirect(['site/login']);
+                    throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
                 },
             ],
         ];
     }
+
     public function actionIndex()
     {
         $queryParam = Yii::$app->request->get('q');
@@ -47,14 +50,19 @@ class UserController extends Controller
 
         return $this->render('index', [
             'users' => $users,
-            'addUserModel' => new AddUserForm(),
+            'addUserModel' => new AdduserForm(),
             'detailUser' => $detailUser,
         ]);
     }
 
     public function actionCreateuser()
     {
-        $model = new AddUserForm();
+        // RBAC - Ver permissao de criar user
+        if (!Yii::$app->user->can('createUser')) {
+            throw new ForbiddenHttpException('Não tem permissão para criar utilizadores.');
+        }
+
+        $model = new AdduserForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->createuser()) {
             Yii::$app->session->setFlash('success', 'Utilizador criado com sucesso!');

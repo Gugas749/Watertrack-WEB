@@ -14,14 +14,15 @@ class ExtrasController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
+                'except' => ['error'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['admin'],
                     ],
                 ],
-                'denyCallback' => function () {
-                    return Yii::$app->response->redirect(['site/login']);
+                'denyCallback' => function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
                 },
             ],
         ];

@@ -92,7 +92,7 @@ return [
         ],
         'as beforeRequest' => [
             'class' => 'yii\filters\AccessControl',
-            'except' => ['site/login', 'site/error'],
+            'except' => ['site/login', 'site/error', 'dashboard/error'],
             'rules' => [
                 [
                     'allow' => true,

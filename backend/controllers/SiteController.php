@@ -8,6 +8,25 @@ use yii\web\Controller;
 
 class SiteController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                'except' => ['error'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
+                },
+            ],
+        ];
+    }
+
     public function actionLogin()
     {
         $this->layout = 'main-login';
@@ -27,17 +46,13 @@ class SiteController extends Controller
         return $this->render('site/login', ['model' => $model]);
     }
 
-    public function actionError()
+    public function actions()
     {
-        $exception = Yii::$app->errorHandler->exception;
-
-        if ($exception !== null) {
-            if (Yii::$app->user->isGuest) {
-                return $this->redirect(['site/login']);
-            } else {
-                return $this->redirect(['index']);
-            }
-        }
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+                'view' => '@backend/views/site/error.php',
+            ],
+        ];
     }
-
 }
