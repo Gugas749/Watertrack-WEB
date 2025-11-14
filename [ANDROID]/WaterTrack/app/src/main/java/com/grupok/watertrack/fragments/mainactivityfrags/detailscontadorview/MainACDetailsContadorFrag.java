@@ -83,12 +83,12 @@ public class MainACDetailsContadorFrag extends Fragment {
 
         Bundle data = new Bundle();
 
-        binding.buttonDetailsContador.setOnClickListener(v -> {
+        binding.butReadingsDetailsContadorMainAc.setOnClickListener(v -> {
             data.putInt("contadorId", contadorId);
             parent.cycleFragments("ReadingsContadorFrag", data);
         });
 
-        binding.buttonAddReport.setOnClickListener(v ->{
+        binding.butReportProblemDetailsContadorMainAc.setOnClickListener(v ->{
             data.putInt("contadorId", contadorId);
             parent.cycleFragments("ReportFrag", data);
         });

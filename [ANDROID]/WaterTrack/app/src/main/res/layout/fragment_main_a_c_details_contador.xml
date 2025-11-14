@@ -1,80 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!-- DYNAMICS FIELSA (60%) -->
-    <LinearLayout
-        android:id="@+id/layoutCampos"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.80">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_70sdp">
         <TextView
-            android:id="@+id/textView_LabelDetails_InfoContador_MainAc"
-            android:layout_width="wrap_content"
+            android:id="@+id/textView_Header_DetailsContador_MainAc"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Contador"
-            android:textStyle="bold"
-            android:textSize="@dimen/_14sdp"
+            android:text="@string/mainActivity_DetailsContadorFrag_Header"
             android:textColor="?attr/textColorPrimary"
-            android:padding="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp" />
-
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/_5sdp"
+            android:paddingStart="@dimen/_6sdp"/>
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:fillViewport="true">
-
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_below="@+id/textView_Header_DetailsContador_MainAc">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_Fields_InfoContador_MainAc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never" />
         </ScrollView>
-    </LinearLayout>
-
-    <!-- REGISTROS (40%) -->
-    <LinearLayout
-        android:id="@+id/layoutDetails"
-        android:gravity="top|center_horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/layoutCampos"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.20">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            style="?attr/floatingActionButtonStyle"
-            android:id="@+id/button_details_contador"
+    </RelativeLayout>
+    <!-- BOTTOM NAVIGATION -->
+    <FrameLayout
+        android:id="@+id/holder_bottomnavigation_DetailsContador_MainAc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom">
+        <Button
+            android:id="@+id/butReadings_DetailsContador_MainAc"
+            style="?attr/materialIconButtonFilledStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:contentDescription=""
-            app:srcCompat="@drawable/outline_content_paste_search_24"
-            android:backgroundTint="@color/butPrimary_Dark"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            style="?attr/floatingActionButtonStyle"
-            android:id="@+id/button_add_report"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            app:icon="@drawable/outline_content_paste_search_24"
+            app:iconSize="@dimen/_20sdp"
+            android:padding="@dimen/_13sdp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
+            android:backgroundTint="?attr/buttonTint"
+            app:iconTint="?attr/buttonIconTintPrimary"/>
+        <Button
+            android:id="@+id/butReportProblem_DetailsContador_MainAc"
+            style="?attr/materialIconButtonFilledStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:contentDescription=""
-            app:srcCompat="@drawable/rounded_bug_report_24"
-            android:backgroundTint="@color/butPrimary_Dark"/>
-
-    </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            app:icon="@drawable/rounded_bug_report_24"
+            app:iconSize="@dimen/_20sdp"
+            android:padding="@dimen/_13sdp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
+            android:layout_gravity="end"
+            app:iconTint="?attr/buttonIconTintPrimary"
+            android:backgroundTint="?attr/buttonTint" />
+    </FrameLayout>
+    <!--                -->
+</FrameLayout>

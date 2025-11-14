@@ -142,15 +142,25 @@ public class MainActivity extends AppCompatActivity implements
                 AlertDialogQuestionFragment fragment= new AlertDialogQuestionFragment(getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Title), getString(R.string.mainActivity_AlertDialog_BackPressed_AddContador_Desc), customAlertDialogFragment, customAlertDialogFragment, "2");
 
                 switch (currentView){
-                    case 1:
+                    case 1: // ADD CONTADOR
                         customAlertDialogFragment.setConfirmListenner(THIS);
                         customAlertDialogFragment.setCancelListenner(THIS);
                         customAlertDialogFragment.setCustomFragment(fragment);
                         customAlertDialogFragment.setTag("MainACAddContadorView_BackPressed");
                         customAlertDialogFragment.show(getSupportFragmentManager(), "CustomAlertDialogFragment");
                         break;
-                    case 2:
+                    case 2: // DETAILS CONTADOR
                         cycleFragments("MainViewFrag", null);
+                        break;
+                    case 3: // READINGS CONTADOR
+                        cycleFragments("DetailsContadorFrag", null);
+                        break;
+                    case 4: // Creditos
+                    case 5: // Reports (Side menu)
+                        cycleFragments("MainViewFrag", null);
+                        break;
+                    case 6: // Reports (Details Contador)
+                        cycleFragments("DetailsContadorFrag", null);
                         break;
                 }
             }
@@ -228,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements
         switch (goTo){
             case "MainViewFrag":
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout_fragmentContainer_MainAC, new MainACMainViewFrag(this, contadoresEntityList)).commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.GONE);
                 currentView = 0;
                 break;
             case "AddContadorFrag":
@@ -236,9 +247,8 @@ public class MainActivity extends AppCompatActivity implements
                 currentView = 1;
                 break;
             case "DetailsContadorFrag":
-                 MainACDetailsContadorFrag detailsFrag = new MainACDetailsContadorFrag(this, contadoresEntityList);
-
-                //MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
+                MainACDetailsContadorFrag detailsFrag = new MainACDetailsContadorFrag(this, contadoresEntityList);
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 if (data != null) {
                     detailsFrag.setArguments(data);
                 }
@@ -246,14 +256,12 @@ public class MainActivity extends AppCompatActivity implements
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, detailsFrag)
                         .commitAllowingStateLoss();
-                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 2;
                 break;
 
             case "ReadingsContadorFrag":
-                Log.d("LOGTESTE", "passou");
-
                 MainACReadingsContadorFrag readingsContadorFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 if (data != null) {
                     readingsContadorFrag.setArguments(data);
                 }
@@ -261,29 +269,26 @@ public class MainActivity extends AppCompatActivity implements
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, readingsContadorFrag)
                         .commitAllowingStateLoss();
-                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 3;
                 break;
 
             case "CreditsFrag":
-                Log.d("LOGTESTE", "passou");
-
                 MainACCreditsFrag creditsFrag = new MainACCreditsFrag();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, creditsFrag)
                         .commitAllowingStateLoss();
-                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 4;
                 break;
 
             case "ReportFrag":
                 MainACReportFrag reportFrag = new MainACReportFrag(this, contadoresEntityList);
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, reportFrag)
                         .commitAllowingStateLoss();
-                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 5;
                 break;
         }

@@ -14,11 +14,12 @@
             android:id="@+id/txt_LabelContadores_MainView_MainAc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
             android:text="@string/mainActivity_MainViewFrag_LabelConadores"
             android:textColor="?attr/textColorPrimary"
-            android:textSize="@dimen/_18sdp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/_5sdp"
+            android:paddingStart="@dimen/_6sdp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_Contadores_MainView_MainAc"
             android:layout_width="match_parent"
@@ -70,8 +71,7 @@
         android:id="@+id/holder_bottomnavigation_MainView_MainAc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        >
+        android:layout_gravity="end|bottom">
 
         <Button
             android:id="@+id/butAddContador_MainView_MainAc"
@@ -85,7 +85,7 @@
             app:iconSize="@dimen/_30sdp"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
             android:backgroundTint="?attr/buttonTint"
-            app:iconTint="?attr/buttonIconTint"/>
+            app:iconTint="?attr/buttonIconTintPrimary"/>
         <Button
             android:id="@+id/butSearchContador_MainView_MainAc"
             style="?attr/materialIconButtonFilledStyle"
@@ -98,7 +98,7 @@
             android:padding="@dimen/_13sdp"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
             android:layout_gravity="end"
-            app:iconTint="?attr/buttonIconTint"
+            app:iconTint="?attr/buttonIconTintPrimary"
             android:backgroundTint="?attr/buttonTint" />
     </FrameLayout>
     <!--                -->
