@@ -78,6 +78,8 @@
     <string name="mainActivity_AddContadorFrag_ComboBox_MeasureUnity">Measure Unity</string>
     <string name="mainActivity_AddContadorFrag_TextField_SupportedTemp">Supported Temperature</string>
     <string name="mainActivity_AddContadorFrag_ComboBox_Status">Status</string>
+    <!-- MAIN ACTIVITY | DETAILS CONTADOR -->
+    <string name="mainActivity_DetailsContadorFrag_Header">Meter</string>
     <!-- MAIN ACTIVITY | ADD REPORT -->
     <string name="mainActivity_ReportFrag_ComboBox_Meter">Meter</string>
     <string name="mainActivity_ReportFrag_ComboBox_Problem">Problem</string>

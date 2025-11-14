@@ -4,8 +4,8 @@
         <item name="colorContainer">@color/cards_inputs_Light</item>
         <item name="buttonTint">@color/butPrimary_Light</item>
         <item name="textOutlineColor">@color/textFieldOutline_Light</item>
-        <item name="buttonIconTint">@color/cards_inputs_Light</item>
-        <item name="buttonIcon">@color/menuColor_Light</item>
+        <item name="buttonIconTintPrimary">@color/cards_inputs_Light</item>
+        <item name="buttonIconTintSecondary">@color/textColorPrimary_Light</item>
         <item name="colorError">@color/feedbackError_Light</item>
         <item name="colorWarning">@color/feedbackWarn_Light</item>
         <item name="colorSuccess">@color/feedbackSuccess_Light</item>

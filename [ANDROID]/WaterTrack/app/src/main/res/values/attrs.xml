@@ -8,5 +8,7 @@
     <attr name="textColorButtons" format="color" />
     <attr name="menuBackgroundColor" format="color" />
     <attr name="iconTintPrimary" format="color" />
+    <attr name="buttonIconTintPrimary" format="color" />
+    <attr name="buttonIconTintSecondary" format="color" />
     <attr name="textColorSideMenu" format="color" />
 </resources>
