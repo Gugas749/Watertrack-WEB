@@ -22,8 +22,7 @@ class ExtrasController extends Controller
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
-                    throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
-                },
+                    return Yii::$app->response->redirect(['site/login']);                },
             ],
         ];
     }

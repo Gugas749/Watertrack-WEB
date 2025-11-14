@@ -28,8 +28,7 @@ class DashboardController extends Controller
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
-                    throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
-                },
+                    return Yii::$app->response->redirect(['site/login']);                },
             ],
         ];
     }
@@ -43,13 +42,6 @@ class DashboardController extends Controller
             'readingCount' => $readingCount,
             'userCount' => $userCount,
         ]);
-    }
-
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
     }
 
     public function getActiveMeterCount()

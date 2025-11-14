@@ -14,21 +14,18 @@ class SiteController extends Controller
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
                 'rules' => [
-                    // Allow guests to access login and error
                     [
                         'actions' => ['login', 'error'],
                         'allow' => true,
                         'roles' => ['?'], // guests
                     ],
-                    // Allow logged-in users to access everything else
                     [
                         'allow' => true,
                         'roles' => ['@'], // authenticated
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
-                    throw new \yii\web\ForbiddenHttpException('You are not allowed to access this page.');
-                },
+                    return Yii::$app->response->redirect(['site/login']);                },
             ],
         ];
     }
@@ -51,6 +48,13 @@ class SiteController extends Controller
         $model->password = '';
 
         return $this->render('login', ['model' => $model]);
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->redirect(['login']);
     }
 
     public function actions()

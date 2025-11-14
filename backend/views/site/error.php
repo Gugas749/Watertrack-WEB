@@ -20,10 +20,8 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </p>
 
         <p>
-            The above error occurred while the Web server was processing your request.
-            Please contact us if you think this is a server error. Thank you.
-            Meanwhile, you may <?= Html::a('return to dashboard', Url::to(['dashboard/index'])); ?>
-            or try using the search form.
+            <br>Contacte um administrador, se pensar em ser um erro. Obrigado.
+            <br>Clique para retomar para <?= Html::a('dashboard', Url::to(['dashboard/index'])); ?>
         </p>
     </div>
 </div>
