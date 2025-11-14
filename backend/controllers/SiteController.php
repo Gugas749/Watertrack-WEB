@@ -13,11 +13,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'except' => ['error'],
                 'rules' => [
+                    // Allow guests to access login and error
+                    [
+                        'actions' => ['login', 'error'],
+                        'allow' => true,
+                        'roles' => ['?'], // guests
+                    ],
+                    // Allow logged-in users to access everything else
                     [
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['@'], // authenticated
                     ],
                 ],
                 'denyCallback' => function ($rule, $action) {
@@ -26,6 +32,7 @@ class SiteController extends Controller
             ],
         ];
     }
+
 
     public function actionLogin()
     {
@@ -43,7 +50,7 @@ class SiteController extends Controller
 
         $model->password = '';
 
-        return $this->render('site/login', ['model' => $model]);
+        return $this->render('login', ['model' => $model]);
     }
 
     public function actions()

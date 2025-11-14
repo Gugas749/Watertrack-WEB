@@ -109,21 +109,30 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                         </button>
                     </div>
 
+                    <?php $form = \yii\widgets\ActiveForm::begin([
+                            'id' => 'update-meter-type-form',
+                            'action' => ['update', 'id' => $detailMeterTypes->id],
+                            'method' => 'post',
+                    ]); ?>
+
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">ID</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailMeterTypes->id) ?>" readonly>
+                            <?= $form->field($detailMeterTypes, 'id')->textInput(['readonly' => true])->label('ID') ?>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Descrição</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailMeterTypes->description) ?>" readonly>
+                            <?= $form->field($detailMeterTypes, 'description')->textInput(['autofocus' => true])->label('Descrição') ?>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <button type="button" class="closeDetailPanel btn btn-light rounded-4 px-4">Fechar</button>
-                        <button type="button" class="btn btn-primary rounded-4 px-4" style="background-color:#4f46e5; border:none;">Editar</button>
+                        <?= \yii\helpers\Html::submitButton('Salvar', [
+                                'class' => 'btn btn-primary rounded-4 px-4',
+                                'style' => 'background-color:#4f46e5; border:none;'
+                        ]) ?>
                     </div>
+
+                    <?php \yii\widgets\ActiveForm::end(); ?>
                 </div>
             </div>
         <?php endif; ?>

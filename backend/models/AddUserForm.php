@@ -58,6 +58,10 @@ class AddUserForm extends Model
         $user->generateEmailVerificationToken();
 
         if ($user->save()) {
+            $auth = Yii::$app->authManager;
+            $authorRole = $auth->getRole('resident');
+            $auth->assign($authorRole, $user->getId());
+
             $userProfile = new UserProfile();
             $userProfile->userID = $user->id;
             $userProfile->birthDate = '2000-01-01';

@@ -1,15 +1,15 @@
 <?php
+namespace console\controllers;
 
-use yii\db\Migration;
+use Yii;
+use yii\console\Controller;
 
-class m251022_150727_init_rbac extends Migration
+class RbacController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function safeUp()
+    public function actionInit()
     {
         $auth = Yii::$app->authManager;
+        $auth->removeAll();
 
         // === PERMISSIONS ===
         $perms = [
@@ -83,29 +83,4 @@ class m251022_150727_init_rbac extends Migration
         // $auth->assign($technician, 2);
         // $auth->assign($resident, 3);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function safeDown()
-    {
-        echo "m251022_150727_init_rbac cannot be reverted.\n";
-
-        return false;
-    }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m251022_150727_init_rbac cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

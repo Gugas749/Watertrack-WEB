@@ -57,20 +57,28 @@ class ExtrasController extends Controller
     {
         $model = new AddMeterTypeForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->createMeterType()) {
-            Yii::$app->session->setFlash('success', 'Tipo de contador criado com sucesso!');
-            return $this->redirect(['index']);
-        }else {
-            Yii::error('Create failed: ' . json_encode($model->getErrors()), __METHOD__);
-            Yii::$app->session->setFlash('error', 'Erro ao criar tipo de contador.');
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->createMeterType()) {
+                Yii::$app->session->setFlash('success', 'Tipo de contador criado com sucesso!');
+                return $this->redirect(['index']);
+            } else {
+                // Log the validation errors for debugging
+                Yii::error('Create failed: ' . json_encode($model->getErrors()), __METHOD__);
+                // Do NOT set a generic flash — the form will display validation errors automatically
+            }
         }
 
+        // Always load the meter types for the index view
         $meterTypes = MeterType::find()->all();
+
         return $this->render('index', [
             'addMeterTypeModel' => $model,
             'meterTypes' => $meterTypes,
+            'detailMeterTypes' => null,
         ]);
     }
+
 
     public function actionUpdate($id)
     {
