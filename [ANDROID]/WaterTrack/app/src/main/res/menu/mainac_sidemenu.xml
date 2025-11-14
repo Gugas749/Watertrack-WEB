@@ -8,9 +8,9 @@
         android:title="@string/mainActivity_SideMenu_Settings"
         android:checkable="false" />
     <item
-        android:id="@+id/mainAc_SideMenu_Configs"
+        android:id="@+id/mainAc_SideMenu_Reports"
         android:icon="@drawable/settings_24"
-        android:title="@string/mainActivity_SideMenu_Settings"
+        android:title="@string/mainActivity_SideMenu_Reports"
         android:checkable="false" />
     <item
         android:id="@+id/mainAc_SideMenu_Credits"

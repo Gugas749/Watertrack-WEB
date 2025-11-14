@@ -41,6 +41,9 @@ import com.grupok.watertrack.databinding.ActivityMainBinding;
 import com.grupok.watertrack.fragments.alertDialogFragments.AlertDialogQuestionFragment;
 import com.grupok.watertrack.fragments.mainactivityfrags.addcontadorview.MainAcAddContadorFrag;
 
+import com.grupok.watertrack.fragments.mainactivityfrags.addreportview.MainACReportFrag;
+import com.grupok.watertrack.fragments.mainactivityfrags.creditsview.MainACCreditsFrag;
+import com.grupok.watertrack.fragments.mainactivityfrags.detailscontadorview.MainACDetailsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.readingscontadorview.MainACReadingsContadorFrag;
 import com.grupok.watertrack.fragments.mainactivityfrags.mainview.MainACMainViewFrag;
 import com.grupok.watertrack.scripts.CustomAlertDialogFragment;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements
     CustomAlertDialogFragment.CancelButtonClickAlertDialogQuestionFrag{
 
     private ActivityMainBinding binding;
+    private MainActivity parent;
     private MainActivity THIS;
     private int currentView;
     public UserInfosEntity currentUserInfo;
@@ -180,8 +184,13 @@ public class MainActivity extends AppCompatActivity implements
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(!allDisable){
                     item.setEnabled(false);
-                    if (item.getItemId() == R.id.mainAc_SideMenu_Configs) {
-                        //showShareBottomSheet();
+                    if (item.getItemId() == R.id.mainAc_SideMenu_Credits) {
+                        Bundle data = null;
+                        cycleFragments("CreditsFrag", data);
+                    }
+                    else if(item.getItemId() == R.id.mainAc_SideMenu_Reports) {
+                        Bundle data = null;
+                        cycleFragments("ReportFrag", data);
                     }
                     item.setEnabled(true);
                 }
@@ -226,10 +235,10 @@ public class MainActivity extends AppCompatActivity implements
                 binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
                 currentView = 1;
                 break;
-
             case "DetailsContadorFrag":
-                Log.d("LOGTESTE", "passou");
-                MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
+                 MainACDetailsContadorFrag detailsFrag = new MainACDetailsContadorFrag(this, contadoresEntityList);
+
+                //MainACReadingsContadorFrag detailsFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
                 if (data != null) {
                     detailsFrag.setArguments(data);
                 }
@@ -241,7 +250,42 @@ public class MainActivity extends AppCompatActivity implements
                 currentView = 2;
                 break;
 
+            case "ReadingsContadorFrag":
+                Log.d("LOGTESTE", "passou");
 
+                MainACReadingsContadorFrag readingsContadorFrag = new MainACReadingsContadorFrag(this, logsContEntitiesList, contadoresEntityList);
+                if (data != null) {
+                    readingsContadorFrag.setArguments(data);
+                }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_fragmentContainer_MainAC, readingsContadorFrag)
+                        .commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 3;
+                break;
+
+            case "CreditsFrag":
+                Log.d("LOGTESTE", "passou");
+
+                MainACCreditsFrag creditsFrag = new MainACCreditsFrag();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_fragmentContainer_MainAC, creditsFrag)
+                        .commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 4;
+                break;
+
+            case "ReportFrag":
+                MainACReportFrag reportFrag = new MainACReportFrag(this, contadoresEntityList);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout_fragmentContainer_MainAC, reportFrag)
+                        .commitAllowingStateLoss();
+                binding.imageViewButtonBackMainAC.setVisibility(View.VISIBLE);
+                currentView = 5;
+                break;
         }
     }
     //----------------------THEME DEBUGGER---------------------------

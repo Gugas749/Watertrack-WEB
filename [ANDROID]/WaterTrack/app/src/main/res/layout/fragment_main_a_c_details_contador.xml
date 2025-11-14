@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- DYNAMICS FIELSA (60%) -->
+    <LinearLayout
+        android:id="@+id/layoutCampos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.80">
+
+        <TextView
+            android:id="@+id/textView_LabelDetails_InfoContador_MainAc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contador"
+            android:textStyle="bold"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="?attr/textColorPrimary"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_Fields_InfoContador_MainAc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- REGISTROS (40%) -->
+    <LinearLayout
+        android:id="@+id/layoutDetails"
+        android:gravity="top|center_horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/layoutCampos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.20">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            style="?attr/floatingActionButtonStyle"
+            android:id="@+id/button_details_contador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:contentDescription=""
+            app:srcCompat="@drawable/outline_content_paste_search_24"
+            android:backgroundTint="@color/butPrimary_Dark"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            style="?attr/floatingActionButtonStyle"
+            android:id="@+id/button_add_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:contentDescription=""
+            app:srcCompat="@drawable/rounded_bug_report_24"
+            android:backgroundTint="@color/butPrimary_Dark"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
