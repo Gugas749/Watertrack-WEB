@@ -156,37 +156,50 @@ $this->registerJsFile('@web/js/enterprise-index.js', ['depends' => [\yii\bootstr
                         </button>
                     </div>
 
+                    <?php $form = \yii\widgets\ActiveForm::begin([
+                            'id' => 'update-enterprise-form',
+                            'action' => ['update', 'id' => $detailEnterprise->id],
+                            'method' => 'post',
+                    ]); ?>
+
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">ID</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailEnterprise->id) ?>" readonly>
+                            <?= $form->field($detailEnterprise, 'id')->textInput(['readonly' => true])->label('Referência') ?>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Nome</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailEnterprise->name) ?>" readonly>
+                            <?= $form->field($detailEnterprise, 'name')->textInput()->label('Nome') ?>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Morada</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailEnterprise->address) ?>" readonly>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Contacto</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailEnterprise->contactNumber) ?>" readonly>
+                            <?= $form->field($detailEnterprise, 'address')->textInput()->label('Morada') ?>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Email</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailEnterprise->contactEmail) ?>" readonly>
+                            <?= $form->field($detailEnterprise, 'contactNumber')->textInput()->label('Contacto') ?>
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Website</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailEnterprise->website) ?>" readonly>
+                            <?= $form->field($detailEnterprise, 'contactEmail')->textInput()->label('Email') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailEnterprise, 'website')->textInput()->label('Website') ?>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end mt-4 gap-2">
-                        <button type="button" class="closeDetailPanel btn btn-light px-4">Fechar</button>
-                        <button type="button" class="btn btn-primary px-4" style="background-color:#4f46e5; border:none;">Editar</button>
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+                        <button type="button" class="closeDetailPanel btn btn-light px-4 py-2">Fechar</button>
+                        <?= \yii\helpers\Html::submitButton('Salvar', [
+                                'class' => 'btn btn-primary px-4 py-2',
+                                'style' => 'background-color:#4f46e5; border:none;'
+                        ]) ?>
+                        <?php \yii\widgets\ActiveForm::end(); ?>
+
+                        <?= Html::beginForm(['enterprise/delete', 'id' => $detailEnterprise->id], 'post', [
+                                'onsubmit' => 'return confirm("Tem a certeza que quer eliminar esta empresa?");',
+                                'class' => 'mb-0'
+                        ]) ?>
+                        <?= Html::submitButton('<i class="fas fa-trash"></i>', [
+                                'class' => 'btn btn-danger px-4 py-2',
+                                'title' => 'Eliminar'
+                        ]) ?>
+                        <?= Html::endForm() ?>
                     </div>
                 </div>
             </div>
