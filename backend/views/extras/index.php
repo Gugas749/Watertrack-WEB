@@ -3,15 +3,18 @@
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'Extras';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCssFile('@web/css/user-index.css', ['depends' => [\yii\bootstrap4\BootstrapAsset::class]]);
-$this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerCssFile('@web/css/extras-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/extras-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
+
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
+        <!-- NAVIGATION? -->
         <div class="d-flex justify-content-between align-items-center mb-4 px-3">
             <h4 class="fw-bold text-dark">Extras</h4>
             <div class="d-flex align-items-center gap-3">
@@ -23,7 +26,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                     ]); ?>
                     <input type="text"
                            name="q"
-                           class="form-control form-control-sm rounded-pill ps-3 pe-5"
+                           class="form-control form-control-sm ps-3 pe-5"
                            placeholder="Search"
                            value="<?= Html::encode(Yii::$app->request->get('q')) ?>"
                            style="border:1px solid #e5e7eb;">
@@ -33,14 +36,32 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                     </button>
                     <?php ActiveForm::end(); ?>
                 </div>
-                <button class="btn btn-primary rounded-4"
+                <button class="btn btn-primary"
                         data-toggle="right-panel"
                         style="background-color:#4f46e5; border:none;">
                     <i class="fas fa-plus me-1"></i> Adicionar Tipo de Contador
                 </button>
             </div>
         </div>
-
+        <!-- ALERT -->
+        <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
+            <?php
+            $bgClass = match($type) {
+                'error' => 'bg-danger text-white',
+                'success' => 'bg-success text-white',
+                default => 'bg-info text-white',
+            };
+            ?>
+            <div class="toast show <?= $bgClass ?> ms-auto" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-bell-fill me-2"></i><?= $message ?>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        <!-- METERTYPES LIST -->
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
                 <h6 class="fw-bold text-secondary mb-3">
@@ -62,8 +83,13 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                     <td><?= htmlspecialchars($meterType->id) ?></td>
                                     <td><?= htmlspecialchars($meterType->description) ?></td>
                                     <td>
-                                        <?= Html::a('Ver Detalhes', ['extras/index', 'id' => $meterType->id],
-                                                ['class' => 'text-primary fw-semibold text-decoration-none']) ?>
+                                        <?= Html::button('Ver Detalhes', [
+                                                'class' => 'btn btn-outline-primary btn-sm fw-semibold shadow-sm',
+                                                'onclick' => "window.location.href='" . Url::to(['extras/index', 'id' => $meterType->id]) . "'",
+                                                'style' => 'transition: all 0.2s ease-in-out;',
+                                                'onmouseover' => "this.style.transform='scale(1.05)';",
+                                                'onmouseout' => "this.style.transform='scale(1)';"
+                                        ]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -77,7 +103,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 </div>
             </div>
         </div>
-
+        <!-- RIGHT ADD PANEL -->
         <div id="rightPanel" class="right-panel bg-white shadow" style="display:none;">
             <div class="right-panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
                 <h5 class="mb-0 fw-bold text-dark">Adicionar Tipo de Contador</h5>
@@ -98,7 +124,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 <?php \yii\widgets\ActiveForm::end(); ?>
             </div>
         </div>
-
+        <!-- DETAIL PANEL -->
         <?php if ($detailMeterTypes): ?>
             <div id="detailPanel" class="detail-panel bg-white shadow show">
                 <div class="modal-content border-0 shadow-lg rounded-4 p-4" style="background-color:#fff">
@@ -120,23 +146,32 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                             <?= $form->field($detailMeterTypes, 'id')->textInput(['readonly' => true])->label('ID') ?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($detailMeterTypes, 'description')->textInput(['autofocus' => true])->label('Descrição') ?>
+                            <?= $form->field($detailMeterTypes, 'description')->textInput()->label('Descrição') ?>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-end mt-4 gap-2">
-                        <button type="button" class="closeDetailPanel btn btn-light rounded-4 px-4">Fechar</button>
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+                        <button type="button" class="closeDetailPanel btn btn-light px-4 py-2">Fechar</button>
                         <?= \yii\helpers\Html::submitButton('Salvar', [
-                                'class' => 'btn btn-primary rounded-4 px-4',
+                                'class' => 'btn btn-primary px-4 py-2',
                                 'style' => 'background-color:#4f46e5; border:none;'
                         ]) ?>
-                    </div>
+                        <?php \yii\widgets\ActiveForm::end(); ?>
 
-                    <?php \yii\widgets\ActiveForm::end(); ?>
+                        <?= Html::beginForm(['extras/delete', 'id' => $detailMeterTypes->id], 'post', [
+                                'onsubmit' => 'return confirm("Tem a certeza que quer eliminar este Tipo de Contador?");',
+                                'class' => 'mb-0'
+                        ]) ?>
+                        <?= Html::submitButton('<i class="fas fa-trash"></i>', [
+                                'class' => 'btn btn-danger px-4 py-2',
+                                'title' => 'Eliminar'
+                        ]) ?>
+                        <?= Html::endForm() ?>
+                    </div>
                 </div>
             </div>
         <?php endif; ?>
-
+        <!--ATIVAR O DETAIL PANEL -->
         <?php if ($detailMeterTypes): ?>
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
@@ -153,7 +188,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 });
             </script>
         <?php endif; ?>
-
+        <!-- OVERLAY -->
         <div id="overlay"></div>
     </div>
 </div>

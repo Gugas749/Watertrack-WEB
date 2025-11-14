@@ -69,7 +69,7 @@ class UserController extends Controller
             return $this->redirect(['index']);
         } else {
             Yii::error('CreateUser failed: ' . json_encode($model->getErrors()), __METHOD__);
-            Yii::$app->session->setFlash('error', 'Erro ao criar utilizador.');
+            Yii::$app->session->setFlash('error', 'Ação Falhada: Contactar Administrador [U-1]');
         }
 
         // Se falhar a validaçao refaz a view outra vez

@@ -61,7 +61,7 @@ class EnterpriseController extends Controller
             return $this->redirect(['index']);
         } else {
             Yii::error('CreateEnterprise failed: ' . json_encode($model->getErrors()), __METHOD__);
-            Yii::$app->session->setFlash('error', 'Erro ao criar empresa.');
+            Yii::$app->session->setFlash('error', 'Ação Falhada: Contactar Administrador [E-1]');
         }
 
         $enterprises = Enterprise::find()->all();

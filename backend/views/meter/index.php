@@ -5,12 +5,13 @@
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 $this->title = 'Contadores';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCssFile('@web/css/meter-index.css', ['depends' => [\yii\bootstrap4\BootstrapAsset::class]]);
-$this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerCssFile('@web/css/meter-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
@@ -27,7 +28,7 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\web\JqueryAs
                     ]); ?>
                     <input type="text"
                            name="q"
-                           class="form-control form-control-sm rounded-pill ps-3 pe-5"
+                           class="form-control form-control-sm ps-3 pe-5"
                            placeholder="Search"
                            value="<?= Html::encode(Yii::$app->request->get('q')) ?>"
                            style="border:1px solid #e5e7eb;">
@@ -38,13 +39,31 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\web\JqueryAs
                     <?php ActiveForm::end(); ?>
                 </div>
                 <!-- Open Panel Button -->
-                <button class="btn btn-primary rounded-4"
+                <button class="btn btn-primary"
                         data-toggle="right-panel"
                         style="background-color:#4f46e5; border:none;">
                     <i class="fas fa-plus me-1"></i> Adicionar Contador
                 </button>
             </div>
         </div>
+        <!-- ALERT -->
+        <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
+            <?php
+            $bgClass = match($type) {
+                'error' => 'bg-danger text-white',
+                'success' => 'bg-success text-white',
+                default => 'bg-info text-white',
+            };
+            ?>
+            <div class="toast show <?= $bgClass ?> ms-auto" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-bell-fill me-2"></i><?= $message ?>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        <?php endforeach; ?>
         <!-- METER LIST -->
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
@@ -76,10 +95,10 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\web\JqueryAs
                                         <td>
                                             <?php
                                             $statusText = match ($meter->state ?? null) {
-                                                1 => 'ACTIVE',
-                                                2  => 'PROBLEM',
-                                                0  => 'DEACTIVATED',
-                                                default => 'UNKNOWN',
+                                                1 => 'ATIVO',
+                                                2  => 'PROBLEMA RELATADO',
+                                                0  => 'DESATIVADO',
+                                                default => 'DESCONHECIDO',
                                             };
     
                                             $statusClass = match ($meter->state ?? null) {
@@ -94,7 +113,13 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\web\JqueryAs
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="#" class="text-primary fw-semibold">Ver Detalhes</a>
+                                            <?= Html::button('Ver Detalhes', [
+                                                    'class' => 'btn btn-outline-primary btn-sm fw-semibold shadow-sm',
+                                                    'onclick' => "window.location.href='" . Url::to(['meter/index', 'meterID' => $meter->id]) . "'",
+                                                    'style' => 'transition: all 0.2s ease-in-out;',
+                                                    'onmouseover' => "this.style.transform='scale(1.05)';",
+                                                    'onmouseout' => "this.style.transform='scale(1)';"
+                                            ]) ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

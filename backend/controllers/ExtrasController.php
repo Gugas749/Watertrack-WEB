@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\AddMeterTypeForm;
 use common\models\MeterType;
+use common\models\Meter;
 use Yii;
 use yii\web\Controller;
 
@@ -62,13 +63,9 @@ class ExtrasController extends Controller
                 Yii::$app->session->setFlash('success', 'Tipo de contador criado com sucesso!');
                 return $this->redirect(['index']);
             } else {
-                // Log the validation errors for debugging
                 Yii::error('Create failed: ' . json_encode($model->getErrors()), __METHOD__);
-                // Do NOT set a generic flash — the form will display validation errors automatically
             }
         }
-
-        // Always load the meter types for the index view
         $meterTypes = MeterType::find()->all();
 
         return $this->render('index', [
@@ -83,7 +80,7 @@ class ExtrasController extends Controller
     {
         $model = MeterType::findOne($id);
         if (!$model) {
-            Yii::$app->session->setFlash('error', 'Tipo de Contador não encontrado.');
+            Yii::$app->session->setFlash('error', 'Ação Negada: Tipo de contador não encontrado.');
             return $this->redirect(['index']);
         }
 
@@ -96,4 +93,24 @@ class ExtrasController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionDelete($id)
+    {
+        $model = MeterType::findOne($id);
+        if (!$model) {
+            Yii::$app->session->setFlash('error', 'Ação Negada: Tipo de contador não encontrado.');
+            return $this->redirect(['index']);
+        }
+        $associatedMeters = Meter::find()->where(['meterTypeID' => $id])->count();
+        if ($associatedMeters > 0) {
+            Yii::$app->session->setFlash('error', 'Ação Negada: Existem associações ativas!');
+            return $this->redirect(['index']);
+        }
+
+        $model->delete();
+        Yii::$app->session->setFlash('success', 'Tipo de Contador eliminado com sucesso!');
+        return $this->redirect(['index']);
+    }
+
+
 }

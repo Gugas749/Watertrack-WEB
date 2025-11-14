@@ -4,12 +4,14 @@
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\Url;
+
 
 $this->title = 'Utilizadores';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCssFile('@web/css/user-index.css', ['depends' => [\yii\bootstrap4\BootstrapAsset::class]]);
-$this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+$this->registerCssFile('@web/css/user-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
@@ -26,7 +28,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                     ]); ?>
                     <input type="text"
                            name="q"
-                           class="form-control form-control-sm rounded-pill ps-3 pe-5"
+                           class="form-control form-control-sm ps-3 pe-5"
                            placeholder="Search"
                            value="<?= Html::encode(Yii::$app->request->get('q')) ?>"
                            style="border:1px solid #e5e7eb;">
@@ -37,13 +39,31 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                     <?php ActiveForm::end(); ?>
                 </div>
                 <!-- Open Panel Button -->
-                <button class="btn btn-primary rounded-4"
+                <button class="btn btn-primary"
                         data-toggle="right-panel"
                         style="background-color:#4f46e5; border:none;">
                     <i class="fas fa-plus me-1"></i> Adicionar Utilizador
                 </button>
             </div>
         </div>
+        <!-- ALERT -->
+        <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
+            <?php
+            $bgClass = match($type) {
+                'error' => 'bg-danger text-white',
+                'success' => 'bg-success text-white',
+                default => 'bg-info text-white',
+            };
+            ?>
+            <div class="toast show <?= $bgClass ?> ms-auto" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-bell-fill me-2"></i><?= $message ?>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        <?php endforeach; ?>
         <!-- USER LIST -->
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
@@ -75,15 +95,15 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                         <?php
                                         $enterpriseText = count($user->technicianinfos) === 0 ? 'Morador' : 'Técnico';
                                         ?>
-                                        <span class="fw-semibold"><?= htmlspecialchars($enterpriseText) ?></span>
+                                        <?= htmlspecialchars($enterpriseText) ?>
                                     </td>
                                     <td>
                                         <?php
                                         $statusText = match ($user->status ?? null) {
-                                            10 => 'Ativo',
-                                            9  => 'Inativo',
-                                            0  => 'Desativado',
-                                            default => 'Desconhecido',
+                                            10 => 'ATIVO',
+                                            9  => 'INATIVO',
+                                            0  => 'DESATIVADO',
+                                            default => 'DESCONHECIDO',
                                         };
 
                                         $statusClass = match ($user->status ?? null) {
@@ -98,12 +118,16 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                                         </span>
                                     </td>
                                     <td>
-                                        <?= Html::a('Ver Detalhes', ['user/index', 'userID' => $user->id],
-                                                [
-                                                    'class' => 'text-primary fw-semibold text-decoration-none',
-                                                ]
-                                        )?>
+                                        <?= Html::button('Ver Detalhes', [
+                                                'class' => 'btn btn-outline-primary btn-sm fw-semibold shadow-sm',
+                                                'onclick' => "window.location.href='" . Url::to(['user/index', 'userID' => $user->id]) . "'",
+                                                'style' => 'transition: all 0.2s ease-in-out;',
+                                                'onmouseover' => "this.style.transform='scale(1.05)';",
+                                                'onmouseout' => "this.style.transform='scale(1)';"
+                                        ]) ?>
                                     </td>
+
+
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -116,7 +140,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 </div>
             </div>
         </div>
-        <!-- RIGHT PANEL -->
+        <!-- RIGHT ADD PANEL -->
         <div id="rightPanel" class="right-panel bg-white shadow" style="display:none;">
             <div class="right-panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
                 <h5 class="mb-0 fw-bold text-dark">Adicionar Utilizador</h5>
@@ -141,7 +165,6 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 <?php \yii\widgets\ActiveForm::end(); ?>
             </div>
         </div>
-
         <!-- DETAIL PANEL -->
         <?php if ($detailUser): ?>
             <div id="detailPanel" class="detail-panel bg-white shadow show">
@@ -168,7 +191,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                             default => 'Desconhecido',
                         };
                         ?>
-                        <span class="badge <?= $statusClass ?> rounded-pill px-3 py-2"><?= $statusText ?></span>
+                        <span class="badge <?= $statusClass ?> px-3 py-2"><?= $statusText ?></span>
                     </div>
 
                     <div class="row g-3">
@@ -210,14 +233,12 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                     </div>
 
                     <div class="d-flex justify-content-end mt-4 gap-2">
-                        <button type="button" class="closeDetailPanel btn btn-light rounded-4 px-4">Fechar</button>
-                        <button type="button" class="btn btn-primary rounded-4 px-4" style="background-color:#4f46e5; border:none;">Editar</button>
+                        <button type="button" class="closeDetailPanel btn btn-light px-4">Fechar</button>
+                        <button type="button" class="btn btn-primary px-4" style="background-color:#4f46e5; border:none;">Editar</button>
                     </div>
                 </div>
             </div>
         <?php endif; ?>
-
-
         <!--ATIVAR O DETAIL PANEL -->
         <?php if ($detailUser): ?>
             <script>
@@ -235,8 +256,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\web\JqueryAss
                 });
             </script>
         <?php endif; ?>
-
-        <!-- Overlay -->
+        <!-- OVERLAY -->
         <div id="overlay"></div>
     </div>
 </div>
