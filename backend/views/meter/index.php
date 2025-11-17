@@ -1,6 +1,5 @@
 <?php
 /** @var yii\bootstrap5\ActiveForm $form */
-/** @var yii\web\View $this */
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
@@ -115,7 +114,7 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                                         <td>
                                             <?= Html::button('Ver Detalhes', [
                                                     'class' => 'btn btn-outline-primary btn-sm fw-semibold shadow-sm',
-                                                    'onclick' => "window.location.href='" . Url::to(['meter/index', 'meterID' => $meter->id]) . "'",
+                                                    'onclick' => "window.location.href='" . Url::to(['meter/index', 'id' => $meter->id]) . "'",
                                                     'style' => 'transition: all 0.2s ease-in-out;',
                                                     'onmouseover' => "this.style.transform='scale(1.05)';",
                                                     'onmouseout' => "this.style.transform='scale(1)';"
@@ -216,7 +215,101 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                 <?php \yii\widgets\ActiveForm::end(); ?>
             </div>
         </div>
-        <!-- Overlay -->
+        <!-- DETAIL PANEL -->
+        <?php if ($detailMeter): ?>
+            <div id="detailPanel" class="detail-panel bg-white shadow show">
+                <div class="modal-content border-0 shadow-lg rounded-4 p-4" style="background-color:#fff">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold text-dark mb-0">Detalhes do Tipo de Contador</h5>
+                        <button type="button" class="closeDetailPanel btn btn-sm btn-light">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <?php $form = \yii\widgets\ActiveForm::begin([
+                            'id' => 'update-meter-form',
+                            'action' => ['update', 'id' => $detailMeter->id],
+                            'method' => 'post',
+                    ]); ?>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'id')->textInput(['readonly' => true])->label('ID') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'address')->textInput()->label('Morada') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'userID')->textInput()->label('User ID (trocar)') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'meterTypeID')->textInput()->label('Tipo de Contador ID (trocar)') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'enterpriseID')->textInput()->label('Empresa ID (trocar)') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'class')->textInput()->label('Classe de Contador') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'instalationDate')->textInput(['readonly' => true])->label('Data de Instalação') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'shutdownDate')->textInput(['readonly' => true])->label('Data de Desativação') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'maxCapacity')->textInput()->label('Capacidade Máxima') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'measureUnity')->textInput()->label('Unidade de Medida') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'supportedTemperature')->textInput()->label('Temperatura Suportada') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($detailMeter, 'state')->textInput()->label('Estado') ?>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+                        <button type="button" class="closeDetailPanel btn btn-light px-4 py-2">Fechar</button>
+                        <?= \yii\helpers\Html::submitButton('Salvar', [
+                                'class' => 'btn btn-primary px-4 py-2',
+                                'style' => 'background-color:#4f46e5; border:none;'
+                        ]) ?>
+                        <?php \yii\widgets\ActiveForm::end(); ?>
+
+                        <?= Html::beginForm(['meter/delete', 'id' => $detailMeter->id], 'post', [
+                                'onsubmit' => 'return confirm("Tem a certeza que quer eliminar este Contador?");',
+                                'class' => 'mb-0'
+                        ]) ?>
+                        <?= Html::submitButton('<i class="fas fa-trash"></i>', [
+                                'class' => 'btn btn-danger px-4 py-2',
+                                'title' => 'Eliminar'
+                        ]) ?>
+                        <?= Html::endForm() ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+        <!--ATIVAR O DETAIL PANEL -->
+        <?php if ($detailMeter): ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const detailPanel = document.getElementById('detailPanel');
+                    const overlay = document.getElementById('overlay');
+
+                    overlay.style.display = 'block';
+                    detailPanel.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+
+                    requestAnimationFrame(() => {
+                        detailPanel.classList.add('show');
+                    });
+                });
+            </script>
+        <?php endif; ?>
+        <!-- OVERLAY -->
         <div id="overlay"></div>
     </div>
 </div>

@@ -10,7 +10,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCssFile('@web/css/extras-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
 $this->registerJsFile('@web/js/extras-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
-
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">

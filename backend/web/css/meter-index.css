@@ -7,7 +7,7 @@ body {
     overflow-x: hidden;
 }
 
-.right-panel {
+.right-panel{
     position: fixed;
     top: 0;
     right: -420px;
@@ -25,6 +25,10 @@ body {
     right: 0;
 }
 
+/**/
+/**/
+/**/
+/**/
 #overlay {
     display: none;
     position: fixed;
@@ -34,4 +38,29 @@ body {
     height: 100%;
     background: rgba(0,0,0,0.3);
     z-index: 1049;
+}
+/**/
+/**/
+/**/
+/**/
+.detail-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.96);
+    width: 600px;
+    max-width: 90%;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    z-index: 1060;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.detail-panel.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
 }

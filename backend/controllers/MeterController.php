@@ -34,6 +34,8 @@ class MeterController extends Controller
     public function actionIndex()
     {
         $queryParam = Yii::$app->request->get('q');
+        $queryIdParam = Yii::$app->request->get('id');
+
 
         $meters = Meter::find()->all();
 
@@ -43,9 +45,15 @@ class MeterController extends Controller
             });
         }
 
+        $detailMeter = null;
+        if ($queryIdParam !== null) {
+            $detailMeter = Meter::findOne($queryIdParam);
+        }
+
         return $this->render('index', [
             'meters' => $meters,
             'addMeterModel' => new AddMeterForm(),
+            'detailMeter' => $detailMeter,
             'meterTypes' => MeterType::find()->all(),
             'enterprises' => Enterprise::find()->all(),
             'users' => User::find()->all(),
