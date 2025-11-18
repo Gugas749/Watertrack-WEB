@@ -113,7 +113,7 @@ $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\Bo
             <div class="p-3">
                 <?php $form = \yii\widgets\ActiveForm::begin([
                         'id' => 'add-extra-form',
-                        'action' => ['create'],
+                        'action' => ['extras/create'],
                         'method' => 'post',
                 ]); ?>
                 <?= $form->field($addMeterTypeModel, 'description')->textInput(['placeholder' => 'Descrição', 'autofocus' => true]) ?>

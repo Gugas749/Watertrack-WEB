@@ -44,7 +44,7 @@ class AddUserForm extends Model
      *
      * @return bool whether the creating new account was successful and email was sent
      */
-    public function createuser()
+    public function createUser()
     {
         if (!$this->validate()) {
             return null;

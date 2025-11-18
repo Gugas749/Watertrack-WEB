@@ -31,8 +31,6 @@ class MeterController extends Controller
             ],
         ];
     }
-    // backend/controllers/MeterController.php
-
     public function actionIndex()
     {
         $queryParam = Yii::$app->request->get('q');
@@ -65,7 +63,7 @@ class MeterController extends Controller
         ]);
     }
 
-    public function actionCreatemeter()
+    public function actionCreate()
     {
         $model = new AddMeterForm();
 
@@ -88,5 +86,23 @@ class MeterController extends Controller
     {
         return Meter::find()
             ->all();
+    }
+
+    public function actionUpdate($id)
+    {
+        $model = Meter::findOne($id);
+        if (!$model) {
+            Yii::$app->session->setFlash('error', 'Ação Negada: Contador não encontrado.');
+            return $this->redirect(['index']);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Contador atualizada com sucesso!');
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 }

@@ -73,7 +73,7 @@ class AddMeterForm extends Model
         ];
     }
 
-    public function createmeter()
+    public function createMeter()
     {
         if (!$this->validate()) {
             Yii::error('Validation failed for AddMeterForm: ' . json_encode($this->errors), __METHOD__);

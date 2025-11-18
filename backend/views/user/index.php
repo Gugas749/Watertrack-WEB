@@ -151,7 +151,7 @@ $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\Bo
             <div class="p-3">
                 <?php $form = \yii\widgets\ActiveForm::begin([
                         'id' => 'add-user-form',
-                        'action' => ['user/createuser'],
+                        'action' => ['user/create'],
                         'method' => 'post',
                 ]); ?>
                 <?= $form->field($addUserModel, 'username')->textInput(['placeholder' => 'Username', 'autofocus' => true]) ?>

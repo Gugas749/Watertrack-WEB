@@ -168,7 +168,7 @@ $stateOptions = [
             <div class="p-3">
                 <?php $form = \yii\widgets\ActiveForm::begin([
                         'id' => 'add-meter-form',
-                        'action' => ['meter/createmeter'],
+                        'action' => ['meter/create'],
                         'method' => 'post',
                 ]); ?>
                 <?= $form->field($addMeterModel, 'address')->textInput(['placeholder' => 'Morada', 'autofocus' => true]) ?>
@@ -302,16 +302,6 @@ $stateOptions = [
                                 'style' => 'background-color:#4f46e5; border:none;'
                         ]) ?>
                         <?php \yii\widgets\ActiveForm::end(); ?>
-
-                        <?= Html::beginForm(['meter/delete', 'id' => $detailMeter->id], 'post', [
-                                'onsubmit' => 'return confirm("Tem a certeza que quer eliminar este Contador?");',
-                                'class' => 'mb-0'
-                        ]) ?>
-                        <?= Html::submitButton('<i class="fas fa-trash"></i>', [
-                                'class' => 'btn btn-danger px-4 py-2',
-                                'title' => 'Eliminar'
-                        ]) ?>
-                        <?= Html::endForm() ?>
                     </div>
                 </div>
             </div>

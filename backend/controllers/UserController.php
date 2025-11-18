@@ -59,7 +59,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function actionCreateuser()
+    public function actionCreate()
     {
         // RBAC - Ver permissao de criar user
         if (!Yii::$app->user->can('createUser')) {
