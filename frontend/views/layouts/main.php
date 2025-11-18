@@ -43,8 +43,14 @@ $showSidebar = !in_array($route, [
                         ['label' => '📖 Leituras', 'url' => ['/reading/index']],
                         ['label' => '📈 Relatório', 'url' => ['/report/index']],
                         ['label' => '⚙️ Definições', 'url' => ['/dashboard/settings']],
-                        ['label' => '⚙️ login', 'url' => ['/site/login']],
-                        ['label' => '⚙️ signup', 'url' => ['/site/signup']],
+
+                        Yii::$app->user->isGuest
+                                ? ['label' => '🔐 Login', 'url' => ['/site/login']]
+                                : [
+                                'label' => '🚪 Logout',
+                                'url' => ['/site/logout'],
+                                'linkOptions' => ['data-method' => 'post'],
+                        ],
                 ],
                 'encodeLabels' => false
         ]) ?>

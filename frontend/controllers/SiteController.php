@@ -29,24 +29,19 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
+                'only' => ['index', 'logout', 'contact', 'about'], // pages that need control
                 'rules' => [
+                    // public access
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['login', 'signup', 'error'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    // logged-in access
+                    [
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -85,37 +80,23 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        $this->layout = 'auth'; // 👈 força o uso do layout views/layouts/auth.php
+        $this->layout = 'auth';
 
+        // if already logged in, go home
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['/site/login']);
+            return $this->goHome();
         }
 
         $model = new LoginForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-//            $userId = Yii::$app->user->id;
-//            $auth = Yii::$app->authManager;
-//
-//            if (!Yii::$app->user->can('admin')) {
-//                return $this->redirect('../backend/web/dashboard/index');
-//            }
-//            } elseif (!Yii::$app->user->can('residente')) {
-//                return $this->redirect(['/dashboard/index']);
-//            } else {
-//                Yii::$app->user->logout();
-//                Yii::$app->session->setFlash('error', 'Não tens permissão atribuída.');
-//                return $this->goHome();
-//        }
-
 
         $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->render('login', ['model' => $model]);
     }
+
 
 
     /**
