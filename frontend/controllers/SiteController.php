@@ -33,7 +33,7 @@ class SiteController extends Controller
                 'rules' => [
                     // public access
                     [
-                        'actions' => ['login', 'signup', 'error'],
+                        'actions' => ['login', 'signup', 'error', 'index'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -70,6 +70,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'landingpage';
         return $this->render('index');
     }
 
