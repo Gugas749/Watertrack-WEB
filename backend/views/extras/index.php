@@ -8,7 +8,7 @@ use yii\helpers\Url;
 $this->title = 'Extras';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCssFile('@web/css/main-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerCssFile('@web/css/views-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
 $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
 ?>
 <div class="content">
