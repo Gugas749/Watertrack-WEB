@@ -4,7 +4,6 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\LoginForm;
-use yii\helpers\Url;
 use yii\web\Controller;
 
 class SiteController extends Controller
@@ -43,11 +42,7 @@ class SiteController extends Controller
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (!Yii::$app->user->can('admin')) {
-                return $this->redirect(['dashboard/index']); // REDIRECT para o backend (n necessario)
-            }else{
-                return $this->redirect(['dashboard/index']);
-            }
+            return $this->redirect(['dashboard/index']);
         }
 
         $model->password = '';
