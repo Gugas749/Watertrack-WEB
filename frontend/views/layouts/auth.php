@@ -9,8 +9,13 @@ use yii\helpers\Html;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <?php
+    use frontend\assets\AppAsset;
+    AppAsset::register($this);
+    ?>
     <?php $this->head() ?>
 </head>
+
 <body class="auth-page">
 <?php $this->beginBody() ?>
 

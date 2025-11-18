@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\UserProfile;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -56,11 +57,21 @@ class SignupForm extends Model
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
 
-        $auth = Yii::$app->authManager;
-        $authorRole = $auth->getRole('resident');
-        $auth->assign($authorRole, $user->getId());
+        if ($user->save()) {
+            $auth = Yii::$app->authManager;
+            $authorRole = $auth->getRole('resident');
+            $auth->assign($authorRole, $user->getId());
 
-        return $user->save() && $this->sendEmail($user);
+            $userProfile = new UserProfile();
+            $userProfile->userID = $user->id;
+            $userProfile->birthDate = '2000-01-01';
+            $userProfile->address = 'N/A';
+            $userProfile->save(false); // skip validation
+
+            return true;
+        }
+
+        return false;
     }
 
     /**

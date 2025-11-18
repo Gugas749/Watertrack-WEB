@@ -34,7 +34,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['signup'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['@'],
                     ],
                     [
                         'actions' => ['logout'],
@@ -88,13 +88,28 @@ class SiteController extends Controller
         $this->layout = 'auth'; // 👈 força o uso do layout views/layouts/auth.php
 
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['/site/login']);
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
+//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+//            $userId = Yii::$app->user->id;
+//            $auth = Yii::$app->authManager;
+//
+//            if (!Yii::$app->user->can('admin')) {
+//                return $this->redirect('../backend/web/dashboard/index');
+//            }
+//            } elseif (!Yii::$app->user->can('residente')) {
+//                return $this->redirect(['/dashboard/index']);
+//            } else {
+//                Yii::$app->user->logout();
+//                Yii::$app->session->setFlash('error', 'Não tens permissão atribuída.');
+//                return $this->goHome();
+//        }
+
 
         $model->password = '';
         return $this->render('login', [
@@ -155,10 +170,12 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->layout = 'auth';
+
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            return $this->redirect(['/dashboard/index']);
         }
 
         return $this->render('signup', [
