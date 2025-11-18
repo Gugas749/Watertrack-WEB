@@ -9,8 +9,8 @@ use yii\helpers\Url;
 $this->title = 'Empresas';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCssFile('@web/css/enterprise-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
-$this->registerJsFile('@web/js/enterprise-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
+$this->registerCssFile('@web/css/main-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">

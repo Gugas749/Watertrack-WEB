@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = ''; // unlock scroll
         setTimeout(() => {
             rightPanel.style.display = 'none';
-            // 🧹 Auto-reset form when rightPanel closes
             if (form) form.reset();
         }, 300);
     }
@@ -36,10 +35,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeDetailPanel() {
         detailPanel.classList.remove('show');
         document.body.style.overflow = '';
+        const currentUrl = new URL(window.location.href);
+
         setTimeout(() => {
             detailPanel.style.display = 'none';
             overlay.style.display = 'none';
+
+            //limpar url
+            if (currentUrl.searchParams.has('id')) {
+                currentUrl.searchParams.delete('id');
+                window.location.href = currentUrl.toString();
+            }
         }, 300);
+
+
     }
 
     closeDetailBtns.forEach(btn => {

@@ -31,19 +31,23 @@ class ExtrasController extends Controller
     public function actionIndex()
     {
         $queryParam = Yii::$app->request->get('q');
-        $queryIdParam = Yii::$app->request->get('id');
-
+        $extrasIdParam = Yii::$app->request->get('id');
         $meterTypes = MeterType::find()->all();
+        $detailMeterTypes = null;
 
+        //limpar os parametros da url
+        if ($queryParam !== null && trim($queryParam) === '') {
+            return $this->redirect(['index']);
+        }
+
+        //filtrar
         if (!empty($queryParam)) {
             $meterTypes = array_filter($meterTypes, function ($search) use ($queryParam) {
                 return stripos($search->description, $queryParam) !== false;
             });
         }
-
-        $detailMeterTypes = null;
-        if ($queryIdParam !== null) {
-            $detailMeterTypes = MeterType::findOne($queryIdParam);
+        if ($extrasIdParam !== null) {
+            $detailMeterTypes = MeterType::findOne($extrasIdParam);
         }
 
         return $this->render('index', [

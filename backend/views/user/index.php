@@ -10,8 +10,8 @@ use yii\helpers\Url;
 $this->title = 'Utilizadores';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCssFile('@web/css/user-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
-$this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
+$this->registerCssFile('@web/css/main-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
@@ -120,7 +120,7 @@ $this->registerJsFile('@web/js/user-index.js', ['depends' => [\yii\bootstrap5\Bo
                                     <td>
                                         <?= Html::button('Ver Detalhes', [
                                                 'class' => 'btn btn-outline-primary btn-sm fw-semibold shadow-sm',
-                                                'onclick' => "window.location.href='" . Url::to(['user/index', 'userID' => $user->id]) . "'",
+                                                'onclick' => "window.location.href='" . Url::to(['user/index', 'id' => $user->id]) . "'",
                                                 'style' => 'transition: all 0.2s ease-in-out;',
                                                 'onmouseover' => "this.style.transform='scale(1.05)';",
                                                 'onmouseout' => "this.style.transform='scale(1)';"

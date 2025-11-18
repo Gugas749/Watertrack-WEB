@@ -33,16 +33,20 @@ class EnterpriseController extends Controller
     {
         $queryParam = Yii::$app->request->get('q');
         $enterpriseIdParam = Yii::$app->request->get('id');
-
         $enterprises = Enterprise::find()->all();
+        $detailEnterprise = null;
 
+        //limpar os parametros da url
+        if ($queryParam !== null && trim($queryParam) === '') {
+            return $this->redirect(['index']);
+        }
+
+        //filtrar
         if (!empty($queryParam)) {
             $enterprises = array_filter($enterprises, function ($enterprise) use ($queryParam) {
                 return stripos($enterprise->name, $queryParam) !== false;
             });
         }
-
-        $detailEnterprise = null;
         if ($enterpriseIdParam !== null) {
             $detailEnterprise = Enterprise::find()->where(['id' => $enterpriseIdParam])->one();
         }

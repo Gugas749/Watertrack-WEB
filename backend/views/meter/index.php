@@ -9,8 +9,31 @@ use yii\helpers\Url;
 $this->title = 'Contadores';
 $this->params['breadcrumbs'][] = $this->title;
 
-$this->registerCssFile('@web/css/meter-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
-$this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
+$this->registerCssFile('@web/css/main-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
+?>
+<?php
+$classOptions = [
+        'A' => 'Classe A',
+        'B' => 'Classe B',
+        'C' => 'Classe C',
+        'D' => 'Classe D',
+];
+
+$measureUnityOptions = [
+        '1' => 'm^3',
+        '2' => 'm^3/h',
+        '3' => 'L/s',
+        '4' => 'bar',
+        '5' => 'Litros',
+        '6' => 'Decilitros',
+];
+
+$stateOptions = [
+        '1' => 'ATIVO',
+        '2' => 'COM PROBLEMA',
+        '0' => 'INATIVO',
+];
 ?>
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
@@ -23,7 +46,9 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                     <?php $form = ActiveForm::begin([
                             'method' => 'get',
                             'action' => ['meter/index'],
-                            'options' => ['class' => 'd-flex align-items-center w-100'],
+                            'options' => [
+                                    'class' => 'd-flex align-items-center w-100',
+                            ],
                     ]); ?>
                     <input type="text"
                            name="q"
@@ -86,7 +111,7 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                                     <tr>
                                         <td><?= htmlspecialchars($meter->id) ?></td>
                                         <td>
-                                            <a href="#" class="text-decoration-none text-primary">
+                                            <a href="https://www.google.com/maps/search/<?= urlencode($meter->address) ?>" class="text-decoration-none text-primary">
                                                 <?= htmlspecialchars($meter->address) ?>
                                             </a>
                                         </td>
@@ -136,7 +161,7 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
         <div id="rightPanel" class="right-panel bg-white shadow" style="display:none;">
             <div class="right-panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
                 <h5 class="mb-0 fw-bold text-dark">Adicionar Contador</h5>
-                <button type="button" class="btn btn-sm btn-light" id="closePanel">
+                <button type="button" class="btn btn-sm btn-light" id="closeRightPanel">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -165,14 +190,6 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                         }),
                         ['prompt' => 'Selecione a Empresa']
                 ) ?>
-                <?php
-                    $classOptions = [
-                            'A' => 'Classe A',
-                            'B' => 'Classe B',
-                            'C' => 'Classe C',
-                            'D' => 'Classe D',
-                    ];
-                ?>
                 <?= $form->field($addMeterModel, 'class')->dropDownList(
                         $classOptions,
                         ['prompt' => 'Selecione a Classe']
@@ -181,28 +198,11 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                         'placeholder' => 'Data de Instalação'
                 ]) ?>
                 <?= $form->field($addMeterModel, 'maxCapacity')->textInput(['placeholder' => 'Capacidade Maxima']) ?>
-                <?php
-                $measureUnityOptions = [
-                        '1' => 'm^3',
-                        '2' => 'm^3/h',
-                        '3' => 'L/s',
-                        '4' => 'bar',
-                        '5' => 'Litros',
-                        '6' => 'Decilitros',
-                ];
-                ?>
                 <?= $form->field($addMeterModel, 'measureUnity')->dropDownList(
                         $measureUnityOptions,
                         ['prompt' => 'Selecione a Unidade de Medida']
                 ) ?>
                 <?= $form->field($addMeterModel, 'supportedTemperature')->textInput(['placeholder' => 'Temperatura Suportada']) ?>
-                <?php
-                $stateOptions = [
-                        '1' => 'ACTIVE',
-                        '2' => 'PROBLEM',
-                        '0' => 'INACTIVE',
-                ];
-                ?>
                 <?= $form->field($addMeterModel, 'state')->dropDownList(
                         $stateOptions,
                         ['prompt' => 'Selecione o Estado']
@@ -240,16 +240,34 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                             <?= $form->field($detailMeter, 'address')->textInput()->label('Morada') ?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($detailMeter, 'userID')->textInput()->label('User ID (trocar)') ?>
+                            <?= $form->field($detailMeter, 'userID')->textInput()->label('Utilizador Responsável')
+                                    ->dropDownList(
+                                    ArrayHelper::map($users, 'id', function($type) {
+                                        return $type->id . ' - ' . $type->username;
+                                    })
+                            )?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($detailMeter, 'meterTypeID')->textInput()->label('Tipo de Contador ID (trocar)') ?>
+                            <?= $form->field($detailMeter, 'meterTypeID')->textInput()->label('Tipo de Contador')
+                                    ->dropDownList(
+                                    ArrayHelper::map($meterTypes, 'id', function($type) {
+                                        return $type->description;
+                                    })
+                            )?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($detailMeter, 'enterpriseID')->textInput()->label('Empresa ID (trocar)') ?>
+                            <?= $form->field($detailMeter, 'enterpriseID')->textInput()->label('Empresa Agregada')
+                                    ->dropDownList(
+                                    ArrayHelper::map($enterprises, 'id', function($enterprise) {
+                                        return $enterprise->name;
+                                    })
+                            ) ?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($detailMeter, 'class')->textInput()->label('Classe de Contador') ?>
+                            <?= $form->field($detailMeter, 'class')->textInput()->label('Classe de Contador')
+                                ->dropDownList(
+                                    $classOptions
+                            )?>
                         </div>
                         <div class="col-md-4">
                             <?= $form->field($detailMeter, 'instalationDate')->textInput(['readonly' => true])->label('Data de Instalação') ?>
@@ -261,13 +279,19 @@ $this->registerJsFile('@web/js/meter-index.js', ['depends' => [\yii\bootstrap5\B
                             <?= $form->field($detailMeter, 'maxCapacity')->textInput()->label('Capacidade Máxima') ?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($detailMeter, 'measureUnity')->textInput()->label('Unidade de Medida') ?>
+                            <?= $form->field($detailMeter, 'measureUnity')->textInput()->label('Unidade de Medida')
+                                    ->dropDownList(
+                                            $measureUnityOptions
+                                    )?>
                         </div>
                         <div class="col-md-4">
                             <?= $form->field($detailMeter, 'supportedTemperature')->textInput()->label('Temperatura Suportada') ?>
                         </div>
                         <div class="col-md-4">
-                            <?= $form->field($detailMeter, 'state')->textInput()->label('Estado') ?>
+                            <?= $form->field($detailMeter, 'state')->textInput()->label('Estado')
+                                    ->dropDownList(
+                                            $stateOptions
+                                    )?>
                         </div>
                     </div>
 

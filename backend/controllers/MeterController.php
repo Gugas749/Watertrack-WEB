@@ -31,23 +31,28 @@ class MeterController extends Controller
             ],
         ];
     }
+    // backend/controllers/MeterController.php
+
     public function actionIndex()
     {
         $queryParam = Yii::$app->request->get('q');
-        $queryIdParam = Yii::$app->request->get('id');
-
-
+        $meterIdParam = Yii::$app->request->get('id');
         $meters = Meter::find()->all();
+        $detailMeter = null;
 
-        if (!empty($queryParam)) {
-            $meters = array_filter($meters, function ($meters) use ($queryParam) {
-                return stripos($meters->address, $queryParam) !== false;
-            });
+        //limpar os parametros da url
+        if ($queryParam !== null && trim($queryParam) === '') {
+            return $this->redirect(['index']);
         }
 
-        $detailMeter = null;
-        if ($queryIdParam !== null) {
-            $detailMeter = Meter::findOne($queryIdParam);
+        //filtrar
+        if (!empty($queryParam)) {
+            $meters = array_filter($meters, function ($meter) use ($queryParam) {
+                return stripos($meter->address, $queryParam) !== false;
+            });
+        }
+        if ($meterIdParam !== null) {
+            $detailMeter = Meter::findOne($meterIdParam);
         }
 
         return $this->render('index', [

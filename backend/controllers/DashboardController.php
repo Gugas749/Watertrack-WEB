@@ -49,7 +49,7 @@ class DashboardController extends Controller
         $meters=Meter::find()->all();
         $meterCount = 0;
         foreach ($meters as $meter) {
-            if($meter->state==1){
+            if($meter->state==1 || $meter->state==2){
                 $meterCount++;
             }
         }

@@ -33,17 +33,21 @@ class UserController extends Controller
     public function actionIndex()
     {
         $queryParam = Yii::$app->request->get('q');
-        $userIdParam = Yii::$app->request->get('userID');
-
+        $userIdParam = Yii::$app->request->get('id');
         $users = User::find()->all();
+        $detailUser = null;
 
+        //limpar os parametros da url
+        if ($queryParam !== null && trim($queryParam) === '') {
+            return $this->redirect(['index']);
+        }
+
+        //filtrar
         if (!empty($queryParam)) {
             $users = array_filter($users, function ($user) use ($queryParam) {
                 return stripos($user->username, $queryParam) !== false;
             });
         }
-
-        $detailUser = null;
         if ($userIdParam !== null) {
             $detailUser = User::find()->where(['id' => $userIdParam])->with('userprofile')->one();
         }
