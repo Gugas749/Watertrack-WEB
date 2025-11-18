@@ -14,31 +14,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.60">
-
         <TextView
             android:id="@+id/textView_LabelDetails_ReadingsContador_MainAc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Detalhes da Leitura"
-            android:textStyle="bold"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="?attr/textColorPrimary"
-            android:padding="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp" />
-
-        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:text="@string/mainActivity_ReadingsContadorFrag_LabelDetails"
+            android:textColor="?attr/textColorPrimary"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/_5sdp"
+            android:paddingStart="@dimen/_6sdp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_Fields_ReadingsContador_MainAc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never" />
-        </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_Fields_ReadingsContador_MainAc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <!-- REGISTROS (40%) -->
@@ -55,28 +45,18 @@
 
         <TextView
             android:id="@+id/textView_LabelReadings_ReadingsContador_MainAc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registos"
-            android:textStyle="bold"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="?attr/textColorPrimary"
-            android:padding="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp" />
-
-        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:fillViewport="true">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_Readings_ReadingsContador_MainAc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never" />
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:text="@string/mainActivity_ReadingsContadorFrag_LabelReadings"
+            android:textColor="?attr/textColorPrimary"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/_5sdp"
+            android:paddingStart="@dimen/_6sdp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_Readings_ReadingsContador_MainAc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

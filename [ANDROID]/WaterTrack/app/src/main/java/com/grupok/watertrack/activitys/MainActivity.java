@@ -199,10 +199,12 @@ public class MainActivity extends AppCompatActivity implements
                         cycleFragments("CreditsFrag", data);
                     }
                     else if(item.getItemId() == R.id.mainAc_SideMenu_Reports) {
-                        Bundle data = null;
+                        Bundle data = new Bundle();
+                        data.putBoolean("fromSideMenu", true);
                         cycleFragments("ReportFrag", data);
                     }
                     item.setEnabled(true);
+                    binding.drawerLayoutMainAcSideMenu.closeDrawer(GravityCompat.END);
                 }
                 return true;
             }
@@ -289,7 +291,11 @@ public class MainActivity extends AppCompatActivity implements
                         .beginTransaction()
                         .replace(R.id.frameLayout_fragmentContainer_MainAC, reportFrag)
                         .commitAllowingStateLoss();
-                currentView = 5;
+                if(data.getBoolean("fromSideMenu")){
+                    currentView = 5;
+                }else{
+                    currentView = 6;
+                }
                 break;
         }
     }
