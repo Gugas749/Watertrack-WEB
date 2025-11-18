@@ -80,6 +80,9 @@
     <string name="mainActivity_AddContadorFrag_ComboBox_Status">Status</string>
     <!-- MAIN ACTIVITY | DETAILS CONTADOR -->
     <string name="mainActivity_DetailsContadorFrag_Header">Meter</string>
+    <!-- MAIN ACTIVITY | READINGS CONTADOR -->
+    <string name="mainActivity_ReadingsContadorFrag_LabelDetails">Reading Details</string>
+    <string name="mainActivity_ReadingsContadorFrag_LabelReadings">Readings</string>
     <!-- MAIN ACTIVITY | ADD REPORT -->
     <string name="mainActivity_ReportFrag_ComboBox_Meter">Meter</string>
     <string name="mainActivity_ReportFrag_ComboBox_Problem">Problem</string>
@@ -87,6 +90,10 @@
     <string name="mainActivity_ReportFrag_TextField_Other_Problem">Other</string>
 
     <!-- CREDITS -->
+    <string name="mainActivity_CreditsFrag_Header">Credits</string>
+    <string name="credits_developers_1">2241567 - Alexandre Conrado</string>
+    <string name="credits_developers_2">2241570 - Guilherme Silva</string>
+    <string name="credits_developers_3">2241572 - Diogo Soares</string>
     <string name="credits_icons_search">Search - Created by Royyan Wijaya - Flaticon</string>
     <string name="credits_icons_water_drop">Water Drop - Created by Good Ware - Flaticon</string>
     <string name="credits_icons_radios_button_icon">Radios Button Icon - Created by Bharat Icons - Flaticon</string>

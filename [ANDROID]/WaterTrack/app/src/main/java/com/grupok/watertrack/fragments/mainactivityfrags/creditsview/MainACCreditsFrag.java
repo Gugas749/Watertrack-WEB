@@ -22,10 +22,7 @@ import java.util.List;
 
 public class MainACCreditsFrag extends Fragment {
 
-
     private MainActivity parent;
-
-
     private FragmentMainACCreditsBinding binding;
 
 
@@ -40,8 +37,7 @@ public class MainACCreditsFrag extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMainACCreditsBinding.inflate(inflater);
 
         init();
@@ -51,6 +47,9 @@ public class MainACCreditsFrag extends Fragment {
 
     private void init(){
         List<String> credits = new ArrayList<>();
+        credits.add(getString(R.string.credits_developers_1));
+        credits.add(getString(R.string.credits_developers_2));
+        credits.add(getString(R.string.credits_developers_3));
         credits.add(getString(R.string.credits_icons_search));
         credits.add(getString(R.string.credits_icons_water_drop));
         credits.add(getString(R.string.credits_icons_radios_button_icon));
@@ -61,9 +60,8 @@ public class MainACCreditsFrag extends Fragment {
         credits.add(getString(R.string.credits_icons_arrow));
         credits.add(getString(R.string.credits_icons_close));
 
-
         RVAdapterCredits adapter = new RVAdapterCredits(credits);
-        binding.rvCreditsMainAc.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.rvCreditsMainAc.setAdapter(adapter);
+        binding.rvCreditsCreditsFragMainAc.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvCreditsCreditsFragMainAc.setAdapter(adapter);
     }
 }
