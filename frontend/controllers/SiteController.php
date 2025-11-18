@@ -74,6 +74,15 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionComeceAgora(){
+        if (Yii::$app->user->isGuest) {
+            // User is not logged in -> redirect to login
+            return $this->redirect(['site/login']);
+        } else {
+            // User is logged in -> redirect to dashboard
+            return $this->redirect(['dashboard/index']);
+        }
+    }
     /**
      * Logs in a user.
      *

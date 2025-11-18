@@ -6,6 +6,7 @@ namespace common\models;
  * This is the model class for table "userprofile".
  *
  * @property int $id
+ * @property string $name
  * @property string $birthDate
  * @property string $address
  * @property int $userID

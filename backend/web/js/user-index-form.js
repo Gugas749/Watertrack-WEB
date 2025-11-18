@@ -1,11 +1,22 @@
-function toggleProfessionalFields() {
+function toggleProfessionalFieldsDetails() {
     var value = $('#user-type-dropdown').val();
-    if (value == '1') { // TECNICO TRUE
-        $('.professional-field').show();
+    if (value === '1') { // TECNICO
+        $('.professional-field').removeClass('hidden');
     } else {
-        $('.professional-field').hide();
+        $('.professional-field').addClass('hidden');
     }
 }
+
+function toggleProfessionalFieldsAdd() {
+    var value1 = $('#create-user-type').val();
+    if (value1 === '1') { // TECNICO
+        $('#technician-extra').removeClass('hidden');
+    } else {
+        $('#technician-extra').addClass('hidden');
+    }
+}
+
+
 
 function updateStatusBadge() {
     const value = $('#user-status-dropdown').val();
@@ -19,10 +30,13 @@ function updateStatusBadge() {
     badge.text(status.text);
     badge.removeClass('bg-success bg-warning bg-danger bg-secondary').addClass(status.class);
 }
+
 $(document).ready(function() {
-    toggleProfessionalFields();
+    toggleProfessionalFieldsDetails();
+    toggleProfessionalFieldsAdd();
     updateStatusBadge();
 
-    $('#user-type-dropdown').on('change', toggleProfessionalFields);
+    $('#user-type-dropdown').on('change', toggleProfessionalFieldsDetails);
+    $('#create-user-type').on('change', toggleProfessionalFieldsAdd);
     $('#user-status-dropdown').on('change', updateStatusBadge);
 });

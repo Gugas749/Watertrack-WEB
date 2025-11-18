@@ -108,7 +108,8 @@ $statusClasses = [
                                     <td>
                                         <?= htmlspecialchars($user->username) ?>
                                     </td>
-                                    <td><?= htmlspecialchars($user->userprofile->address) ?></td>
+                                    <td><?= $user->userprofile && $user->userprofile->address ? htmlspecialchars($user->userprofile->address) : 'N/A' ?>
+                                    </td>
                                     <td>
                                         <?php
                                         $enterpriseText = count($user->technicianinfos) === 0 ? 'Morador' : 'Técnico';
@@ -190,7 +191,7 @@ $statusClasses = [
                         '1' => 'Técnico',
                 ], ['id' => 'create-user-type']) ?>
 
-                <div id="technician-extra" style="<?= $isTechnician ? '' : 'display:none;' ?>">
+                <div id="technician-extra" class="hidden">
                     <?= $form->field($addUserModel, 'enterpriseID')->dropDownList(
                             ArrayHelper::map($enterpriseList, 'id', 'name'),
                             ['prompt' => 'Selecione a empresa']
@@ -248,20 +249,21 @@ $statusClasses = [
                                     ['options' => [$selectedValue => ['Selected' => true]], 'id' => 'user-type-dropdown']
                             )->label('Tipo de Utilizador') ?>
                         </div>
-                        <?php if ($isTechnician && $techInfo): ?>
-                            <?php
-                            $techInfoModel = !empty($techInfos) ? $techInfos[0] : new \common\models\TechnicianInfo();
-                            ?>
-                            <div class="col-md-4 professional-field" style="<?= $isTechnician ? '' : 'display:none;' ?>">
-                                <?= $form->field($techInfoModel, 'enterpriseID')->dropDownList(
-                                        $enterpriseList,
-                                        ['prompt' => 'Selecione a empresa']
-                                )->label('Empresa Associada') ?>
-                            </div>
-                            <div class="col-md-4 professional-field" style="<?= $isTechnician ? '' : 'display:none;' ?>">
-                                <?= $form->field($techInfoModel, 'profissionalCertificateNumber')->textInput()->label('Nº Certificado Profissional') ?>
-                            </div>
-                        <?php endif; ?>
+                        <?php
+                        $techInfoModel = !empty($techInfos) ? $techInfos[0] : new \common\models\TechnicianInfo();
+                        ?>
+
+                        <div class="col-md-4 professional-field <?= $isTechnician ? '' : 'hidden' ?>">
+                            <?= $form->field($techInfoModel, 'enterpriseID')->dropDownList(
+                                    $enterpriseList,
+                                    ['prompt' => 'Selecione a empresa']
+                            )->label('Empresa Associada') ?>
+                        </div>
+
+                        <div class="col-md-4 professional-field <?= $isTechnician ? '' : 'hidden' ?>">
+                            <?= $form->field($techInfoModel, 'profissionalCertificateNumber')->textInput()->label('Nº Certificado Profissional') ?>
+                        </div>
+
                     </div>
 
                     <!-- RESTO DOS CAMPOS -->

@@ -67,7 +67,6 @@ class UserController extends Controller
         ]);
     }
 
-
     public function actionCreate()
     {
         if (!Yii::$app->user->can('createUser')) {
@@ -79,10 +78,16 @@ class UserController extends Controller
         if ($addUserModel->load(Yii::$app->request->post())) {
             try {
                 if (!$addUserModel->validate()) {
-                    throw new \Exception('Validação falhou' . json_encode($addUserModel->getErrors()));
+                    throw new \Exception('Validação falhou: ' . json_encode($addUserModel->getErrors()));
                 }
+
+                if (!$addUserModel->createUser()) {
+                    throw new \Exception('Erro ao guardar o utilizador.');
+                }
+
                 Yii::$app->session->setFlash('success', 'Utilizador criado com sucesso!');
                 return $this->redirect(['index']);
+
             } catch (\Exception $e) {
                 Yii::error('CreateUser failed: ' . $e->getMessage(), __METHOD__);
                 Yii::$app->session->setFlash('error', 'Ação Falhada: ' . $e->getMessage());
@@ -99,7 +104,6 @@ class UserController extends Controller
             'enterpriseList' => $enterpriseList,
         ]);
     }
-
 
     public function actionUpdate($id)
     {
