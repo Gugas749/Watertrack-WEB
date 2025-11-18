@@ -1,52 +1,57 @@
 <?php
-
-/** @var yii\web\View $this */
-
-$this->title = 'My Yii Application';
+$this->title = "WaterTrack – Solução Digital Inteligente";
 ?>
-<div class="site-index">
-    <div class="p-5 mb-4 bg-transparent rounded-3">
-        <div class="container-fluid py-5 text-center">
-            <h1 class="display-4">Congratulations!</h1>
-            <p class="fs-5 fw-light">You have successfully created your Yii-powered application.</p>
-            <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
-        </div>
-    </div>
 
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+<div class="hero-section">
+    <header class="navbar">
+        <div class="logo">
+            <img src="../img/tear-drop-png-1.png" alt="WaterTrack">
+            <span>WATERTRACK</span>
         </div>
 
+        <nav>
+            <a href="#about">Sobre</a>
+            <a href="#contact">Contacto</a>
+            <?= \yii\helpers\Html::a('Login', ['/site/login'], ['class' => 'a']) ?>
+        </nav>
+    </header>
+
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Acompanhe o seu<br> Consumo de Água</h1>
+            <p>Monitore o seu consumo de água em tempo real e reduza desperdícios.</p>
+            <?= \yii\helpers\Html::a('Começar', ['/site/login'], ['class' => 'btn-primary']) ?>
+        </div>
+
+        <div class="hero-image">
+            <img src="../img/water-meter.png" alt="Ilustração de Consumo de Água">
+        </div>
     </div>
 </div>
+
+
+<section class="how-it-works" id="features">
+    <h2>Como Funciona</h2>
+
+    <div class="steps">
+
+        <div class="step">
+            <img src="../img/install.png" alt="Instalar Dispositivo">
+            <h3>Instale o Dispositivo</h3>
+            <p>Monitorização portátil e simples.</p>
+        </div>
+
+        <div class="step">
+            <img src="../img/phone.png" alt="Acompanhar Consumo">
+            <h3>Acompanhe o Consumo</h3>
+            <p>Acompanhe em tempo real e receba previsões de utilização.</p>
+        </div>
+
+        <div class="step">
+            <img style="width: 60px" src="../img/waterdrop.png" alt="Reduzir Desperdício">
+            <h3>Reduza o Desperdício</h3>
+            <p>Use insights para reduzir a fatura e o desperdício de água.</p>
+        </div>
+
+    </div>
+</section>

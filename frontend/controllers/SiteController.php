@@ -29,24 +29,19 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
+                'only' => ['index', 'logout', 'contact', 'about'], // pages that need control
                 'rules' => [
+                    // public access
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['login', 'signup', 'error', 'index'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
+                    // logged-in access
                     [
-                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -75,6 +70,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'landingpage';
         return $this->render('index');
     }
 
@@ -85,23 +81,26 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        $this->layout = 'auth'; // 👈 força o uso do layout views/layouts/auth.php
+        $this->layout = 'auth';
 
+        // if already logged in, go home
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            if (Yii::$app->user->can('admin')) {
+                return $this->redirect(['../../backend/web/dashboard/index']);
+            }else{
+                return $this->redirect(['dashboard/index']);
+            }
         }
 
         $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->render('login', ['model' => $model]);
     }
-
 
     /**
      * Logs out the current user.
@@ -155,10 +154,12 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        $this->layout = 'auth';
+
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            return $this->redirect(['/dashboard/index']);
         }
 
         return $this->render('signup', [

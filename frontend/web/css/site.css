@@ -1,5 +1,4 @@
-main > .container, main > .container-fluid
-{
+main > .container, main > .container-fluid {
     padding: 70px 15px 20px;
 }
 
@@ -19,7 +18,7 @@ main > .container, main > .container-fluid
     font-style: italic;
 }
 
-/* add sorting icons to gridview sort links */
+/* Sorting icons */
 a.asc:after, a.desc:after {
     content: '';
     left: 3px;
@@ -65,7 +64,7 @@ a.desc:after {
     margin: 0 0 15px 0;
 }
 
-/* align the logout "link" (button in form) of the navbar */
+/* Logout button */
 .navbar form > button.logout {
     padding-top: 7px;
     color: rgba(255, 255, 255, 0.5);
@@ -80,7 +79,6 @@ a.desc:after {
     }
 }
 
-.navbar form > button.logout:focus,
 .navbar form > button.logout:hover {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.75);
@@ -90,14 +88,132 @@ a.desc:after {
     outline: none;
 }
 
-/* style breadcrumb widget as in previous bootstrap versions */
+/* Breadcrumb */
 .breadcrumb {
     background-color: var(--bs-gray-200);
     border-radius: .25rem;
     padding: .75rem 1rem;
 }
 
-.breadcrumb-item > a
-{
+.breadcrumb-item > a {
     text-decoration: none;
+}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fc;
+    color: #333;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 240px;
+    background-color: #fff;
+    border-right: 1px solid #e6e6e6;
+    padding: 20px 0;
+}
+
+.sidebar .logo {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: #555;
+    padding: 10px 25px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #e8f0fe;
+    color: #007bff;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.main-content {
+    margin-left: 240px;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.topbar .btn-primary {
+    background-color: #4f46e5;
+    border: none;
+}
+
+footer {
+    background-color: #fff;
+    border-top: 1px solid #e6e6e6;
+    padding: 15px;
+    text-align: center;
+    color: #999;
+    margin-top: 40px;
+}
+/* ==== LOGIN PAGE ==== */
+
+.login-wrapper {
+    max-width: 420px;
+    margin: 80px auto;
+}
+
+.login-card {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+}
+
+.login-card h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.login-card p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.login-card .btn-primary {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* Mensagens de ajuda */
+.login-help {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+}
+
+.login-help a {
+    text-decoration: none;
+    color: #4f46e5;
+}
+.login-help a:hover {
+    text-decoration: underline;
 }

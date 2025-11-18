@@ -16,13 +16,18 @@ use yii\helpers\Html;
     <?php $this->head() ?>
 </head>
 
-<body class="auth-page">
-
+<body class="lande-page">
 <?php $this->beginBody() ?>
 
-<div class="auth-container">
+
+
+<div class="lande-container">
     <?= $content ?>
 </div>
+
+<footer>
+    &copy; WaterTrack <?= date('Y') ?> | Powered by Yii2
+</footer>
 
 <?php $this->endBody() ?>
 </body>

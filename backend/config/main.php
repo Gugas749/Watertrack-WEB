@@ -65,8 +65,6 @@ return [
                     ],
                     'extraPatterns' => [
                         // USERS
-                        'GET count' => 'count',
-                        'GET nomes' => 'nomes',
                         'PUT putstatus/{id}' => 'putstatus',
                         // USER-PROFILE
                         'GET profile/{id}' => 'profile',
