@@ -1,21 +1,25 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
-/** @var \common\models\LoginForm $model */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <h1><?= Html::encode($this->title) ?></h1>
+
+<?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>
+    <div class="alert alert-<?= $type ?> alert-dismissible fade show" role="alert">
+        <?= $message ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endforeach; ?>
 
 <p>Please fill out the following fields to login:</p>
 
 <?php $form = ActiveForm::begin([
-    'id' => 'login-form',
+        'id' => 'login-form',
 ]); ?>
 
 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
@@ -26,8 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="my-1 mx-0 text-muted" style="font-size:0.9rem;">
     If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
+    <!--    <br>-->
+    <!--    Need new verification email? --><?php //= Html::a('Resend', ['site/resend-verification-email']) ?>
     <br>
-    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
+    Dont have account? <?= Html::a('SignUp', ['site/signup']) ?>.
 </div>
 
 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

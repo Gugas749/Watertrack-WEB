@@ -101,8 +101,6 @@ class SiteController extends Controller
         return $this->render('login', ['model' => $model]);
     }
 
-
-
     /**
      * Logs out the current user.
      *
