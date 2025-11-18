@@ -1,18 +1,36 @@
 <?php
-/** @var yii\bootstrap5\ActiveForm $form */
-/** @var yii\web\View $this */
-
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-
+use common\models\Enterprise;
+use common\models\Userprofile;
 
 $this->title = 'Utilizadores';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCssFile('@web/css/views-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
 $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
+$this->registerJsFile('@web/js/user-index-form.js', ['depends' => [\yii\web\JqueryAsset::class]]);
+
 ?>
+<?php
+$technicianRole = [
+        '0' => 'Morador',
+        '1' => 'Técnico'
+];
+$statusOptions = [
+        10 => 'ATIVO',
+        9  => 'INATIVO',
+        0  => 'DESATIVADO',
+];
+$statusClasses = [
+        10 => 'bg-success',
+        9  => 'bg-warning',
+        0  => 'bg-danger',
+];
+?>
+
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
         <!-- NAVIGATION? -->
@@ -63,7 +81,7 @@ $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\Bo
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach;        ?>
         <!-- USER LIST -->
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
@@ -90,7 +108,7 @@ $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\Bo
                                     <td>
                                         <?= htmlspecialchars($user->username) ?>
                                     </td>
-                                    <td><?= htmlspecialchars($user->profile->address ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($user->userprofile->address) ?></td>
                                     <td>
                                         <?php
                                         $enterpriseText = count($user->technicianinfos) === 0 ? 'Morador' : 'Técnico';
@@ -148,15 +166,37 @@ $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\Bo
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+
             <div class="p-3">
                 <?php $form = \yii\widgets\ActiveForm::begin([
                         'id' => 'add-user-form',
                         'action' => ['user/create'],
                         'method' => 'post',
                 ]); ?>
-                <?= $form->field($addUserModel, 'username')->textInput(['placeholder' => 'Username', 'autofocus' => true]) ?>
+
+                <?= $form->field($addUserModel, 'username')->textInput(['placeholder' => 'Username']) ?>
                 <?= $form->field($addUserModel, 'email')->textInput(['placeholder' => 'Email']) ?>
                 <?= $form->field($addUserModel, 'password')->passwordInput(['placeholder' => 'Password']) ?>
+
+                <?= $form->field($addUserModel, 'name')->textInput(['placeholder' => 'Nome']) ?>
+                <?= $form->field($addUserModel, 'address')->textInput(['placeholder' => 'Morada']) ?>
+                <?= $form->field($addUserModel, 'birthDate')->input('date') ?>
+
+                <?php
+                $isTechnician = $addUserModel->technicianFlag == '1';
+                ?>
+                <?= $form->field($addUserModel, 'technicianFlag')->dropDownList([
+                        '0' => 'Morador',
+                        '1' => 'Técnico',
+                ], ['id' => 'create-user-type']) ?>
+
+                <div id="technician-extra" style="<?= $isTechnician ? '' : 'display:none;' ?>">
+                    <?= $form->field($addUserModel, 'enterpriseID')->dropDownList(
+                            ArrayHelper::map($enterpriseList, 'id', 'name'),
+                            ['prompt' => 'Selecione a empresa']
+                    ) ?>
+                    <?= $form->field($addUserModel, 'profissionalCertificateNumber')->textInput(['placeholder' => 'Nº Certificado Profissional']) ?>
+                </div>
 
                 <div class="text-end mt-3">
                     <?= \yii\helpers\Html::submitButton('Criar Utilizador', ['class' => 'btn btn-primary', 'name' => 'createuser-button']) ?>
@@ -168,73 +208,79 @@ $this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\Bo
         <!-- DETAIL PANEL -->
         <?php if ($detailUser): ?>
             <div id="detailPanel" class="detail-panel bg-white shadow show">
-                <div class="modal-content border-0 shadow-lg rounded-4 p-4" style="background-color:#fff">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="modal-content border-0 shadow-lg rounded-4 p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="fw-bold text-dark mb-0">Detalhes do Utilizador</h5>
                         <button type="button" class="closeDetailPanel btn btn-sm btn-light">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
 
-                    <div class="d-flex justify-content-start align-items-center mb-4">
+                    <?php $form = \yii\widgets\ActiveForm::begin([
+                            'id' => 'update-user-form',
+                            'action' => ['update', 'id' => $detailUser->id],
+                            'method' => 'post',
+                    ]); ?>
+
+                    <!-- STATUS BADGE -->
+                    <div class="mb-4">
                         <?php
-                        $statusClass = match ($detailUser->status ?? null) {
-                            10 => 'bg-success',
-                            9  => 'bg-warning',
-                            0  => 'bg-danger',
-                            default => 'bg-secondary',
-                        };
-                        $statusText = match ($detailUser->status ?? null) {
-                            10 => 'Ativo',
-                            9  => 'Inativo',
-                            0  => 'Desativado',
-                            default => 'Desconhecido',
-                        };
+                        $statusClass = $statusClasses[$detailUser->status ?? 10] ?? 'bg-secondary';
+                        $statusText = $statusOptions[$detailUser->status ?? 10] ?? 'DESCONHECIDO';
                         ?>
-                        <span class="badge <?= $statusClass ?> px-3 py-2"><?= $statusText ?></span>
+                        <span id="user-status-badge" class="badge <?= $statusClass ?> px-3 py-2"><?= $statusText ?></span>
                     </div>
 
-                    <div class="row g-3">
+                    <?php
+                    $profile = $detailUser->userprofile ?? new Userprofile();
+                    $techInfos = !empty($detailUser->technicianinfos) ? $detailUser->technicianinfos : [];
+                    $isTechnician = !empty($techInfos);
+                    $techInfo = $isTechnician ? $techInfos[0] : null;
+                    $enterpriseList = ArrayHelper::map(Enterprise::find()->all(), 'id', 'name');
+                    $selectedValue = $isTechnician ? '1' : '0';
+                    ?>
+
+                    <!-- TECNICO STUFF -->
+                    <div class="row g-3 mb-3 align-items-end">
                         <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Referência</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->id) ?>" readonly>
+                            <?= $form->field($detailUser, 'technicianinfos')->dropDownList(
+                                    ['0' => 'Morador', '1' => 'Técnico'],
+                                    ['options' => [$selectedValue => ['Selected' => true]], 'id' => 'user-type-dropdown']
+                            )->label('Tipo de Utilizador') ?>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Nome</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->username) ?>" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-semibold small text-muted">Tipo de Utilizador</label>
+                        <?php if ($isTechnician && $techInfo): ?>
                             <?php
-                            $type = count($detailUser->technicianinfos) === 0 ? 'Morador' : 'Técnico';
+                            $techInfoModel = !empty($techInfos) ? $techInfos[0] : new \common\models\TechnicianInfo();
                             ?>
-                            <input type="text" class="form-control rounded-3" value="<?= $type ?>" readonly>
-                        </div>
+                            <div class="col-md-4 professional-field" style="<?= $isTechnician ? '' : 'display:none;' ?>">
+                                <?= $form->field($techInfoModel, 'enterpriseID')->dropDownList(
+                                        $enterpriseList,
+                                        ['prompt' => 'Selecione a empresa']
+                                )->label('Empresa Associada') ?>
+                            </div>
+                            <div class="col-md-4 professional-field" style="<?= $isTechnician ? '' : 'display:none;' ?>">
+                                <?= $form->field($techInfoModel, 'profissionalCertificateNumber')->textInput()->label('Nº Certificado Profissional') ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
 
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold small text-muted">Email</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->email) ?>" readonly>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold small text-muted">Morada</label>
-                            <input type="text" class="form-control rounded-3" value="<?= htmlspecialchars($detailUser->profile->address ?? 'N/A') ?>" readonly>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold small text-muted">Data de Registo</label>
-                            <input type="text" class="form-control rounded-3" value="<?= Yii::$app->formatter->asDate($detailUser->created_at) ?>" readonly>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold small text-muted">Último Update</label>
-                            <input type="text" class="form-control rounded-3" value="<?= Yii::$app->formatter->asDate($detailUser->updated_at ?? 'N/A') ?>" readonly>
-                        </div>
+                    <!-- RESTO DOS CAMPOS -->
+                    <div class="row g-1">
+                        <div class="col-md-2"><?= $form->field($detailUser, 'id')->textInput(['readonly' => true])->label('Referência') ?></div>
+                        <div class="col-md-4"><?= $form->field($profile, 'name')->textInput(['value' => $profile->name ?? 'N/A'])->label('Nome') ?></div>
+                        <div class="col-md-3"><?= $form->field($detailUser, 'username')->textInput()->label('Username') ?></div>
+                        <div class="col-md-4"><?= $form->field($profile, 'birthDate')->input('date', ['value' => $profile->birthDate ? date('Y-m-d', strtotime($profile->birthDate)) : null])->label('Data de Nascimento') ?></div>
+                        <div class="col-md-6"><?= $form->field($detailUser, 'email')->textInput()->label('Email') ?></div>
+                        <div class="col-md-6"><?= $form->field($profile, 'address')->textInput(['value' => $profile->address ?? 'N/A'])->label('Morada') ?></div>
+                        <div class="col-md-4"><?= $form->field($detailUser, 'status')->dropDownList($statusOptions, ['id' => 'user-status-dropdown'])->label('Estado') ?></div>
+                        <div class="col-md-5"><?= $form->field($detailUser, 'created_at')->textInput(['value' => Yii::$app->formatter->asDate($detailUser->created_at), 'readonly' => true])->label('Data de Registo') ?></div>
+                        <div class="col-md-5"><?= $form->field($detailUser, 'updated_at')->textInput(['value' => Yii::$app->formatter->asDate($detailUser->updated_at), 'readonly' => true])->label('Última Atualização') ?></div>
                     </div>
 
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <button type="button" class="closeDetailPanel btn btn-light px-4">Fechar</button>
-                        <button type="button" class="btn btn-primary px-4" style="background-color:#4f46e5; border:none;">Editar</button>
+                        <?= Html::submitButton('Salvar', ['class' => 'btn btn-primary px-4 py-2', 'style' => 'background-color:#4f46e5; border:none;']) ?>
+                        <?php \yii\widgets\ActiveForm::end(); ?>
                     </div>
                 </div>
             </div>

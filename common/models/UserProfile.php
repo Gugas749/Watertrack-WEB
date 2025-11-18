@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use app\models\User;
-
 /**
  * This is the model class for table "userprofile".
  *
@@ -32,7 +30,7 @@ class UserProfile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['birthDate', 'address', 'userID'], 'required'],
+            [['name', 'birthDate', 'address', 'userID'], 'required'],
             [['birthDate'], 'safe'],
             [['userID'], 'integer'],
             [['address'], 'string', 'max' => 100],

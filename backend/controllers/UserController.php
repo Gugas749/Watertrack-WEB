@@ -3,8 +3,10 @@
 namespace backend\controllers;
 
 use backend\models\AdduserForm;
+use common\models\Enterprise;
 use common\models\User;
 use common\models\UserProfile;
+use common\models\TechnicianInfo;
 use Yii;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
@@ -34,53 +36,134 @@ class UserController extends Controller
     {
         $queryParam = Yii::$app->request->get('q');
         $userIdParam = Yii::$app->request->get('id');
+
         $users = User::find()->all();
         $detailUser = null;
 
-        //limpar os parametros da url
         if ($queryParam !== null && trim($queryParam) === '') {
             return $this->redirect(['index']);
         }
 
-        //filtrar
         if (!empty($queryParam)) {
             $users = array_filter($users, function ($user) use ($queryParam) {
                 return stripos($user->username, $queryParam) !== false;
             });
         }
+
         if ($userIdParam !== null) {
-            $detailUser = User::find()->where(['id' => $userIdParam])->with('userprofile')->one();
+            $detailUser = User::find()
+                ->where(['id' => $userIdParam])
+                ->with('userprofile')
+                ->one();
         }
 
         return $this->render('index', [
             'users' => $users,
-            'addUserModel' => new AdduserForm(),
+            'addUserModel' => new AddUserForm(),
+            'addUserProfile' => new UserProfile(),
+            'addTechnicianInfo' => new TechnicianInfo(),
             'detailUser' => $detailUser,
+            'enterpriseList' => Enterprise::find()->all(),
         ]);
     }
 
+
     public function actionCreate()
     {
-        // RBAC - Ver permissao de criar user
         if (!Yii::$app->user->can('createUser')) {
             throw new ForbiddenHttpException('Não tem permissão para criar utilizadores.');
         }
 
-        $model = new AdduserForm();
+        $addUserModel = new AddUserForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->createuser()) {
-            Yii::$app->session->setFlash('success', 'Utilizador criado com sucesso!');
-            return $this->redirect(['index']);
-        } else {
-            Yii::error('CreateUser failed: ' . json_encode($model->getErrors()), __METHOD__);
-            Yii::$app->session->setFlash('error', 'Ação Falhada: Contactar Administrador [U-1]');
+        if ($addUserModel->load(Yii::$app->request->post())) {
+            try {
+                if (!$addUserModel->validate()) {
+                    throw new \Exception('Validação falhou' . json_encode($addUserModel->getErrors()));
+                }
+                Yii::$app->session->setFlash('success', 'Utilizador criado com sucesso!');
+                return $this->redirect(['index']);
+            } catch (\Exception $e) {
+                Yii::error('CreateUser failed: ' . $e->getMessage(), __METHOD__);
+                Yii::$app->session->setFlash('error', 'Ação Falhada: ' . $e->getMessage());
+            }
         }
 
-        // Se falhar a validaçao refaz a view outra vez
         $users = User::find()->all();
+        $enterpriseList = Enterprise::find()->all();
+
         return $this->render('index', [
-            'addUserModel' => $model,
             'users' => $users,
+            'addUserModel' => $addUserModel,
+            'detailUser' => null,
+            'enterpriseList' => $enterpriseList,
         ]);
     }
+
+
+    public function actionUpdate($id)
+    {
+        $user = User::findOne($id);
+        if (!$user) {
+            Yii::$app->session->setFlash('error', 'Utilizador não encontrado.');
+            return $this->redirect(['index']);
+        }
+
+        // GET AO USERPROFILE
+        $profile = $user->userprofile;
+        //INFOS DO TECNICO
+        $techInfos = $user->technicianinfos ?? [];
+        $techInfo = !empty($techInfos) ? $techInfos[0] : new TechnicianInfo(['userID' => $user->id]);
+
+
+        $postData = Yii::$app->request->post();
+        if ($user->load($postData) && $profile->load($postData)) {
+
+            if ($profile->birthDate) {
+                $profile->birthDate = date('Y-m-d', strtotime($profile->birthDate));
+            }
+
+            $valid = $user->validate() && $profile->validate();
+
+            //  VERIFY SE É TECNICO
+            $isTechnician = !empty($postData['User']['technicianinfos']) && $postData['User']['technicianinfos'] == '1';
+
+            if ($isTechnician) {
+                $techInfo->load($postData);
+                $valid = $valid && $techInfo->validate();
+            }
+
+            if ($valid) {
+                //INICIA A TRANSACTION DO POST
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    $user->save(false);
+                    $profile->save(false);
+
+                    //DA SAVE AO TECNICO, SE TROCOU PARA MORADOR DA DELETE
+                    if ($isTechnician) {
+                        $techInfo->userID = $user->id;
+                        $techInfo->save(false);
+                    } else {
+                        TechnicianInfo::deleteAll(['userID' => $user->id]);
+                    }
+                    $transaction->commit();
+                    Yii::$app->session->setFlash('success', 'Utilizador atualizado com sucesso!');
+                    return $this->redirect(['index']);
+                } catch (\Exception $e) {
+                    $transaction->rollBack();
+                    Yii::error($e->getMessage());
+                    Yii::$app->session->setFlash('error', 'Erro ao atualizar utilizador.');
+                }
+            }
+        }
+
+        // Renderizar o formulário de edição
+        return $this->render('update', [
+            'user' => $user,
+            'profile' => $profile,
+            'techInfo' => $techInfo,
+        ]);
+    }
+
 }

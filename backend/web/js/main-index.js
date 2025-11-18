@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function closeRightPanel() {
         rightPanel.classList.remove('show');
         overlay.style.display = 'none';
-        document.body.style.overflow = ''; // unlock scroll
         setTimeout(() => {
             rightPanel.style.display = 'none';
             if (form) form.reset();
@@ -31,6 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
     //----------------------------------------------------
     const detailPanel = document.getElementById('detailPanel');
     const closeDetailBtns = document.querySelectorAll('.closeDetailPanel');
+
+    if (detailPanel && detailPanel.classList.contains('show')) {
+        document.body.style.overflow = 'hidden';
+        if (window.innerWidth < 768) {
+            detailPanel.style.overflowY = 'auto';
+        } else {
+            detailPanel.style.overflowY = '';
+        }
+    }
 
     function closeDetailPanel() {
         detailPanel.classList.remove('show');

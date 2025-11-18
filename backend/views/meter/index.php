@@ -171,7 +171,7 @@ $stateOptions = [
                         'action' => ['meter/create'],
                         'method' => 'post',
                 ]); ?>
-                <?= $form->field($addMeterModel, 'address')->textInput(['placeholder' => 'Morada', 'autofocus' => true]) ?>
+                <?= $form->field($addMeterModel, 'address')->textInput(['placeholder' => 'Morada']) ?>
                 <?= $form->field($addMeterModel, 'userID')->dropDownList(
                         ArrayHelper::map($users, 'id', function($type) {
                             return $type->id . ' - ' . $type->username;
@@ -234,7 +234,7 @@ $stateOptions = [
 
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <?= $form->field($detailMeter, 'id')->textInput(['readonly' => true])->label('ID') ?>
+                            <?= $form->field($detailMeter, 'id')->textInput(['readonly' => true])->label('Referência') ?>
                         </div>
                         <div class="col-md-4">
                             <?= $form->field($detailMeter, 'address')->textInput()->label('Morada') ?>
