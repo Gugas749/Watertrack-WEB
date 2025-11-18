@@ -2,111 +2,56 @@
 $this->title = "WaterTrack – Solução Digital Inteligente";
 ?>
 
-<!-- HERO -->
-<section class="hero hero-large">
-    <div class="container text-center">
-        <h1>Creative & Innovative Digital Solution</h1>
-        <p>Gestão inteligente de consumo de água com dados em tempo real.</p>
+<div class="hero-section">
+    <header class="navbar">
+        <div class="logo">
+            <img src="../img/tear-drop-png-1.png" alt="WaterTrack">
+            <span>WATERTRACK</span>
+        </div>
 
-        <div class="hero-buttons mt-4">
-            <a href="#about" class="btn btn-light btn-lg me-2">Free Quote</a>
-            <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+        <nav>
+            <a href="#about">Sobre</a>
+            <a href="#contact">Contacto</a>
+            <?= \yii\helpers\Html::a('Login', ['/site/login'], ['class' => 'a']) ?>
+        </nav>
+    </header>
+
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Acompanhe o seu<br> Consumo de Água</h1>
+            <p>Monitore o seu consumo de água em tempo real e reduza desperdícios.</p>
+            <?= \yii\helpers\Html::a('Começar', ['/site/login'], ['class' => 'btn-primary']) ?>
+        </div>
+
+        <div class="hero-image">
+            <img src="../img/water-meter.png" alt="Ilustração de Consumo de Água">
         </div>
     </div>
-</section>
+</div>
 
-<!-- COUNTERS -->
-<section class="counters-section py-5">
-    <div class="container">
-        <div class="row text-center">
 
-            <div class="col-md-4 mb-3">
-                <div class="counter-box">
-                    <h2>12345</h2>
-                    <p>Happy Clients</p>
-                </div>
-            </div>
+<section class="how-it-works" id="features">
+    <h2>Como Funciona</h2>
 
-            <div class="col-md-4 mb-3">
-                <div class="counter-box">
-                    <h2>12345</h2>
-                    <p>Projects Done</p>
-                </div>
-            </div>
+    <div class="steps">
 
-            <div class="col-md-4 mb-3">
-                <div class="counter-box">
-                    <h2>12345</h2>
-                    <p>Win Awards</p>
-                </div>
-            </div>
-
+        <div class="step">
+            <img src="../img/install.png" alt="Instalar Dispositivo">
+            <h3>Instale o Dispositivo</h3>
+            <p>Monitorização portátil e simples.</p>
         </div>
-    </div>
-</section>
 
-<!-- ABOUT US -->
-<section id="about" class="about-section py-5">
-    <div class="container">
-        <div class="row align-items-center">
-
-            <div class="col-md-6">
-                <h4 class="text-primary mb-3">ABOUT US</h4>
-                <h2>The Best IT Solution With 10 Years of Experience</h2>
-                <p class="mt-3">
-                    Oferecemos soluções avançadas de monitorização e gestão de água,
-                    garantindo eficiência e segurança nos consumos domésticos e industriais.
-                </p>
-
-                <ul class="about-list mt-3">
-                    <li>✔ Award Winning</li>
-                    <li>✔ Professional Staff</li>
-                    <li>✔ 24/7 Support</li>
-                    <li>✔ Fair Prices</li>
-                </ul>
-
-                <a href="#quote" class="btn btn-primary mt-4">Request a Quote</a>
-            </div>
-
-            <div class="col-md-6 text-center">
-                <img src="/img/about-placeholder.jpg"
-                     alt="About us"
-                     class="img-fluid rounded shadow">
-            </div>
-
+        <div class="step">
+            <img src="../img/phone.png" alt="Acompanhar Consumo">
+            <h3>Acompanhe o Consumo</h3>
+            <p>Acompanhe em tempo real e receba previsões de utilização.</p>
         </div>
-    </div>
-</section>
 
-<!-- WHY CHOOSE US -->
-<section class="features-section py-5">
-    <div class="container text-center">
-        <h4 class="text-primary">WHY CHOOSE US</h4>
-        <h2 class="mb-5">We Are Here to Grow Your Business Exponentially</h2>
-
-        <div class="row">
-
-            <div class="col-md-4 mb-4">
-                <div class="feature-box">
-                    <h4>Best Industry</h4>
-                    <p>Soluções tecnológicas de topo para gestão eficiente de recursos.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="feature-box">
-                    <h4>Professional Staff</h4>
-                    <p>Equipa especializada pronta a ajudar em qualquer momento.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="feature-box">
-                    <h4>Smart Solutions</h4>
-                    <p>Monitorização em tempo real com tecnologia de ponta.</p>
-                </div>
-            </div>
-
+        <div class="step">
+            <img style="width: 60px" src="../img/waterdrop.png" alt="Reduzir Desperdício">
+            <h3>Reduza o Desperdício</h3>
+            <p>Use insights para reduzir a fatura e o desperdício de água.</p>
         </div>
+
     </div>
 </section>

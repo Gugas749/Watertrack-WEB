@@ -17,6 +17,7 @@ use yii\helpers\Html;
 </head>
 
 <body class="auth-page">
+
 <?php $this->beginBody() ?>
 
 <div class="auth-container">

@@ -13,6 +13,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/login.css',
         'css/signup.css',
+        'css/landingpage.css',
     ];
     public $js = [
     ];

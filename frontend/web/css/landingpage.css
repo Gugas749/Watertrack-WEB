@@ -1,69 +1,181 @@
-body {
-    background: linear-gradient(135deg, #0d6efd, #0dcaf0);
-    color: #fff;
-    font-family: Arial, sans-serif;
+/* ------------------------- */
+/*       GLOBAL STYLES       */
+/* ------------------------- */
+
+body.lande-page {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    color: #2b2b2b;
+    background: #ffffff;
 }
-.hero {
-    padding: 120px 0;
-    text-align: center;
-    background-color: #0a53be;
+
+.lande-container {
+    width: 100%;
+    overflow-x: hidden;
 }
-.hero h1 {
-    font-size: 3.5rem;
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ------------------------- */
+/*          NAVBAR           */
+/* ------------------------- */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 8%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-weight: 700;
+    font-size: 20px;
+    color: #0b5fff;
 }
-.hero p {
-    font-size: 1.3rem;
-    margin-top: 15px;
+
+.logo img{
+    width: 20px;
 }
-.features-section {
-    background: #fff;
-    color: #000;
-    padding: 70px 0;
+
+.navbar nav a {
+    margin-left: 25px;
+    font-size: 15px;
+    text-decoration: none;
+    color: #333;
 }
-.feature-box {
-    padding: 25px;
-    border-radius: 15px;
-    background: #f7f7f7;
-    transition: 0.3s;
+
+.navbar nav a:hover {
+    color: #0b5fff;
 }
-.feature-box:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+
+/* ------------------------- */
+/*         HERO SECTION      */
+/* ------------------------- */
+
+.hero-section {
+    background: #f3f8ff;
+    padding: 20px 4%;
 }
-footer {
-    background: #003049;
-    color: #fff;
-    padding: 20px 0;
+
+.hero-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding-top: 30px;
+}
+
+.hero-image img {
+    width: 400px;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 0 0 15px;
+}
+
+.hero-text p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    max-width: 420px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 14px 28px;
+    background: #0b5fff;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+    background: #0040b8; /* azul mais escuro mas não exagerado */
+    color: #ffffff; /* mantém o texto branco e visível */
+    cursor: pointer; /* melhora a experiência do utilizador */
+}
+
+
+/* ------------------------- */
+/*      HOW IT WORKS         */
+/* ------------------------- */
+
+.how-it-works {
+    padding: 80px 8%;
     text-align: center;
 }
 
-.hero-large {
-    padding: 180px 0;
-    background: linear-gradient(135deg, #0d6efd88, #0dcaf088),
-    url('/img/hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
+.how-it-works h2 {
+    font-size: 36px;
+    margin-bottom: 50px;
 }
 
-.hero-large h1 {
-    font-size: 3.2rem;
-    font-weight: 800;
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
-.counters-section .counter-box {
-    background: #0d6efd;
-    color: #fff;
-    padding: 25px;
-    border-radius: 10px;
+.step {
+    width: 280px;
+    padding: 20px;
 }
 
-.about-list li {
-    font-size: 1.1rem;
-    margin-bottom: 6px;
+.step img {
+    width: 90px;
+    margin: 0 auto 20px;
+}
+.dm{
+    width: 60px;
 }
 
-.about-section img {
-    max-width: 80%;
+.step h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
 }
 
+.step p {
+    font-size: 15px;
+    color: #666;
+}
+
+
+/* ------------------------- */
+/*      RESPONSIVE DESIGN    */
+/* ------------------------- */
+
+@media (max-width: 900px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text h1 {
+        font-size: 40px;
+    }
+
+    .navbar nav {
+        display: none; /* simples para mobile */
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-text h1 {
+        font-size: 34px;
+    }
+
+    .steps {
+        flex-direction: column;
+        align-items: center;
+    }
+}
