@@ -10,7 +10,7 @@ namespace common\models;
  *
  * @property Meter[] $meter
  */
-class MeterType extends \yii\db\ActiveRecord
+class Metertype extends \yii\db\ActiveRecord
 {
 
 

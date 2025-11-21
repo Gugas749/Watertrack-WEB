@@ -2,11 +2,11 @@
 
 namespace backend\controllers;
 
-use backend\models\AdduserForm;
+use backend\models\Adduserform;
 use common\models\Enterprise;
 use common\models\User;
-use common\models\UserProfile;
-use common\models\TechnicianInfo;
+use common\models\Userprofile;
+use common\models\Technicianinfo;
 use Yii;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
@@ -59,9 +59,9 @@ class UserController extends Controller
 
         return $this->render('index', [
             'users' => $users,
-            'addUserModel' => new AddUserForm(),
-            'addUserProfile' => new UserProfile(),
-            'addTechnicianInfo' => new TechnicianInfo(),
+            'addUserModel' => new Adduserform(),
+            'addUserProfile' => new Userprofile(),
+            'addTechnicianInfo' => new Technicianinfo(),
             'detailUser' => $detailUser,
             'enterpriseList' => Enterprise::find()->all(),
         ]);
@@ -73,7 +73,7 @@ class UserController extends Controller
             throw new ForbiddenHttpException('Não tem permissão para criar utilizadores.');
         }
 
-        $addUserModel = new AddUserForm();
+        $addUserModel = new Adduserform();
 
         if ($addUserModel->load(Yii::$app->request->post())) {
             try {
@@ -117,7 +117,7 @@ class UserController extends Controller
         $profile = $user->userprofile;
         //INFOS DO TECNICO
         $techInfos = $user->technicianinfos ?? [];
-        $techInfo = !empty($techInfos) ? $techInfos[0] : new TechnicianInfo(['userID' => $user->id]);
+        $techInfo = !empty($techInfos) ? $techInfos[0] : new Technicianinfo(['userID' => $user->id]);
 
 
         $postData = Yii::$app->request->post();
@@ -149,7 +149,7 @@ class UserController extends Controller
                         $techInfo->userID = $user->id;
                         $techInfo->save(false);
                     } else {
-                        TechnicianInfo::deleteAll(['userID' => $user->id]);
+                        Technicianinfo::deleteAll(['userID' => $user->id]);
                     }
                     $transaction->commit();
                     Yii::$app->session->setFlash('success', 'Utilizador atualizado com sucesso!');

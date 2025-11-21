@@ -3,14 +3,14 @@
     namespace backend\models;
 
     use common\models\User;
-    use common\models\UserProfile;
+    use common\models\Userprofile;
     use Yii;
     use yii\base\Model;
 
     /**
      * Signup form
      */
-    class AddUserForm extends Model
+    class Adduserform extends Model
     {
         //USER MODEL
         public $username;
@@ -88,7 +88,7 @@
                 $user->generateEmailVerificationToken();
 
                 if($user->save()){
-                    $profile = new UserProfile();
+                    $profile = new Userprofile();
                     $profile->userID = $user->id;
                     $profile->name = $this->name;
                     $profile->address = $this->address;
@@ -96,7 +96,7 @@
                     $profile->save(false);
 
                     if ($this->technicianFlag === '1') {
-                        $tech = new \common\models\TechnicianInfo();
+                        $tech = new \common\models\Technicianinfo();
                         $tech->userID = $user->id;
                         $tech->enterpriseID = $this->enterpriseID;
                         $tech->profissionalCertificateNumber = $this->profissionalCertificateNumber;

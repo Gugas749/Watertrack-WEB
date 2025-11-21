@@ -5,7 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use common\models\Loginform;
 
 class LoginController extends Controller
 {
@@ -41,7 +41,7 @@ class LoginController extends Controller
             return $this->redirect(['/dashboard/index']);
         }
 
-        $model = new LoginForm();
+        $model = new Loginform();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect(['/dashboard/index']);

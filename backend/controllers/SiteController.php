@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\LoginForm;
+use common\models\Loginform;
 use yii\web\Controller;
 
 class SiteController extends Controller
@@ -39,7 +39,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new Loginform();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect(['dashboard/index']);

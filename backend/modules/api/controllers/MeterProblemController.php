@@ -6,7 +6,7 @@ use yii\rest\ActiveController;
 
 class MeterProblemController extends ActiveController
 {
-    public $modelClass = 'common\models\MeterProblem';
+    public $modelClass = 'common\models\Meterproblem';
 
     public function actionFromuser($id)
     {

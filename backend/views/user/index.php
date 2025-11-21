@@ -250,7 +250,7 @@ $statusClasses = [
                             )->label('Tipo de Utilizador') ?>
                         </div>
                         <?php
-                        $techInfoModel = !empty($techInfos) ? $techInfos[0] : new \common\models\TechnicianInfo();
+                        $techInfoModel = !empty($techInfos) ? $techInfos[0] : new \common\models\Technicianinfo();
                         ?>
 
                         <div class="col-md-4 professional-field <?= $isTechnician ? '' : 'hidden' ?>">

@@ -6,7 +6,7 @@ use yii\rest\ActiveController;
 
 class MeterReadingController extends ActiveController
 {
-    public $modelClass = 'common\models\MeterReading';
+    public $modelClass = 'common\models\Meterreading';
 
     public function actionFromuser($id)
     {

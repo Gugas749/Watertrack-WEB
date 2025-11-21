@@ -87,7 +87,7 @@ class Meter extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[MeterType]].
+     * Gets query for [[Metertype]].
      *
      * @return \yii\db\ActiveQuery
      */

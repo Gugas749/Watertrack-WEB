@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use common\models\UserProfile;
+use common\models\Userprofile;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -62,7 +62,7 @@ class SignupForm extends Model
             $authorRole = $auth->getRole('resident');
             $auth->assign($authorRole, $user->getId());
 
-            $userProfile = new UserProfile();
+            $userProfile = new Userprofile();
             $userProfile->userID = $user->id;
             $userProfile->birthDate = '2000-01-01';
             $userProfile->address = 'N/A';

@@ -6,7 +6,7 @@ use yii\rest\ActiveController;
 
 class UserProfileController extends ActiveController
 {
-    public $modelClass = 'common\models\UserProfile';
+    public $modelClass = 'common\models\Userprofile';
 
     public function actionProfile($id)
     {

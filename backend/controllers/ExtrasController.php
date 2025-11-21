@@ -2,8 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\AddMeterTypeForm;
-use common\models\MeterType;
+use backend\models\Addmetertypeform;
+use common\models\Metertype;
 use common\models\Meter;
 use Yii;
 use yii\web\Controller;
@@ -32,7 +32,7 @@ class ExtrasController extends Controller
     {
         $queryParam = Yii::$app->request->get('q');
         $extrasIdParam = Yii::$app->request->get('id');
-        $meterTypes = MeterType::find()->all();
+        $meterTypes = Metertype::find()->all();
         $detailMeterTypes = null;
 
         //limpar os parametros da url
@@ -47,19 +47,19 @@ class ExtrasController extends Controller
             });
         }
         if ($extrasIdParam !== null) {
-            $detailMeterTypes = MeterType::findOne($extrasIdParam);
+            $detailMeterTypes = Metertype::findOne($extrasIdParam);
         }
 
         return $this->render('index', [
             'meterTypes' => $meterTypes,
-            'addMeterTypeModel' => new AddMeterTypeForm(),
+            'addMeterTypeModel' => new Addmetertypeform(),
             'detailMeterTypes' => $detailMeterTypes,
         ]);
     }
 
     public function actionCreate()
     {
-        $model = new AddMeterTypeForm();
+        $model = new Addmetertypeform();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -70,7 +70,7 @@ class ExtrasController extends Controller
                 Yii::error('Create failed: ' . json_encode($model->getErrors()), __METHOD__);
             }
         }
-        $meterTypes = MeterType::find()->all();
+        $meterTypes = Metertype::find()->all();
 
         return $this->render('index', [
             'addMeterTypeModel' => $model,
@@ -82,7 +82,7 @@ class ExtrasController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = MeterType::findOne($id);
+        $model = Metertype::findOne($id);
         if (!$model) {
             Yii::$app->session->setFlash('error', 'Ação Negada: Tipo de contador não encontrado.');
             return $this->redirect(['index']);
@@ -100,7 +100,7 @@ class ExtrasController extends Controller
 
     public function actionDelete($id)
     {
-        $model = MeterType::findOne($id);
+        $model = Metertype::findOne($id);
         if (!$model) {
             Yii::$app->session->setFlash('error', 'Ação Negada: Tipo de contador não encontrado.');
             return $this->redirect(['index']);

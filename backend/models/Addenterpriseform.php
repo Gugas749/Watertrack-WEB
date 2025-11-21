@@ -9,7 +9,7 @@ use yii\base\Model;
 /**
  * Formulário para adicionar uma nova Enterprise
  */
-class AddEnterpriseForm extends Model
+class Addenterpriseform extends Model
 {
     public $name;
     public $address;

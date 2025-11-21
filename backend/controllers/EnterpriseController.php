@@ -2,9 +2,9 @@
 
 namespace backend\controllers;
 
-use backend\models\AddEnterpriseForm;
+use backend\models\Addenterpriseform;
 use common\models\Enterprise;
-use common\models\TechnicianInfo;
+use common\models\Technicianinfo;
 use common\models\Meter;
 use Yii;
 use yii\web\Controller;
@@ -53,14 +53,14 @@ class EnterpriseController extends Controller
 
         return $this->render('index', [
             'enterprises' => $enterprises,
-            'addEnterpriseModel' => new AddEnterpriseForm(),
+            'addEnterpriseModel' => new Addenterpriseform(),
             'detailEnterprise' => $detailEnterprise,
         ]);
     }
 
     public function actionCreate()
     {
-        $model = new AddEnterpriseForm();
+        $model = new Addenterpriseform();
 
         if ($model->load(Yii::$app->request->post()) && $model->createEnterprise()) {
             Yii::$app->session->setFlash('success', 'Empresa criada com sucesso!');
@@ -103,7 +103,7 @@ class EnterpriseController extends Controller
             return $this->redirect(['index']);
         }
         $associatedMeters = Meter::find()->where(['meterTypeID' => $id])->count();
-        $associatedTecnicalInfo = TechnicianInfo::find()->where(['enterpriseID' => $id])->count();
+        $associatedTecnicalInfo = Technicianinfo::find()->where(['enterpriseID' => $id])->count();
         if ($associatedMeters > 0 || $associatedTecnicalInfo > 0) {
             Yii::$app->session->setFlash('error', 'Ação Negada: Existem associações ativas!');
             return $this->redirect(['index']);

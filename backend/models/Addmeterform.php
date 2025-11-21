@@ -4,11 +4,11 @@ namespace backend\models;
 
 use common\models\Meter;
 use common\models\User;
-use common\models\UserProfile;
+use common\models\Userprofile;
 use Yii;
 use yii\base\Model;
 
-class AddMeterForm extends Model
+class Addmeterform extends Model
 {
     //METER MODEL
     public $address;
@@ -76,7 +76,7 @@ class AddMeterForm extends Model
     public function createMeter()
     {
         if (!$this->validate()) {
-            Yii::error('Validation failed for AddMeterForm: ' . json_encode($this->errors), __METHOD__);
+            Yii::error('Validation failed for Addmeterform: ' . json_encode($this->errors), __METHOD__);
             return null;
         }
 

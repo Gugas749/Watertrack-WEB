@@ -25,7 +25,7 @@ use app\models\User;
  * @property Meterproblem $problem
  * @property User $user
  */
-class MeterReading extends \yii\db\ActiveRecord
+class Meterreading extends \yii\db\ActiveRecord
 {
 
 

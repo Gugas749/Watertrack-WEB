@@ -2,14 +2,14 @@
 
 namespace backend\models;
 
-use common\models\MeterType;
+use common\models\Metertype;
 use Yii;
 use yii\base\Model;
 
 /**
- * Formulário para adicionar um novo MeterType
+ * Formulário para adicionar um novo Metertype
  */
-class AddMeterTypeForm extends Model
+class Addmetertypeform extends Model
 {
     public $description;
 
@@ -19,7 +19,7 @@ class AddMeterTypeForm extends Model
             ['description', 'trim'],
             ['description', 'required'],
             ['description', 'string', 'min' => 2, 'max' => 255],
-            ['description', 'unique', 'targetClass' => '\common\models\MeterType', 'message' => 'Esta descrição já está registada.'],
+            ['description', 'unique', 'targetClass' => '\common\models\Metertype', 'message' => 'Esta descrição já está registada.'],
         ];
     }
 
@@ -31,7 +31,7 @@ class AddMeterTypeForm extends Model
     }
 
     /**
-     * Cria um novo MeterType
+     * Cria um novo Metertype
      * @return bool
      */
     public function createMeterType()
@@ -40,7 +40,7 @@ class AddMeterTypeForm extends Model
             return false;
         }
 
-        $meterType = new MeterType();
+        $meterType = new Metertype();
         $meterType->description = $this->description;
 
         return $meterType->save();

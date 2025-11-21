@@ -6,7 +6,7 @@ use yii\rest\ActiveController;
 
 class TechnicianInfoController extends ActiveController
 {
-    public $modelClass = 'common\models\TechnicianInfo';
+    public $modelClass = 'common\models\Technicianinfo';
 
     public function actionTechinfo($id)
     {

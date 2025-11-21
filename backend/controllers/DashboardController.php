@@ -2,9 +2,9 @@
 
 namespace backend\controllers;
 
-use common\models\LoginForm;
+use common\models\Loginform;
 use common\models\Meter;
-use common\models\MeterReading;
+use common\models\Meterreading;
 use common\models\User;
 use Yii;
 use yii\httpclient\Client;
@@ -58,7 +58,7 @@ class DashboardController extends Controller
 
     public function getReadingCount()
     {
-        $readings=MeterReading::find()->all();
+        $readings=Meterreading::find()->all();
         return count($readings);
     }
 

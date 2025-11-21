@@ -15,7 +15,7 @@ use common\models\User;
  * @property Enterprise $enterprise
  * @property User $user
  */
-class TechnicianInfo extends \yii\db\ActiveRecord
+class Technicianinfo extends \yii\db\ActiveRecord
 {
 
 

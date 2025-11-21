@@ -13,7 +13,7 @@ namespace common\models;
  *
  * @property User $user
  */
-class UserProfile extends \yii\db\ActiveRecord
+class Userprofile extends \yii\db\ActiveRecord
 {
 
 
