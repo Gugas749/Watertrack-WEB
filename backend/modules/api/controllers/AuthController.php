@@ -8,6 +8,18 @@ use yii\rest\Controller;
 
 class AuthController extends Controller
 {
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        unset($behaviors['authenticator']);
+        return $behaviors;
+    }
+    public function verbs()
+    {
+        return [
+            'login' => ['POST'],
+        ];
+    }
     public function actionLogin()
     {
         $body = Yii::$app->request->post();
