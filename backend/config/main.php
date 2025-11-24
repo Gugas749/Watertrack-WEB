@@ -61,7 +61,8 @@ return [
                         'api/meter',
                         'api/meter-problem',
                         'api/meter-reading',
-                        'api/meter-type'
+                        'api/meter-type',
+                        'api/auth'
                     ],
                     'extraPatterns' => [
                         // USERS
@@ -80,6 +81,8 @@ return [
                         'GET frommeter/{id}' => 'frommeter',
                         // METER-READING
                         'GET problem/{id}' => 'problem',
+                        // AUTH
+                        'POST login' => 'login',
                     ],
                     'tokens' => [
                         '{id}' => '<id:\\d+>',
