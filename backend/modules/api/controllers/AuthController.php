@@ -60,4 +60,11 @@ class AuthController extends Controller
             ]
         ];
     }
+    public function actionTeste()
+    {
+        return [
+            'success' => true,
+            'message' => 'AuthController is reachable!',
+        ];
+    }
 }
