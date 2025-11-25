@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use common\models\User;
+use common\models\Userprofile;
 use Yii;
 use yii\rest\Controller;
 
@@ -51,12 +52,23 @@ class AuthController extends Controller
             ];
         }
 
+        $profile = $user->userprofile;
+        $techInfos = $user->technicianinfos;
+        $techInfo = $techInfos[0] ?? null;
+
         return [
             "success" => true,
             "user" => [
-                "id" => $user->id,
+                "userId" => $user->id,
                 "username" => $user->username,
                 "email" => $user->email,
+                "status" => $user->status,
+
+                "birthDate" => $profile->birthDate ?? null,
+                "address" => $profile->address ?? null,
+
+                "enterpriseID" => $techInfo->enterpriseID ?? null,
+                "certificationNumber" => $techInfo->profissionalCertificateNumber ?? null,
             ]
         ];
     }
