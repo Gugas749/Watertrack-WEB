@@ -29,7 +29,7 @@ class AuthController extends Controller
 
         if (!$username || !$password) {
             return [
-                "success" => false,
+                "success" => 2,
                 "message" => "Username and password required"
             ];
         }
@@ -39,7 +39,7 @@ class AuthController extends Controller
 
         if (!$user) {
             return [
-                "success" => false,
+                "success" => 3,
                 "message" => "User not found"
             ];
         }
@@ -47,7 +47,7 @@ class AuthController extends Controller
         // Validate password
         if (!Yii::$app->security->validatePassword($password, $user->password_hash)) {
             return [
-                "success" => false,
+                "success" => 4,
                 "message" => "Incorrect password"
             ];
         }
@@ -57,7 +57,7 @@ class AuthController extends Controller
         $techInfo = $techInfos[0] ?? null;
 
         return [
-            "success" => true,
+            "success" => 0,
             "user" => [
                 "userId" => $user->id,
                 "username" => $user->username,
