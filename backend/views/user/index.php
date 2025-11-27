@@ -25,10 +25,31 @@ $statusOptions = [
         0  => 'DESATIVADO',
 ];
 $statusClasses = [
-        10 => 'bg-success',
-        9  => 'bg-warning',
-        0  => 'bg-danger',
+        10 => 'text-success',
+    9  => 'text-warning',
+    0  => 'text-danger',
 ];
+
+$statusClassesUser = match ($user->status ?? null) {
+    10 => 'bg-success',
+    9  => 'bg-warning',
+    0  => 'bg-danger',
+    default => 'bg-secondary',
+};
+
+$statusText = match ($user->status ?? null) {
+    10 => 'ATIVO',
+    9  => 'INATIVO',
+    0  => 'DESATIVADO',
+    default => 'DESCONHECIDO',
+};
+
+$statusClass = match ($user->status ?? null) {
+    10 => 'text-success',
+    9  => 'text-warning',
+    0  => 'text-danger',
+    default => 'text-muted',
+};
 ?>
 
 <div class="content">
@@ -117,24 +138,34 @@ $statusClasses = [
                                         <?= htmlspecialchars($enterpriseText) ?>
                                     </td>
                                     <td>
-                                        <?php
-                                        $statusText = match ($user->status ?? null) {
-                                            10 => 'ATIVO',
-                                            9  => 'INATIVO',
-                                            0  => 'DESATIVADO',
-                                            default => 'DESCONHECIDO',
-                                        };
+                                        <?php $form = \yii\widgets\ActiveForm::begin([
+                                                'id' => 'update-userstatus-form',
+                                                'action' => ['update-status', 'id' => $user->id],
+                                                'method' => 'post',
+                                        ]);
 
-                                        $statusClass = match ($user->status ?? null) {
-                                            10 => 'text-success',
-                                            9  => 'text-warning',
-                                            0  => 'text-danger',
-                                            default => 'text-muted',
-                                        };
+                                        $statusClassUser = $statusClasses[$user->status] ?? 'text-muted';
                                         ?>
-                                        <span class="<?= $statusClass ?> fw-semibold">
-                                            <?= htmlspecialchars($statusText) ?>
-                                        </span>
+
+                                        <?= Html::dropDownList('status', $user->status, [
+                                                10 => 'ATIVO',
+                                                9  => 'INATIVO',
+                                                0  => 'DESATIVADO',
+                                        ], [
+                                                'class' => 'form-select form-select-sm fw-bold '. $statusClassUser,
+                                                'id' => 'user-status-table-dropdown-' . $user->id,
+                                                'data-user-id' => $user->id,
+                                                'onchange' => 'this.form.submit();',
+                                                'options' => [
+                                                        10 => ['class' => 'text-success'],
+                                                        9 => ['class' => 'text-warning'],
+                                                        0 => ['class' => 'text-danger'],
+                                                ]
+                                        ]) ?>
+
+
+
+                                        <?php \yii\widgets\ActiveForm::end(); ?>
                                     </td>
                                     <td>
                                         <?= Html::button('Ver Detalhes', [
@@ -281,7 +312,7 @@ $statusClasses = [
 
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <button type="button" class="closeDetailPanel btn btn-light px-4">Fechar</button>
-                        <?= Html::submitButton('Salvar', ['class' => 'btn btn-primary px-4 py-2', 'style' => 'background-color:#4f46e5; border:none;']) ?>
+                        <?= Html::submitButton('Editar', ['class' => 'btn btn-primary px-4 py-2', 'style' => 'background-color:#4f46e5; border:none;']) ?>
                         <?php \yii\widgets\ActiveForm::end(); ?>
                     </div>
                 </div>

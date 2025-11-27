@@ -170,4 +170,27 @@ class UserController extends Controller
         ]);
     }
 
+    public function actionUpdateStatus($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            if (isset($id, $post['status'])) {
+                $user = User::findOne($id);
+                if ($user) {
+                    $user->status = (int)$post['status'];
+                    $user->save(false);
+                    Yii::$app->session->setFlash('success', 'Utilizador atualizado com sucesso!');
+                    return $this->redirect(['index']);
+                }
+            }
+        }
+
+        return $this->render('index', [
+            'user' => $user
+        ]);
+    }
+
+
+
 }
