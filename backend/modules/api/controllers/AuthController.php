@@ -3,6 +3,7 @@
 namespace backend\modules\api\controllers;
 
 use common\models\User;
+use common\models\Userprofile;
 use Yii;
 use yii\rest\Controller;
 
@@ -28,7 +29,7 @@ class AuthController extends Controller
 
         if (!$username || !$password) {
             return [
-                "success" => false,
+                "success" => 2,
                 "message" => "Username and password required"
             ];
         }
@@ -38,7 +39,7 @@ class AuthController extends Controller
 
         if (!$user) {
             return [
-                "success" => false,
+                "success" => 3,
                 "message" => "User not found"
             ];
         }
@@ -46,17 +47,28 @@ class AuthController extends Controller
         // Validate password
         if (!Yii::$app->security->validatePassword($password, $user->password_hash)) {
             return [
-                "success" => false,
+                "success" => 4,
                 "message" => "Incorrect password"
             ];
         }
 
+        $profile = $user->userprofile;
+        $techInfos = $user->technicianinfos;
+        $techInfo = $techInfos[0] ?? null;
+
         return [
-            "success" => true,
+            "success" => 0,
             "user" => [
-                "id" => $user->id,
+                "userId" => $user->id,
                 "username" => $user->username,
                 "email" => $user->email,
+                "status" => $user->status,
+
+                "birthDate" => $profile->birthDate ?? null,
+                "address" => $profile->address ?? null,
+
+                "enterpriseID" => $techInfo->enterpriseID ?? null,
+                "certificationNumber" => $techInfo->profissionalCertificateNumber ?? null,
             ]
         ];
     }
