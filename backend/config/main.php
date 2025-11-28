@@ -86,6 +86,7 @@ return [
                         'GET problem/{id}' => 'problem',
                         // AUTH
                         'POST login' => 'login',
+                        'POST signup' => 'signup',
                         'POST teste' => 'teste',
                     ],
                     'tokens' => [
