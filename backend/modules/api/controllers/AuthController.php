@@ -76,7 +76,7 @@ class AuthController extends Controller
     public function actionSignup(){
         $body = Yii::$app->request->post();
 
-        if (empty($body['username']) || empty($body['password']) || empty($body['email'])) {
+        if (empty($body['password']) || empty($body['email'])) {
             return [
                 "success" => 0,
                 "message" => "Empty fields."
