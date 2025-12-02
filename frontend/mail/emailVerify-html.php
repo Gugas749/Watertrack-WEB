@@ -1,15 +1,15 @@
-
 <?php
-use common\models\User;
-
-
+/** @var $user \common\models\User */
+use yii\helpers\Html;
 
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl([
-    '/site/verify-email',
-    'token' => $user->verification_token
+        'site/verify-email',
+        'token' => $user->verification_token
 ]);
 ?>
 
-<h2>Confirmar Conta</h2>
-<p>Clique no link abaixo para confirmar a sua conta:</p>
+Hello <?= Html::encode($user->username) ?>, <!-- adiciona o nome do user -->
+
+<h2>Confirm Your Account</h2>
+<p>Click the link below to confirm your email:</p>
 <p><a href="<?= $verifyLink ?>"><?= $verifyLink ?></a></p>

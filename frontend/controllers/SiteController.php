@@ -169,7 +169,7 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->redirect(['/dashboard/index']);
+            return $this->redirect(['/site/login']);
         }
 
         return $this->render('signup', [
@@ -239,7 +239,7 @@ class SiteController extends Controller
 
         if (!$user) {
             Yii::$app->session->setFlash('error', 'Token inválido ou expirado.');
-            return $this->goHome();
+            return $this->redirect(['site/login']);
         }
 
         // Ativar a conta
@@ -252,7 +252,7 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('error', 'Ocorreu um erro ao confirmar o email.');
         }
 
-        return $this->goHome();
+        return $this->redirect(['site/login']);
     }
 
 
