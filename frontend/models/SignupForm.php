@@ -49,30 +49,45 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();
+        $user->status = User::STATUS_INACTIVE; // 👈 obrigatório para forçar confirmação
 
         if ($user->save()) {
+
+            // 🔹 Enviar email de verificação
+            Yii::$app->mailer->compose(
+                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['user' => $user]
+            )
+                ->setFrom(['hmtdiverification@yahoo.com' => 'WaterTrack']) // deve ser o teu Yahoo
+                ->setTo($user->email)
+                ->setSubject('Confirmação de Email')
+                ->send();
+
+            // 🔹 Atribuir role
             $auth = Yii::$app->authManager;
             $authorRole = $auth->getRole('resident');
             $auth->assign($authorRole, $user->getId());
 
+            // 🔹 Criar perfil
             $userProfile = new Userprofile();
             $userProfile->userID = $user->id;
             $userProfile->birthDate = '2000-01-01';
             $userProfile->address = 'N/A';
-            $userProfile->save(false); // skip validation
+            $userProfile->save(false);
 
             return true;
         }
 
         return false;
     }
+
 
     /**
      * Sends confirmation email to user
