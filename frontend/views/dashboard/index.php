@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'Watertrack';
+$this->title = 'WaterTrack';
 ?>
 <div class="site-index">
 

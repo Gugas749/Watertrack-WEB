@@ -43,33 +43,36 @@ $showSidebar = !in_array($route, [
                         ['label' => '📖 Leituras', 'url' => ['/reading/index']],
                         ['label' => '📈 Relatório', 'url' => ['/report/index']],
                         ['label' => '⚙️ Definições', 'url' => ['/dashboard/settings']],
-
-                        Yii::$app->user->isGuest
-                                ? ['label' => '🔐 Login', 'url' => ['/site/login']]
-                                : [
-                                'label' => '🚪 Logout',
-                                'url' => ['/site/logout'],
-                                'linkOptions' => ['data-method' => 'post'],
-                        ],
                 ],
                 'encodeLabels' => false
         ]) ?>
 
+
         <div style="position:absolute; bottom:20px; width:100%; text-align:center;">
-            <div style="font-size: 12px; color: #aaa;">
-                <?= Yii::$app->user->isGuest ? 'Visitante' : Html::encode(Yii::$app->user->identity->username) ?><br>
-                <span style="font-size: 11px;">Free Account</span>
-            </div>
+
+            <?php if (!Yii::$app->user->isGuest): ?>
+                <div style="margin-bottom:10px; font-size:14px;">
+                    👤 <?= Html::encode(Yii::$app->user->identity->username) ?>
+                </div>
+
+                <?= Html::a('🚪 Logout', ['/site/logout'], [
+                        'class' => 'nav-link',
+                        'data-method' => 'post',
+                        'style' => 'font-size:14px; display:block;'
+                ]) ?>
+            <?php else: ?>
+                <?= Html::a('🔐 Login', ['/site/login'], [
+                        'class' => 'nav-link',
+                        'style' => 'font-size:14px;'
+                ]) ?>
+            <?php endif; ?>
+
         </div>
     </div>
 <?php endif; ?>
 
 <div class="main-content" style="<?= $showSidebar ? '' : 'margin-left:0; max-width:600px; margin:auto; padding-top:80px;' ?>">
     <?php if ($showSidebar): ?>
-        <div class="topbar">
-            <h4><?= Html::encode($this->title) ?></h4>
-            <?= Html::a('+ Relatar Problema', ['/problema/create'], ['class' => 'btn btn-primary']) ?>
-        </div>
     <?php endif; ?>
 
     <?= $content ?>
