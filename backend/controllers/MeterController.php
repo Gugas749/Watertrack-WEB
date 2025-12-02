@@ -3,11 +3,11 @@
 namespace backend\controllers;
 
 use backend\models\Addmeterform;
-use backend\models\Adduserform;
 use common\models\Enterprise;
 use common\models\Meter;
 use common\models\Metertype;
 use common\models\User;
+use yii\helpers\Json;
 use Yii;
 use yii\web\Controller;
 
@@ -103,6 +103,27 @@ class MeterController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionUpdateState($id)
+    {
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+
+            if (isset($id, $post['state'])) {
+                $meter = Meter::findOne($id);
+                if ($meter) {
+                    $meter->state = (int)$post['state'];
+                    $meter->save(false);
+                    Yii::$app->session->setFlash('success', 'Contador atualizado com sucesso!');
+                    return $this->redirect(['index']);
+                }
+            }
+        }
+
+        return $this->render('index', [
+            'meter' => $meter
         ]);
     }
 }
