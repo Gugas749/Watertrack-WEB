@@ -162,9 +162,6 @@ $statusClass = match ($user->status ?? null) {
                                                         0 => ['class' => 'text-danger'],
                                                 ]
                                         ]) ?>
-
-
-
                                         <?php \yii\widgets\ActiveForm::end(); ?>
                                     </td>
                                     <td>

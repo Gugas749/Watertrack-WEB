@@ -10,6 +10,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\User;
 use common\models\Loginform;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
@@ -168,7 +169,7 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->redirect(['/dashboard/index']);
+            return $this->redirect(['/site/login']);
         }
 
         return $this->render('signup', [
@@ -234,19 +235,26 @@ class SiteController extends Controller
      */
     public function actionVerifyEmail($token)
     {
-        try {
-            $model = new VerifyEmailForm($token);
-        } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-        if ($model->verifyEmail()) {
-            Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
-            return $this->goHome();
+        $user = User::findOne(['verification_token' => $token]);
+
+        if (!$user) {
+            Yii::$app->session->setFlash('error', 'Token inválido ou expirado.');
+            return $this->redirect(['site/login']);
         }
 
-        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
-        return $this->goHome();
+        // Ativar a conta
+        $user->status = User::STATUS_ACTIVE;
+        $user->verification_token = null; // limpar token
+
+        if ($user->save(false)) {
+            Yii::$app->session->setFlash('success', 'Email confirmado com sucesso! Já pode iniciar sessão.');
+        } else {
+            Yii::$app->session->setFlash('error', 'Ocorreu um erro ao confirmar o email.');
+        }
+
+        return $this->redirect(['site/login']);
     }
+
 
     /**
      * Resend verification email
