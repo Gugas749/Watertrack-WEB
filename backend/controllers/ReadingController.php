@@ -37,6 +37,10 @@ class ReadingController extends \yii\web\Controller
         $readingIdParam = Yii::$app->request->get('id');
 
         $detailReading = null;
+        $technician = null;
+        $meter = null;
+        $problem = null;
+
         $enterprises = Enterprise::find()->all();
 
         if ($queryParam !== null && trim($queryParam) === '') {
@@ -47,15 +51,21 @@ class ReadingController extends \yii\web\Controller
             $detailReading = Meterreading::find()
                 ->where(['id' => $readingIdParam])
                 ->one();
+
+            if ($detailReading) {
+                $technician = User::find()->where(['id' => $detailReading->userID])->one();
+                $meter = Meter::find()->where(['id' => $detailReading->meterID])->one();
+                $problem = Meterproblem::find()->where(['id' => $detailReading->problemID])->one();
+            }
         }
 
         return $this->render('index', [
             'users' => User::find()->all(),
             'enterpriseList' => $enterprises,
             'detailReading' => $detailReading,
-            'technician' => User::find()->where(['id' => $detailReading->userID])->one(),
-            'meter' => Meter::find()->where(['id' => $detailReading->meterID])->one(),
-            'problem' => Meterproblem::find()->where(['id' => $detailReading->problemID])->one(),
+            'technician' => $technician,
+            'meter' => $meter,
+            'problem' => $problem,
             'enterpriseItems' => \yii\helpers\ArrayHelper::map($enterprises, 'id', 'name'),
         ]);
     }

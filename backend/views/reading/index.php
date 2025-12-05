@@ -9,7 +9,7 @@ use common\models\Userprofile;
 
 $this->title = 'Leituras';
 $this->registerCssFile('@web/css/views-index.css', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
-$this->registerCssFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
+$this->registerJsFile('@web/js/main-index.js', ['depends' => [\yii\bootstrap5\BootstrapAsset::class]]);
 $this->registerJsFile('@web/js/reading-index.js', ['depends' => [\yii\bootstrap5\BootstrapPluginAsset::class]]);
 ?>
 <?php
@@ -154,6 +154,7 @@ $statusClass = match ($user->status ?? null) {
                 </div>
             </div>
         </div>
+
         <!-- DETAIL PANEL -->
         <?php if ($detailReading): ?>
             <div id="detailPanel" class="detail-panel bg-white shadow show">
