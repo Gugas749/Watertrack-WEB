@@ -5,6 +5,7 @@ namespace backend\controllers;
 use backend\models\Adduserform;
 use common\models\Enterprise;
 use common\models\Meter;
+use common\models\Meterproblem;
 use common\models\Meterreading;
 use common\models\Technicianinfo;
 use common\models\User;
@@ -52,6 +53,9 @@ class ReadingController extends \yii\web\Controller
             'users' => User::find()->all(),
             'enterpriseList' => $enterprises,
             'detailReading' => $detailReading,
+            'technician' => User::find()->where(['id' => $detailReading->userID])->one(),
+            'meter' => Meter::find()->where(['id' => $detailReading->meterID])->one(),
+            'problem' => Meterproblem::find()->where(['id' => $detailReading->problemID])->one(),
             'enterpriseItems' => \yii\helpers\ArrayHelper::map($enterprises, 'id', 'name'),
         ]);
     }

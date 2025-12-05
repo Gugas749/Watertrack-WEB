@@ -183,15 +183,16 @@ $statusClass = match ($user->status ?? null) {
                     <!-- RESTO DOS CAMPOS -->
                     <div class="row g-1">
                         <div class="col-md-2"><?= $form->field($detailReading, 'id')->textInput(['readonly' => true])->label('Referência') ?></div>
-                        <div class="col-md-4"><?= $form->field($detailReading, 'userID')->textInput(['readonly' => true])->label('Morador') ?></div>
-                        <div class="col-md-5"><?= $form->field($detailReading, 'meterID')->textInput(['readonly' => true])->label('Contador') ?></div>
+                        <div class="col-md-4"><?= $form->field($technician, 'username')->textInput(['readonly' => true])->label('Tecnico') ?></div>
+                        <div class="col-md-5"><?= $form->field($meter, 'address')->textInput(['readonly' => true])->label('Contador') ?></div>
                         <div class="col-md-4"><?= $form->field($detailReading, 'reading')->textInput(['readonly' => true])->label('Leitura') ?></div>
                         <div class="col-md-4"><?= $form->field($detailReading, 'accumulatedConsumption')->textInput(['readonly' => true])->label('Consumo acumulado') ?></div>
                         <div class="col-md-3"><?= $form->field($detailReading, 'waterPressure')->textInput(['readonly' => true])->label('Pressão da Agua') ?></div>
                         <div class="col-md-11"><?= $form->field($detailReading, 'desc')->textInput(['readonly' => true])->label('Descrição') ?></div>
-                        <div class="col-md-2"><?= $form->field($detailReading, 'date')->textInput(['value' => Yii::$app->formatter->asDate($detailReading->date), 'readonly' => true])->label('Data') ?></div>
-                        <div class="col-md-3"><?= $form->field($detailReading, 'readingType')->textInput(['readonly' => true])->label('Tipo de Leitura') ?></div>
-                        <div class="col-md-2"><?= $form->field($detailReading, 'problemID')->textInput(['readonly' => true])->label('Problema') ?></div>
+                        <div class="col-md-3"><?= $form->field($detailReading, 'date')->textInput(['value' => Yii::$app->formatter->asDate($detailReading->date), 'readonly' => true])->label('Data') ?></div>
+                        <?php if ($detailReading->readingType === 1): ?>
+                            <div class="col-md-5"><?= $form->field($problem, 'problemType')->textInput(['readonly' => true])->label('Problema') ?></div>
+                        <?php endif; ?></h5>
                     </div>
                     <div class="d-flex justify-content-end mt-4 gap-2">
                         <button type="button" class="closeDetailPanel btn btn-light px-4">Fechar</button>
