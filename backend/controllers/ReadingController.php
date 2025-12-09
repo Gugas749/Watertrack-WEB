@@ -109,10 +109,28 @@ class ReadingController extends \yii\web\Controller
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
-        $detailReading = Meterreading::find()->where(['meterID' => $id])->one();
+        $r = Meterreading::find()->where(['id' => $id])->one();
 
-        return $this->render('index', [
-            'detailReading' => $detailReading,
-        ]);
+        if (!$r) {
+            return ['error' => 'Reading not found'];
+        }
+
+        if($r->readingType === 1){
+            $problemType = Meterproblem::find()->where(['id' => $r->problemID])->one();
+        }
+
+        return [
+            'id' => $r->id,
+            'reading' => $r->reading,
+            'accumulatedConsumption' => $r->accumulatedConsumption,
+            'waterPressure' => $r->waterPressure,
+            'desc' => $r->desc,
+            'date' => $r->date,
+            'readingType' => $r->readingType,
+            'problemType' => $problemType->problemType ?? null,
+            'technician' => User::find()->where(['id' => $r->userID])->one()->username,
+            'meterAddress' => Meter::find()->where(['id' => $r->meterID])->one()->address,
+            'statusClass' => $r->problemState,
+        ];
     }
 }

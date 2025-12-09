@@ -5,53 +5,104 @@ document.addEventListener('DOMContentLoaded', () => {
     const accumulatedConsumptionLabel = document.getElementById('accumulatedConsumption-label');
     const waterPressureLabel = document.getElementById('waterPressure-label');
 
+    // Close panel buttons
+    document.querySelectorAll('.closeDetailPanel').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('detailPanel').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+    // Make the function global
+    window.openDetailPanel = function(readingID) {
+        fetch(getReadingDetailUrl + '?id=' + readingID)
+            .then(response => response.json())
+            .then(detail => {
+                const detailPanel = document.getElementById('detailPanel');
+                const overlay = document.getElementById('overlay');
+
+                // Show panel
+                overlay.style.display = 'block';
+                detailPanel.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                requestAnimationFrame(() => {
+                    detailPanel.classList.add('show');
+                });
+
+                // Fill the fields
+                document.getElementById("detailTechnician").value = detail.technician;
+                document.getElementById("detailMeterAddress").value = detail.meterAddress;
+                document.getElementById('detailReadingId').value = detail.id;
+                document.getElementById('detailReadingValue').value = detail.reading;
+                document.getElementById('detailAccumulatedConsumption').value = detail.accumulatedConsumption;
+                document.getElementById('detailWaterPressure').value = detail.waterPressure;
+                document.getElementById('detailDesc').value = detail.desc;
+                document.getElementById('detailDate').value = detail.date;
+
+                if(detail.statusClass === 1){
+                    document.getElementById("detailStatusBadge").className = "badge bg-warning px-3 py-2 text-warning";
+                    document.getElementById("detailStatusBadge").textContent = "COM PROBLEMAS";
+                }else{
+                    document.getElementById("detailStatusBadge").className = "badge bg-success px-3 py-2 text-success";
+                    document.getElementById("detailStatusBadge").textContent = "SEM PROBLEMAS";
+                }
+
+                // Show/hide wrench icon
+                const icon = document.getElementById('detailWrenchIcon');
+                if (detail.readingType === 1) {
+                    document.getElementById("detailProblemContainer").style.display = "block";
+                    document.getElementById("detailProblemType").value = detail.problemType;
+                    icon.style.display = 'inline-block';
+                } else {
+                    document.getElementById("detailProblemContainer").style.display = "none";
+                    icon.style.display = 'none';
+                }
+            })
+            .catch(err => console.error('Error loading detail reading:', err));
+    }
+
     function loadReadingsEnterprise(meterIds) {
         const fetchPromises = meterIds.map(id =>
-            fetch(getReadingsUrl + '?meterID=' + id)
-                .then(response => response.json())
+            fetch(getReadingsUrl + '?meterID=' + id).then(response => response.json())
         );
 
-        // tipo um "for" para um metodo async que é o fetch do ajax
         Promise.all(fetchPromises)
             .then(results => {
-                // Flatten the array of arrays
                 const allReadings = results.flat();
-
-                // Clear table rows
                 readingsTableBody.innerHTML = '';
+
                 if (allReadings.length === 0) {
-                    readingsTableBody.innerHTML =
-                        `<tr><td colspan="4" class="text-muted text-center">Sem leituras.</td></tr>`;
+                    readingsTableBody.innerHTML = `<tr><td colspan="4" class="text-muted text-center">Sem leituras.</td></tr>`;
                     return;
                 }
 
-                allConsumption = 0;
-                averagePressureTotal = 0;
-                averagePressureQuantity = 0;
-                // Insert readings into table
+                let allConsumption = 0;
+                let averagePressureTotal = 0;
+
                 allReadings.forEach(r => {
                     allConsumption += parseInt(r.accumulatedConsumption, 10);
                     averagePressureTotal += parseInt(r.waterPressure, 10);
+
                     readingsTableBody.insertAdjacentHTML('beforeend', `
-                    <tr>
-                        <td>${r.id} ${r.wasFix ? `<i class="fas fa-wrench ms-2"></i>` : ``}</td>
-                        <td>${r.value} m³</td>
-                        <td>${r.readingDate}</td>  
-                        <td> 
-                            <button class="btn btn-outline-primary btn-sm fw-semibold shadow-sm"
-                                    style="transition: all 0.2s ease-in-out;"
-                                    onmouseover="this.style.transform='scale(1.05)';"
-                                    onmouseout="this.style.transform='scale(1)';"
-                                    onclick="window.location.href='?id=${r.id}'">
-                                Ver Detalhes
-                            </button>
-                        </td>
-                    </tr>
-                `);
+                        <tr>
+                            <td>${r.id} ${r.wasFix ? `<i class="fas fa-wrench ms-2"></i>` : ''}</td>
+                            <td>${r.value} m³</td>
+                            <td>${r.readingDate}</td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm fw-semibold shadow-sm"
+                                        style="transition: all 0.2s ease-in-out;"
+                                        onmouseover="this.style.transform='scale(1.05)';"
+                                        onmouseout="this.style.transform='scale(1)';"
+                                        onclick="openDetailPanel(${r.id})">
+                                    Ver Detalhes
+                                </button>
+                            </td>
+                        </tr>
+                    `);
                 });
 
-                averagePressure = averagePressureTotal / allReadings.length;
-                averagePressure = averagePressure.toFixed(2);
+                const averagePressure = (averagePressureTotal / allReadings.length).toFixed(2);
                 accumulatedConsumptionLabel.innerHTML = allConsumption;
                 waterPressureLabel.innerHTML = averagePressure;
             })
@@ -124,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     style="transition: all 0.2s ease-in-out;"
                                     onmouseover="this.style.transform='scale(1.05)';"
                                     onmouseout="this.style.transform='scale(1)';"
-                                    onclick="window.location.href='?id=${r.id}'">
+                                    onclick="openDetailPanel(${r.id})">
                                 Ver Detalhes
                             </button>
                         </td>

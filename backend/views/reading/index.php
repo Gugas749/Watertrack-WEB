@@ -154,72 +154,78 @@ $statusClass = match ($user->status ?? null) {
                 </div>
             </div>
         </div>
-
         <!-- DETAIL PANEL -->
-        <?php if ($detailReading): ?>
-            <div id="detailPanel" class="detail-panel bg-white shadow show">
-                <div class="modal-content border-0 shadow-lg rounded-4 p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-dark mb-0">Detalhes da Leitura
-                            <?php if ($detailReading->readingType === 1): ?>
-                                <i class="fas fa-wrench ms-2"></i>
-                            <?php endif; ?></h5>
-                        <button type="button" class="closeDetailPanel btn btn-sm btn-light">
-                            <i class="fas fa-times"></i>
-                        </button>
+        <div id="detailPanel" class="detail-panel bg-white shadow" style="display:none;">
+            <div class="modal-content border-0 shadow-lg rounded-4 p-4">
+                <!-- HEADER -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold text-dark mb-0">
+                        Detalhes da Leitura
+                        <i id="detailWrenchIcon" class="fas fa-wrench ms-2" style="display:none;"></i>
+                    </h5>
+                    <button type="button" class="closeDetailPanel btn btn-sm btn-light">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <!-- STATUS BADGE -->
+                <div class="mb-4">
+                    <span id="detailStatusBadge" class="badge bg-secondary px-3 py-2">
+                        DESCONHECIDO
+                    </span>
+                </div>
+
+                <!-- FIELDS -->
+                <div class="row g-1">
+                    <div class="col-md-2">
+                        <label class="form-label">Referência</label>
+                        <input id="detailReadingId" readonly class="form-control">
                     </div>
-                    <?php $form = \yii\widgets\ActiveForm::begin([
-                            'id' => 'update-meter-form',
-                            'action' => ['update', 'id' => $detailReading->id],
-                            'method' => 'post',
-                    ]); ?>
-                    <!-- STATUS BADGE -->
-                    <div class="mb-4">
-                        <?php
-                        $statusClass = $statusClasses[$detailReading->problemState ?? 0] ?? 'bg-secondary';
-                        $statusText = $statusOptions[$detailReading->problemState ?? 0] ?? 'DESCONHECIDO';
-                        ?>
-                        <span id="user-status-badge" class="badge <?= $statusClass ?> px-3 py-2"><?= $statusText ?></span>
+                    <div class="col-md-4">
+                        <label class="form-label">Técnico</label>
+                        <input id="detailTechnician" readonly class="form-control">
                     </div>
-                    <!-- RESTO DOS CAMPOS -->
-                    <div class="row g-1">
-                        <div class="col-md-2"><?= $form->field($detailReading, 'id')->textInput(['readonly' => true])->label('Referência') ?></div>
-                        <div class="col-md-4"><?= $form->field($technician, 'username')->textInput(['readonly' => true])->label('Tecnico') ?></div>
-                        <div class="col-md-5"><?= $form->field($meter, 'address')->textInput(['readonly' => true])->label('Contador') ?></div>
-                        <div class="col-md-4"><?= $form->field($detailReading, 'reading')->textInput(['readonly' => true])->label('Leitura') ?></div>
-                        <div class="col-md-4"><?= $form->field($detailReading, 'accumulatedConsumption')->textInput(['readonly' => true])->label('Consumo acumulado') ?></div>
-                        <div class="col-md-3"><?= $form->field($detailReading, 'waterPressure')->textInput(['readonly' => true])->label('Pressão da Agua') ?></div>
-                        <div class="col-md-11"><?= $form->field($detailReading, 'desc')->textInput(['readonly' => true])->label('Descrição') ?></div>
-                        <div class="col-md-3"><?= $form->field($detailReading, 'date')->textInput(['value' => Yii::$app->formatter->asDate($detailReading->date), 'readonly' => true])->label('Data') ?></div>
-                        <?php if ($detailReading->readingType === 1): ?>
-                            <div class="col-md-5"><?= $form->field($problem, 'problemType')->textInput(['readonly' => true])->label('Problema') ?></div>
-                        <?php endif; ?></h5>
+                    <div class="col-md-5">
+                        <label class="form-label">Contador</label>
+                        <input id="detailMeterAddress" readonly class="form-control">
                     </div>
-                    <div class="d-flex justify-content-end mt-4 gap-2">
-                        <button type="button" class="closeDetailPanel btn btn-light px-4">Fechar</button>
-                        <?= Html::submitButton('Editar', ['class' => 'btn btn-primary px-4 py-2', 'style' => 'background-color:#4f46e5; border:none;']) ?>
-                        <?php \yii\widgets\ActiveForm::end(); ?>
+                    <div class="col-md-4">
+                        <label class="form-label">Leitura</label>
+                        <input id="detailReadingValue" readonly class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Consumo acumulado</label>
+                        <input id="detailAccumulatedConsumption" readonly class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Pressão da Água</label>
+                        <input id="detailWaterPressure" readonly class="form-control">
+                    </div>
+                    <div class="col-md-11">
+                        <label class="form-label">Descrição</label>
+                        <input id="detailDesc" readonly class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Data</label>
+                        <input id="detailDate" readonly class="form-control">
+                    </div>
+                    <!-- ONLY SHOW IF readingType === 1 (via JS) -->
+                    <div class="col-md-5" id="detailProblemContainer" style="display:none;">
+                        <label class="form-label">Problema</label>
+                        <input id="detailProblemType" readonly class="form-control">
                     </div>
                 </div>
+
+                <!-- FOOTER BUTTONS -->
+                <div class="d-flex justify-content-end mt-4 gap-2">
+                    <button type="button" class="closeDetailPanel btn btn-light px-4">Fechar</button>
+                    <button id="detailEditButton" class="btn btn-primary px-4 py-2"
+                            style="background-color:#4f46e5; border:none;">
+                        Editar
+                    </button>
+                </div>
+
             </div>
-        <?php endif; ?>
-        <!--ATIVAR O DETAIL PANEL -->
-        <?php if ($detailReading): ?>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const detailPanel = document.getElementById('detailPanel');
-                    const overlay = document.getElementById('overlay');
-
-                    overlay.style.display = 'block';
-                    detailPanel.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-
-                    requestAnimationFrame(() => {
-                        detailPanel.classList.add('show');
-                    });
-                });
-            </script>
-        <?php endif; ?>
+        </div>
         <!-- OVERLAY -->
         <div id="overlay"></div>
     </div>
