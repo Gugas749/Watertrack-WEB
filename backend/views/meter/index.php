@@ -67,23 +67,26 @@ $statusText = match ($meter->state ?? null) {
 
 <div class="content">
     <div class="container-fluid py-4" style="background-color:#f9fafb; min-height:100vh;">
+        <?php Pjax::begin([
+                'id' => 'metersTable',
+                'timeout' => 5000,
+                'enablePushState' => false, // important
+        ]); ?>
         <!-- HEADER -->
         <div class="d-flex justify-content-between align-items-center mb-4 px-3">
             <h4 class="fw-bold text-dark">Contadores</h4>
-
             <div class="d-flex align-items-center gap-3">
-
                 <!-- SEARCH -->
                 <div class="input-group mx-5" style="width:220px;">
                     <?php $form = ActiveForm::begin([
                             'method' => 'get',
                             'action' => ['meter/index'],
-                            'options' => ['class' => 'd-flex align-items-center w-100'],
+                            'options' => ['data' => ['pjax' => true], 'class' => 'd-flex align-items-center w-100'],
                     ]); ?>
                     <input type="text" name="q"
                            class="form-control form-control-sm ps-3 pe-5"
                            placeholder="Search"
-                           value="<?= Html::encode(Yii::$app->request->get('q')) ?>"
+                           value="<?= Html::encode($search) ?>"
                            style="border:1px solid #e5e7eb;">
                     <button type="submit" class="input-group-text bg-transparent border-0 text-muted"
                             style="position:absolute; right:10px; top:50%; transform:translateY(-50%);">
@@ -99,11 +102,6 @@ $statusText = match ($meter->state ?? null) {
                 </button>
             </div>
         </div>
-        <?php Pjax::begin([
-                'id' => 'metersTable',
-                'timeout' => 5000,
-                'enablePushState' => false, // important
-        ]); ?>
         <!-- ALERT MESSAGES -->
         <div id="flash-container">
             <?php foreach (Yii::$app->session->getAllFlashes() as $type => $message): ?>

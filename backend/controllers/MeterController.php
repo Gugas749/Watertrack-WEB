@@ -33,28 +33,30 @@ class MeterController extends Controller
     }
     public function actionIndex()
     {
-        $queryParam = Yii::$app->request->get('q');
+        $search = Yii::$app->request->get('q');
+        $searchQuery = \common\models\Meter::find();
         $meterIdParam = Yii::$app->request->get('id');
-        $meters = Meter::find()->all();
+
         $detailMeter = null;
 
-        //limpar os parametros da url
-        if ($queryParam !== null && trim($queryParam) === '') {
+        //limpar search
+        if ($search !== null && trim($search) === '') {
             return $this->redirect(['index']);
         }
 
-        //filtrar
-        if (!empty($queryParam)) {
-            $meters = array_filter($meters, function ($meter) use ($queryParam) {
-                return stripos($meter->address, $queryParam) !== false;
-            });
+        //simple search
+        if ($search) {
+            $searchQuery->andWhere(['like', 'address', $search]);
         }
+        $meters = $searchQuery->all();
+
         if ($meterIdParam !== null) {
             $detailMeter = Meter::findOne($meterIdParam);
         }
 
         return $this->render('index', [
             'meters' => $meters,
+            'search' => $search,
             'addMeterModel' => new Addmeterform(),
             'detailMeter' => $detailMeter,
             'meterTypes' => Metertype::find()->all(),
@@ -75,17 +77,11 @@ class MeterController extends Controller
             Yii::$app->session->setFlash('error', 'Ação Falhada: Contactar Administrador [M-1]');
         }
 
-        $meters = $this->getMeters();
+        $meters = Meter::find()->all();
         return $this->render('index', [
             'addMeterModel' => $model,
             'meters' => $meters,
         ]);
-    }
-
-    public function getMeters()
-    {
-        return Meter::find()
-            ->all();
     }
 
     public function actionUpdate($id)
