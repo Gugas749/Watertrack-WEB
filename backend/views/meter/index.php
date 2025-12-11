@@ -1,11 +1,8 @@
 <?php
-/** @var yii\bootstrap5\ActiveForm $form */
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
-use kartik\select2\Select2;
 use yii\widgets\Pjax;
 
 // PAGE SETTINGS
@@ -23,7 +20,6 @@ $classOptions = [
         'C' => 'Classe C',
         'D' => 'Classe D',
 ];
-
 $measureUnityOptions = [
         '1' => 'm^3',
         '2' => 'm^3/h',
@@ -32,19 +28,16 @@ $measureUnityOptions = [
         '5' => 'Litros',
         '6' => 'Decilitros',
 ];
-
 $stateOptions = [
         '1' => 'ATIVO',
         '2' => 'COM PROBLEMA',
         '0' => 'INATIVO',
 ];
-
 $statusClasses = [
         1 => 'text-success',
         2 => 'text-warning',
         0 => 'text-danger',
 ];
-
 $stateClasses = [
         1 => 'bg-success',
         2 => 'bg-warning',
@@ -125,11 +118,9 @@ $statusText = match ($meter->state ?? null) {
         <!-- TABLE -->
         <div class="card shadow-sm border-0 mx-3" style="border-radius:16px;">
             <div class="card-body">
-
                 <h6 class="fw-bold text-secondary mb-3">
                     Total de Contadores: <?= count($meters) ?>
                 </h6>
-
                 <div class="table-responsive">
                     <table class="table align-middle">
                         <thead class="text-muted small">
@@ -141,7 +132,6 @@ $statusText = match ($meter->state ?? null) {
                             <th></th>
                         </tr>
                         </thead>
-
                         <tbody>
                         <?php if (!empty($meters)): ?>
                             <?php foreach ($meters as $meter): ?>
@@ -185,12 +175,11 @@ $statusText = match ($meter->state ?? null) {
                                     </td>
 
                                     <td>
-                                        <?= Html::button('Ver Detalhes', [
+                                        <?= Html::a('Ver Detalhes', ['meter/index', 'id' => $meter->id], [
                                                 'class' => 'btn btn-outline-primary btn-sm fw-semibold shadow-sm',
-                                                'onclick' => "window.location.href='" . Url::to(['meter/index', 'id' => $meter->id]) . "'",
+                                                'data' => ['pjax' => '#detailPanelPjax'], // target PJAX container
                                         ]) ?>
                                     </td>
-
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -199,13 +188,10 @@ $statusText = match ($meter->state ?? null) {
                             </tr>
                         <?php endif; ?>
                         </tbody>
-
                     </table>
                 </div>
-
             </div>
         </div>
-        <?php Pjax::end(); ?>
         <!-- RIGHT PANEL -->
         <div id="rightPanel" class="right-panel bg-white shadow" style="display:none;">
             <div class="right-panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
@@ -384,13 +370,23 @@ $statusText = match ($meter->state ?? null) {
             </div>
 
             <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    document.getElementById('overlay').style.display = 'block';
-                    document.getElementById('detailPanel').style.display = 'block';
-                    document.body.style.overflow = 'hidden';
+                $(document).on('click', '.closeDetailPanel', function() {
+                    $('#overlay').hide();
+                    $('#detailPanel').hide();
+                    $('body').css('overflow', 'auto');
+                });
+
+                $(document).on('pjax:end', function(event, xhr, options) {
+                    if ($('#detailPanel').length) {
+                        $('#overlay').show();
+                        $('#detailPanel').show();
+                        $('body').css('overflow', 'hidden');
+                    }
                 });
             </script>
         <?php endif; ?>
+        <?php Pjax::end(); ?>
+
         <!-- OVERLAY -->
         <div id="overlay"></div>
     </div>

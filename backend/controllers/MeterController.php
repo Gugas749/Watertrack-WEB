@@ -31,37 +31,38 @@ class MeterController extends Controller
             ],
         ];
     }
+
     public function actionIndex()
     {
         $search = Yii::$app->request->get('q');
-        $searchQuery = \common\models\Meter::find();
-        $meterIdParam = Yii::$app->request->get('id');
+        $detail = Yii::$app->request->get('id');
+
+        $query = \common\models\Meter::find();
 
         $detailMeter = null;
 
-        //limpar search
+        // Clean empty search
         if ($search !== null && trim($search) === '') {
             return $this->redirect(['index']);
         }
-
-        //simple search
+        // Apply search filter
         if ($search) {
-            $searchQuery->andWhere(['like', 'address', $search]);
+            $query->andWhere(['like', 'address', $search]);
         }
-        $meters = $searchQuery->all();
+        $meters = $query->all();
 
-        if ($meterIdParam !== null) {
-            $detailMeter = Meter::findOne($meterIdParam);
+        if($detail){
+            $detailMeter = Meter::findOne($detail);
         }
 
         return $this->render('index', [
             'meters' => $meters,
             'search' => $search,
-            'addMeterModel' => new Addmeterform(),
-            'detailMeter' => $detailMeter,
-            'meterTypes' => Metertype::find()->all(),
+            'addMeterModel' => new AddMeterForm(),
+            'meterTypes' => MeterType::find()->all(),
             'enterprises' => Enterprise::find()->all(),
             'users' => User::find()->all(),
+            'detailMeter' => $detailMeter,
         ]);
     }
 
