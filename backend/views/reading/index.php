@@ -69,20 +69,15 @@ $statusClass = match ($user->status ?? null) {
                         ]
                 ) ?>
 
-                <!-- Date range -->
-                <div class="input-group mx-3" style="width:220px;">
-                    <input type="date" class="form-control form-control-sm rounded-pill ps-3 pe-5"
-                           style="border:1px solid #e5e7eb;">
-                </div>
-                <span class="text-muted">–</span>
-                <div class="input-group" style="width:220px;">
-                    <input type="date" class="form-control form-control-sm rounded-pill ps-3 pe-5"
-                           style="border:1px solid #e5e7eb;">
-                </div>
-
                 <!-- Action -->
                 <button class="btn btn-primary rounded-4" style="background-color:#4f46e5; border:none;">
                     <i class="fas fa-sync me-1"></i>
+                </button>
+                <!-- Open Panel Button -->
+                <button class="btn btn-primary"
+                        data-toggle="right-panel"
+                        style="background-color:#4f46e5; border:none;">
+                    <i class="fas fa-plus me-1"></i> Adicionar Leitura
                 </button>
             </div>
         </div>
@@ -118,39 +113,24 @@ $statusClass = match ($user->status ?? null) {
             </div>
         </div>
         <!-- Corpo principal -->
-        <div class="row px-3">
-            <!-- Histórico -->
-            <div class="col-lg-8 mb-4">
-                <div class="card shadow-sm border-0 rounded-4">
-                    <div class="card-body">
-                        <h6 class="fw-bold text-secondary mb-3">Histórico de Leituras</h6>
-                        <div class="table-responsive">
-                            <table class="table align-middle">
-                                <thead class="text-muted small">
-                                <tr>
-                                    <th>Referência Leitura</th>
-                                    <th>Leitura</th>
-                                    <th>Data da Leitura</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody id="readings-table-body">
-                                <!-- Javascript que vai encher a lista -->
-                                <tr><td colspan="4" class="text-muted text-center">Sem leituras.</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gráficos -->
-            <div class="col-lg-4">
-                <div class="card shadow-sm border-0 rounded-4 mb-4">
-                    <div class="card-body">
-                        <h6 class="fw-bold text-secondary mb-3">Leituras por Mês</h6>
-                        <canvas id="barChart" height="200"></canvas>
-                    </div>
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body">
+                <h6 class="fw-bold text-secondary mb-3">Histórico de Leituras</h6>
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="text-muted small">
+                        <tr>
+                            <th>Referência Leitura</th>
+                            <th>Leitura</th>
+                            <th>Data da Leitura</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="readings-table-body">
+                        <!-- Javascript que vai encher a lista -->
+                        <tr><td colspan="4" class="text-muted text-center">Sem leituras.</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -259,3 +239,4 @@ $statusClass = match ($user->status ?? null) {
     const getReadingsUrl = "<?= \yii\helpers\Url::to(['/reading/get-readings']) ?>";
     const getReadingDetailUrl = "<?= \yii\helpers\Url::to(['/reading/get-reading-detail']) ?>";
 </script>
+

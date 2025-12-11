@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('detailDesc').value = detail.desc;
                 document.getElementById('detailDate').value = detail.date;
 
-                if(detail.statusClass === 1){
+                if(detail.statusClass === 18){
                     document.getElementById("detailStatusBadge").className = "badge bg-warning px-3 py-2 text-warning";
                     document.getElementById("detailStatusBadge").textContent = "COM PROBLEMAS";
                 }else{

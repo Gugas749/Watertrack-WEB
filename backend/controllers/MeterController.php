@@ -109,21 +109,19 @@ class MeterController extends Controller
     public function actionUpdateState($id)
     {
         if (Yii::$app->request->isPost) {
-            $post = Yii::$app->request->post();
+            $meter = Meter::findOne($id);
+            $meter->state = Yii::$app->request->post('state');
+            $meter->save(false);
 
-            if (isset($id, $post['state'])) {
-                $meter = Meter::findOne($id);
-                if ($meter) {
-                    $meter->state = (int)$post['state'];
-                    $meter->save(false);
-                    Yii::$app->session->setFlash('success', 'Contador atualizado com sucesso!');
-                    return $this->redirect(['index']);
-                }
+            Yii::$app->session->setFlash('success', 'Contador atualizado com sucesso!');
+
+            if (Yii::$app->request->isPjax) {
+                return $this->renderAjax('index', [
+                    'meters' => Meter::find()->all(),
+                ]);
             }
-        }
 
-        return $this->render('index', [
-            'meter' => $meter
-        ]);
+            return $this->redirect(['index']);
+        }
     }
 }
