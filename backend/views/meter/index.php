@@ -3,6 +3,7 @@
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 // PAGE SETTINGS
@@ -149,9 +150,6 @@ $statusText = match ($meter->state ?? null) {
 
                                     <td>
                                         <?php $form = \yii\widgets\ActiveForm::begin([
-                                                'options' => [
-                                                        'data' => ['pjax' => true]  // critical
-                                                ],
                                                 'action' => ['update-state', 'id' => $meter->id],
                                                 'method' => 'post'
                                         ]); ?>
@@ -162,7 +160,7 @@ $statusText = match ($meter->state ?? null) {
                                                 $stateOptions,
                                                 [
                                                         'class' => 'form-select form-select-sm fw-bold ' . ($statusClasses[$meter->state] ?? 'text-muted'),
-                                                        'onchange' => '$("#metersTable form").submit();',
+                                                        'onchange' => 'this.form.submit()',
                                                         'options' => [
                                                                 1 => ['class' => 'text-success'],
                                                                 2 => ['class' => 'text-warning'],
@@ -175,9 +173,12 @@ $statusText = match ($meter->state ?? null) {
                                     </td>
 
                                     <td>
-                                        <?= Html::a('Ver Detalhes', ['meter/index', 'id' => $meter->id], [
+                                        <?= Html::button('Ver Detalhes', [
                                                 'class' => 'btn btn-outline-primary btn-sm fw-semibold shadow-sm',
-                                                'data' => ['pjax' => '#detailPanelPjax'], // target PJAX container
+                                                'onclick' => "window.location.href='" . Url::to(['meter/index', 'id' => $meter->id]) . "'",
+                                                'style' => 'transition:0.2s;',
+                                                'onmouseover' => "this.style.transform='scale(1.05)'",
+                                                'onmouseout'  => "this.style.transform='scale(1)'",
                                         ]) ?>
                                     </td>
                                 </tr>
@@ -192,6 +193,7 @@ $statusText = match ($meter->state ?? null) {
                 </div>
             </div>
         </div>
+        <?php Pjax::end(); ?>
         <!-- RIGHT PANEL -->
         <div id="rightPanel" class="right-panel bg-white shadow" style="display:none;">
             <div class="right-panel-header d-flex justify-content-between align-items-center p-3 border-bottom">
@@ -293,14 +295,14 @@ $statusText = match ($meter->state ?? null) {
                             <?= $form->field($detailMeter, 'state')->dropDownList(
                                     $stateOptions,
                                     [
-                                        'id' => 'meter-status-dropdown',
-                                        'class' => 'form-select fw-bold ' . ($statusClasses[$detailMeter->state] ?? 'text-muted'),
-                                        'options' => [
-                                        1 => ['class' => 'text-success'],
-                                        2 => ['class' => 'text-warning'],
-                                        0 => ['class' => 'text-danger'],
-                                    ]
-                            ])->label('Estado') ?>
+                                            'id' => 'meter-status-dropdown',
+                                            'class' => 'form-select fw-bold ' . ($statusClasses[$detailMeter->state] ?? 'text-muted'),
+                                            'options' => [
+                                                    1 => ['class' => 'text-success'],
+                                                    2 => ['class' => 'text-warning'],
+                                                    0 => ['class' => 'text-danger'],
+                                            ]
+                                    ])->label('Estado') ?>
                         </div>
                     </div>
 
@@ -370,22 +372,14 @@ $statusText = match ($meter->state ?? null) {
             </div>
 
             <script>
-                $(document).on('click', '.closeDetailPanel', function() {
-                    $('#overlay').hide();
-                    $('#detailPanel').hide();
-                    $('body').css('overflow', 'auto');
-                });
-
-                $(document).on('pjax:end', function(event, xhr, options) {
-                    if ($('#detailPanel').length) {
-                        $('#overlay').show();
-                        $('#detailPanel').show();
-                        $('body').css('overflow', 'hidden');
-                    }
+                document.addEventListener('DOMContentLoaded', () => {
+                    document.getElementById('overlay').style.display = 'block';
+                    document.getElementById('detailPanel').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
                 });
             </script>
         <?php endif; ?>
-        <?php Pjax::end(); ?>
+
 
         <!-- OVERLAY -->
         <div id="overlay"></div>
@@ -394,29 +388,30 @@ $statusText = match ($meter->state ?? null) {
 
 <script>
     $(document).on('pjax:end', function() {
+        // Update state dropdown colors after PJAX reload
+        $('.meter-state-dropdown').each(function() {
+            const val = $(this).val();
+            const classes = { 1:'text-success', 2:'text-warning', 0:'text-danger' };
+            $(this).removeClass('text-success text-warning text-danger')
+                .addClass(classes[val] || 'text-muted');
+        });
+
+        // Show flash messages
         $('#flash-container .toast').each(function() {
             const toastEl = this;
             const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
             toast.show();
         });
-
-        autoHideFlashes();
     });
 
-    // Function to auto-hide flash messages
-    function autoHideFlashes() {
-        const toasts = document.querySelectorAll('#flash-container .toast.show');
-        toasts.forEach(toast => {
-            setTimeout(() => {
-                // Fade out
-                toast.classList.remove('show');
-                toast.style.transition = 'opacity 0.5s';
-                toast.style.opacity = '0';
-                // Remove from DOM after fade-out
-                setTimeout(() => toast.remove(), 500);
-            }, 3000);
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', autoHideFlashes);
+    $(document).on('change', 'select[name="state"]', function() {
+        const val = $(this).val();
+        const classes = {
+            1: 'text-success',
+            2: 'text-warning',
+            0: 'text-danger'
+        };
+        $(this).removeClass('text-success text-warning text-danger')
+            .addClass(classes[val] || 'text-muted');
+    });
 </script>
